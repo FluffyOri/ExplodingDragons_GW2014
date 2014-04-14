@@ -1,5 +1,6 @@
 body
 {
+    background-color: black;
     margin : 0;
 }
 
@@ -7,4 +8,5 @@ canvas
 {
     border : 1px solid black;
     margin : auto;
+    background-color: #77B5FE;
 }

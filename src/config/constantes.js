@@ -1,6 +1,6 @@
 module.exports = {
-    CANVAS_WIDTH  : 800,
-    CANVAS_HEIGHT : 600,
-    GAME_WIDTH    : 800,
-    GAME_HEIGHT   : 600
+    CANVAS_WIDTH  : 1280,
+    CANVAS_HEIGHT : 720,
+    GAME_WIDTH    : 1280,
+    GAME_HEIGHT   : 720
 }
