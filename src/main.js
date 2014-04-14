@@ -1,8 +1,11 @@
 $(function() {
+
     //requirements
-    var c      = require("./config/constantes");
     var world  = require("./world");
+    var c      = require("./config/constantes");
+    var images = require("./config/images");
     var input  = require("./controllers/inputs");
+    var loader = require("./controllers/loader");
     var Player = require("./models/player");
 
     //init function
@@ -14,10 +17,13 @@ $(function() {
             world.gameObjects.push(new Player(
             {
                 id : world.gameObjects.length,
-                playerID : gamepadID
+                playerID : gamepadID,
+                image : world.manifest.images["red_dragon.png"]
             }));
-        })
+        });
 
+
+        input.startPollingGamepads();
         requestAnimationFrame(gameloop);
     }
 
@@ -50,5 +56,5 @@ $(function() {
         world.bgContext = bgContext;
     }
 
-    init();
+    loader(init);
 });

@@ -15,6 +15,7 @@ var Player = function Player(params)
     
     this.context  = params.context  || world.context;
     this.color    = params.color    || "red";
+    this.image    = params.image;
     
     this.angle    = params.startAngle || 0;
 
@@ -22,7 +23,7 @@ var Player = function Player(params)
     {
         this.rotate();
         this.move();
-        this.drawSquare();
+        this.drawImage();
     }
 }
 
@@ -38,12 +39,13 @@ Player.prototype.move = function()
 
     if (axisX < -c.ANALOG_DEAD || axisX > c.ANALOG_DEAD)
     {
-        console.log("ho")
+        //this.position.x += this.speed * ((axisX > 0) ? 1 : -1);        
         this.position.x += this.speed * axisX;        
     }
 
     if (axisY < -c.ANALOG_DEAD || axisY > c.ANALOG_DEAD)
     {
+        //this.position.y += this.speed * ((axisY > 0) ? 1 : -1);        
         this.position.y += this.speed * axisY;        
     }
 }

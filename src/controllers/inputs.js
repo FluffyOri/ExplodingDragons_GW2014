@@ -1,158 +1,11 @@
 // REQUIREMENTS
 var c           = require("../config/constantes");
 var buttons     = require("../config/key_bindings").buttons;
-var gamepadMode = require("../config/key_bindings").gamepadMode;
 var world       = require("../world");
 
-
-//KEYBOARD AND MOUSE INPUTS
-
-var keyboardInput =
-{
-    keydown : {},
-    mousePosition : {
-        x : 0,
-        y : 0
-    },
-    getKeyDown : function(keycode)
-    {
-        return this.keydown[keycode];
-    },
-    getButtonDown : function(button)
-    {
-        for (var i = 0; i < buttons[button].length; i++)
-        {
-            if (this.keydown[buttons[button][i]])
-                return true;
-        }
-    },
-    getAxis : function(axis)
-    {
-        var value = 0;
-
-        if (axis.toLowerCase() === "horizontal")
-        {
-            if (this.keydown["q"] || this.keydown["left"])
-                value--;
-            if (this.keydown["d"] || this.keydown["right"])
-                value++;
-        }
-        else if (axis.toLowerCase() === "vertical")
-        {
-            if (this.keydown["s"] || this.keydown["down"])
-                value--;
-            if (this.keydown["z"] || this.keydown["up"])
-                value++;
-        }
-        else
-        {
-            console.error("Bad axis name : " + axis);
-        }
-
-        return value;
-    }
-}
-
-function keyName(event) {
-    return jQuery.hotkeys.specialKeys[event.which] ||
-        String.fromCharCode(event.which).toLowerCase();
-}
-
-$(function() {
-    if (!gamepadMode)
-    {
-        $(document).bind("keydown", function(event) {
-            keyboardInput.keydown[keyName(event)] = true;
-        });
-
-        $(document).bind("keyup", function(event) {
-            keyboardInput.keydown[keyName(event)] = false;
-        });
-
-        window.addEventListener("mousemove", function(e) {
-            keyboardInput.mousePosition.x = e.layerX;
-            keyboardInput.mousePosition.y = e.layerY;
-        });
-
-        window.addEventListener("mousedown", function(e) {
-            if (e.button === 0)
-                keyboardInput.keydown["leftClick"]  = true;
-            if (e.button === 1)
-                keyboardInput.keydown["wheelClick"] = true;
-            if (e.button === 2)
-                keyboardInput.keydown["rightClick"] = true;
-        });
-
-        window.addEventListener("mouseup", function(e) {
-            if (e.button === 0)
-                keyboardInput.keydown["leftClick"]  = false;
-            if (e.button === 1)
-                keyboardInput.keydown["wheelClick"] = false;
-            if (e.button === 2)
-                keyboardInput.keydown["rightClick"] = false;
-        });
-    }
-});
-
-
-//GAMEPAD INPUTS
-
-var gamepadSupport = {
-    startPolling: function()
-    {
-        if (!gamepadSupport.ticking)
-        {
-            gamepadSupport.ticking = true;
-            gamepadSupport.tick();
-        }
-    },
-
-    stopPolling: function()
-    {
-        gamepadSupport.ticking = false;
-    },
-
-    tick: function()
-    {
-        gamepadSupport.pollStatus();
-        gamepadSupport.scheduleNextTick();
-    },
-
-    scheduleNextTick: function()
-    {
-        if (gamepadSupport.ticking)
-        {
-            window.requestAnimationFrame(gamepadSupport.tick);
-        }
-    },
-
-    pollStatus: function()
-    {
-        var pads = navigator.webkitGetGamepads();
-
-        for (var i = 0; i < pads.length; i++)
-        {
-            if (pads[i] !== undefined && pads[i].axes.length > 0 )
-            {
-                for (var j = 0; j < gamepadInput.gamepads.length; j++)
-                {
-                    if (pads[i].index === gamepadInput.gamepads[j].index)
-                        return;
-                }
-                gamepadInput.gamepads.push(pads[i]);
-                world.trigger("gamepad connected", gamepadInput.gamepads.length-1);
-
-                if (gamepadInput.gamepads.length === 2)
-                {
-                    this.stopPolling();
-                }
-            }
-        }
-    },
-}
-
-var gamepadInput =
-{
+var gamepadSupport =
+{    
+    prevRawGamepadTypes : [],
     gamepads : [],
     keys : {
         "A"          : 0,
@@ -226,18 +79,59 @@ var gamepadInput =
         }
 
         return this.gamepads[gamepadID].axes[this.axes[axis]];
-    }
+    },
+
+    startPollingGamepads : function()
+    {
+        if (!this.ticking)
+        {
+            this.ticking = true;
+            this.prevRawGamepads = navigator.webkitGetGamepads();
+            this.tick();
+        }
+    },
+
+    stopPollingGamepads : function()
+    {
+        this.ticking = false;
+    },
+
+    tick: function()
+    {
+        gamepadSupport.pollStatus();
+        gamepadSupport.scheduleNextTick();
+    },
+
+    scheduleNextTick: function()
+    {
+        if (this.ticking)
+        {
+            window.requestAnimationFrame(this.tick);
+        }
+    },
+
+    pollStatus: function()
+    {
+        var rawGamepads = navigator.webkitGetGamepads();
+
+        for (var i = 0; i < rawGamepads.length; i++)
+        {
+            if (typeof rawGamepads[i] != this.prevRawGamepadTypes[i]) 
+            {
+                this.prevRawGamepadTypes[i] = typeof rawGamepads[i];
+
+                if (rawGamepads[i] && rawGamepads[i].axes.length > 0)
+                {
+                console.log(rawGamepads[i])
+                    this.gamepads.push(rawGamepads[i]);
+                    world.trigger("gamepad connected", this.gamepads.length-1);
+                    //console.log(world);
+                }
+            }
+        }
+    },
 
 }
 
-$(function() {
-    if (gamepadMode)
-    {
-        gamepadSupport.startPolling();
-    }
-});
-
-window.inputs = gamepadInput;
-
 //EXPORT
-module.exports = (gamepadMode && Modernizr.gamepads) ? gamepadInput : keyboardInput;
+module.exports = gamepadSupport;
