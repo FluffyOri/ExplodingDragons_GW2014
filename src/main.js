@@ -1,14 +1,23 @@
 $(function() {
     //requirements
-    var c     = require("./config/constantes");
-    var world = require("./models/world");
-    var input = require("./controllers/controller-inputs");
+    var c      = require("./config/constantes");
+    var world  = require("./world");
+    var input  = require("./controllers/inputs");
+    var Player = require("./models/player");
 
     //init function
     function init()
     {
         defineCanvas();
-        world.trigger("test");
+
+        world.on("gamepad connected", function(gamepadID) {
+            world.gameObjects.push(new Player(
+            {
+                id : world.gameObjects.length,
+                playerID : gamepadID
+            }));
+        })
+
         requestAnimationFrame(gameloop);
     }
 

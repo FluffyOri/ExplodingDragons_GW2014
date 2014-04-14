@@ -8,5 +8,6 @@ canvas
 {
     border : 1px solid black;
     margin : auto;
-    background-color: #77B5FE;
+    display: block;
+    background-color: white;
 }

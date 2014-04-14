@@ -2,6 +2,7 @@
 var c           = require("../config/constantes");
 var buttons     = require("../config/key_bindings").buttons;
 var gamepadMode = require("../config/key_bindings").gamepadMode;
+var world       = require("../world");
 
 
 //KEYBOARD AND MOUSE INPUTS
@@ -128,13 +129,23 @@ var gamepadSupport = {
     pollStatus: function()
     {
         var pads = navigator.webkitGetGamepads();
-        gamepadInput.gamepads = [];
 
         for (var i = 0; i < pads.length; i++)
         {
             if (pads[i] !== undefined && pads[i].axes.length > 0 )
             {
+                for (var j = 0; j < gamepadInput.gamepads.length; j++)
+                {
+                    if (pads[i].index === gamepadInput.gamepads[j].index)
+                        return;
+                }
                 gamepadInput.gamepads.push(pads[i]);
+                world.trigger("gamepad connected", gamepadInput.gamepads.length-1);
+
+                if (gamepadInput.gamepads.length === 2)
+                {
+                    this.stopPolling();
+                }
             }
         }
     },
