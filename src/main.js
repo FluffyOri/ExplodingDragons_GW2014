@@ -15,7 +15,7 @@ $(function() {
     //looping at 60 frames per second
     function gameloop()
     {
-        console.log(input.mousePosition)
+        world.run();
         requestAnimationFrame(gameloop);
     }
 
@@ -32,7 +32,9 @@ $(function() {
         bgBuffer.width  = c.GAME_WIDTH;
         bgBuffer.height = c.GAME_HEIGHT;
 
-        //clearRect
+        world.on("before:render", function() {
+            context.clearRect(0, 0, c.CANVAS_WIDTH, c.CANVAS_HEIGHT);
+        });
 
         world.context   = context;
         world.bgBuffer  = bgBuffer;
