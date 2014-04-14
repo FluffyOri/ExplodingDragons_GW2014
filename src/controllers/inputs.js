@@ -30,7 +30,7 @@ var gamepadSupport =
         "LEFT_HORIZONTAL"  : 0,
         "LEFT_VERTICAL"    : 1,
         "RIGHT_HORIZONTAL" : 2,
-        "RIGHT-VERTICAL"   : 3,
+        "RIGHT_VERTICAL"   : 3,
     },
 
     getKeyDown : function(key, gamepadID)
@@ -122,10 +122,8 @@ var gamepadSupport =
 
                 if (rawGamepads[i] && rawGamepads[i].axes.length > 0)
                 {
-                console.log(rawGamepads[i])
                     this.gamepads.push(rawGamepads[i]);
                     world.trigger("gamepad connected", this.gamepads.length-1);
-                    //console.log(world);
                 }
             }
         }

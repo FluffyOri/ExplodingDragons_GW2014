@@ -18,7 +18,8 @@ $(function() {
             {
                 id : world.gameObjects.length,
                 playerID : gamepadID,
-                image : world.manifest.images["red_dragon.png"]
+                image : world.manifest.images["red_dragon.png"],
+                position : { x : 150, y : 150 }
             }));
         });
 

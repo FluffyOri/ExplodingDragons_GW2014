@@ -29,7 +29,13 @@ var Player = function Player(params)
 
 Player.prototype.rotate = function()
 {
-    this.angle = Math.atan2(input.getAxis("RIGHT_HORIZONTAL", this.playerID), input.getAxis("RIGHT_VERTICAL", this.playerID));
+    var axisX = input.getAxis("RIGHT_HORIZONTAL", this.playerID);
+    var axisY = input.getAxis("RIGHT_VERTICAL", this.playerID);
+
+    if ((axisX < -c.ANALOG_DEAD || axisX > c.ANALOG_DEAD) || (axisY < -c.ANALOG_DEAD || axisY > c.ANALOG_DEAD))
+    {
+        this.angle = Math.atan2(input.getAxis("RIGHT_HORIZONTAL", this.playerID), input.getAxis("RIGHT_VERTICAL", this.playerID)) * -1;    
+    }
 }
 
 Player.prototype.move = function()
