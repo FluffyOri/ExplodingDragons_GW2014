@@ -7,6 +7,7 @@ $(function() {
     var input  = require("./controllers/inputs");
     var loader = require("./controllers/loader");
     var Player = require("./models/player");
+    var Ennemis= require("./models/ennemis");
 
     //init function
     function init()
@@ -21,13 +22,16 @@ $(function() {
                 image : world.manifest.images["red_dragon.png"],
                 position : { x : 150, y : 150 }
             }));
+            world.gameObjects.push(new Ennemis(
+            {
+                x : 50,
+                y :150,
+                position :{ x : 400, y :400 }
+            }));
         });
-
-
         input.startPollingGamepads();
         requestAnimationFrame(gameloop);
     }
-
     //looping at 60 frames per second
     function gameloop()
     {
