@@ -3,25 +3,42 @@ var c     = require("../config/constantes");
 var world = require("../world");
 var input = require("../controllers/inputs");
 var addRenderSystem = require("../modules/render");
+var Bullet = require("../models/bullet");
 
 var Player = function Player(params)
 {
-    this.id        = params.id;
-    this.tag       = params.tag;
-    this.playerID  = params.playerID;
-    this.gamepad   = input.gamepads[this.playerID];
-    this.position  = params.position   || { x : 0, y : 0 };
-    this.size      = params.size       || { width : 50, height : 50 };
-    this.speed     = params.speed      || 10;
-    this.dashSpeed = params.dashSpeed  || 10;
-    this.zIndex    = params.zIndex     || 0;
-    this.context   = params.context    || world.context;
-    this.angle     = params.startAngle || 0;
+    this.id          = params.id;
+    this.tag         = params.tag;
+    this.playerID    = params.playerID;
+    this.gamepad     = input.gamepads[this.playerID];
+    this.position    = params.position         || { x : 0, y : 0 };
+    this.size        = params.size             || { width : 50, height : 50 };
+    this.speed       = params.speed            || 6;
+    this.zIndex      = params.zIndex           || 0;
+    this.context     = params.context          || world.context;
+    this.image       = params.image;    
+    this.angle       = params.startAngle       || 0;
+    this.vecDir      = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
+
+    this.attackLimit = params.attackLimit      || 100;
+    this.attackDelay = params.attackDelay      || 100;
+    this.prevShot    = 0;
+
+    this.dashSpeed   = params.dashSpeed        || 100;
+    this.dashDelay   = params.dashDelay        || 5000;
+    this.prevDash    = 0;
+
+    // this.createGauge();
 
     this.spritesheet = params.spritesheet;
     this.spriteSize  = params.spriteSize || { width : 128, height : 128 };
     this.anims       = params.anims;
     this.activeAnim  = this.anims[params.activeAnim] || this.anims['fly'];
+
+    if (this.playerID === 1)
+    {
+        this.frameNum = 2;
+    }
 
     this.run = function()
     {
@@ -34,6 +51,11 @@ var Player = function Player(params)
     }
 }
 
+// Player.prototype.createGauge = function()
+// {
+//     world.create(new Gauge())
+// }
+
 Player.prototype.rotate = function()
 {
     var axisX = input.getAxis("RIGHT_HORIZONTAL", this.playerID);
@@ -41,7 +63,8 @@ Player.prototype.rotate = function()
 
     if ((axisX < -c.ANALOG_DEAD || axisX > c.ANALOG_DEAD) || (axisY < -c.ANALOG_DEAD || axisY > c.ANALOG_DEAD))
     {
-        this.angle = (Math.atan2(input.getAxis("RIGHT_HORIZONTAL", this.playerID), input.getAxis("RIGHT_VERTICAL", this.playerID)) - Math.PI/2) * -1;  
+        this.angle = (Math.atan2(axisX, axisY) - Math.PI/2) * -1;
+        this.vecDir = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     }
 }
 
@@ -81,22 +104,47 @@ Player.prototype.limits = function()
 
 Player.prototype.dash = function()
 {
-    if (input.getKeyDown("LB"))
-    {
-        this.position.x += Math.sin(this.angle) * this.dashSpeed;
-        this.position.y += - Math.cos(this.angle) * this.dashSpeed;
-    }
+    var datTime = new Date().getTime();
 
-    if (input.getKeyDown("RB"))
+    if (datTime - this.prevDash > this.dashDelay)
     {
-        this.position.x += - Math.sin(this.angle) * this.dashSpeed;
-        this.position.y += Math.cos(this.angle) * this.dashSpeed;
+        if (input.getKeyDown("LB", this.playerID))
+        {
+            this.position.x += Math.sin(this.angle) * this.dashSpeed;
+            this.position.y += - Math.cos(this.angle) * this.dashSpeed;
+            this.prevDash = new Date().getTime();
+        }
+    
+        if (input.getKeyDown("RB", this.playerID))
+        {
+            this.position.x += - Math.sin(this.angle) * this.dashSpeed;
+            this.position.y += Math.cos(this.angle) * this.dashSpeed;
+            this.prevDash = new Date().getTime();
+        }
     }
 }
 
 Player.prototype.shoot = function()
 {
+    if (input.getButtonDown("Fire", this.playerID))
+    {
+        var datTime = new Date().getTime();
+
+        if (datTime - this.prevShot > this.attackDelay)
+        {
+            world.create(new Bullet(
+                {
+                    playerID : this.playerID,
+                    position : { x : this.position.x + this.vecDir.x * (4*this.size.width/5), 
+                                 y : this.position.y + this.vecDir.y * (this.size.height/2)
+                               },
+                    startAngle : this.angle
+                }));
     
+            this.prevShot = new Date().getTime();
+            this.attackLimit -= 10;
+        }
+    }
 }
 
 addRenderSystem(Player.prototype);

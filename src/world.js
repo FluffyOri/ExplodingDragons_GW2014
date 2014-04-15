@@ -4,6 +4,7 @@ var World = function World()
 {
     this.gameObjects = [];
     this.manifest = {};
+    this.state = "loading";
 
     this.run = function()
     {

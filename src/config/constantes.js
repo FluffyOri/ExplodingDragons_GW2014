@@ -7,13 +7,20 @@ module.exports = {
     ANALOG_DEAD   : 0.3,
 
     ANIMATIONS    : {
-        "RED_DRAGON" : 
+        "DRAGON_PLAYER" : 
         {
             "fly" :
             {
-                "rate"  : 4,
-                "length" : 8,
+                "rate"  : 11,
+                "length" : 12,
                 "animY"   : 0,
+                "loop" : true
+            },
+            "idle" :
+            {
+                "rate"  : 8,
+                "length" : 12,
+                "animY"   : 128,
                 "loop" : true
             }
         }
