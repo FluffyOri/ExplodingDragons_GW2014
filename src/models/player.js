@@ -7,6 +7,7 @@ var addRenderSystem = require("../modules/render");
 var Player = function Player(params)
 {
     this.id        = params.id;
+    this.tag       = params.tag;
     this.playerID  = params.playerID;
     this.gamepad   = input.gamepads[this.playerID];
     this.position  = params.position   || { x : 0, y : 0 };
@@ -15,8 +16,12 @@ var Player = function Player(params)
     this.dashSpeed = params.dashSpeed  || 10;
     this.zIndex    = params.zIndex     || 0;
     this.context   = params.context    || world.context;
-    this.image     = params.image;    
     this.angle     = params.startAngle || 0;
+
+    this.spritesheet = params.spritesheet;
+    this.spriteSize  = params.spriteSize || { width : 128, height : 128 };
+    this.anims       = params.anims;
+    this.activeAnim  = this.anims[params.activeAnim] || this.anims['fly'];
 
     this.run = function()
     {
@@ -25,7 +30,7 @@ var Player = function Player(params)
         this.dash();
         this.limits();
         this.shoot();
-        this.drawImage();
+        this.animate();
     }
 }
 

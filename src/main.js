@@ -17,8 +17,10 @@ $(function() {
             world.create(new Player(
             {
                 id : world.gameObjects.length,
+                tag : "player",
                 playerID : gamepadID,
-                image : world.manifest.images["green_dragon.png"],
+                spritesheet : world.manifest.images["red_dragon_anims.png"],
+                anims : c.ANIMATIONS["RED_DRAGON"],
                 position : { x : 150, y : 150 },
                 size : { width : 64, height : 64 }
             }));
