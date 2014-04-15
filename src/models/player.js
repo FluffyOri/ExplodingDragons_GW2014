@@ -12,9 +12,8 @@ var Player = function Player(params)
     this.position = params.position || { x : 0, y : 0 };
     this.size     = params.size     || { width : 50, height : 50 };
     this.speed    = params.speed    || 10;
-    
+    this.zIndex   = params.zIndex   || 0;
     this.context  = params.context  || world.context;
-    this.color    = params.color    || "red";
     this.image    = params.image;
     
     this.angle    = params.startAngle || 0;
@@ -40,6 +39,8 @@ Player.prototype.rotate = function()
 
 Player.prototype.move = function()
 {
+    this.prevPos = this.position;
+
     var axisX = input.getAxis("LEFT_HORIZONTAL", this.playerID);
     var axisY = input.getAxis("LEFT_VERTICAL", this.playerID);
 
@@ -54,6 +55,11 @@ Player.prototype.move = function()
         //this.position.y += this.speed * ((axisY > 0) ? 1 : -1);        
         this.position.y += this.speed * axisY;        
     }
+}
+
+Player.prototype.collisions = function()
+{
+    
 }
 
 addRenderSystem(Player.prototype);

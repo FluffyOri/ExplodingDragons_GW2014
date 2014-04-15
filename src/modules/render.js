@@ -4,6 +4,8 @@ var world = require("../world");
 
 function addRenderSystem(target)
 {
+    target.zIndex = 0;
+    
     target.drawSquare = function()
     {
         this.context.fillStyle = this.color;
