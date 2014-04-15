@@ -4,10 +4,40 @@ body
     margin : 0;
 }
 
-canvas
-{
-    border : 1px solid gold;
+#wrapper
+{    
+    border : 1px solid pink;
+    display: block;    
     margin : auto;
+    width : 1280px;
+    height: 720px;
+}
+
+#loadingScreen
+{
     display: block;
+    width : 100%;
+    height: 100%;
+    background-color: yellow;
+}
+
+#menuScreen
+{
+    display: none;    
+    width : 100%;
+    height: 100%;
+    background-color: blue;
+}
+
+#gameScreen
+{
+    display: none;    
+    width : 100%;
+    height: 100%;
+    background-image: url("../images/sea_background.png");
+}
+
+#mainCanvas
+{
     background-image: url("../images/sea_background.png");
 }

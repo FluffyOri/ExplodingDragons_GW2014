@@ -7,26 +7,45 @@ $(function() {
     var input  = require("./controllers/inputs");
     var loader = require("./controllers/loader");
     var Player = require("./models/player");
+    var prefabs = require("./config/prefabs");
 
-    //init function
-    function init()
+    function initMenu()
     {
+        world.state = "menu";
         defineCanvas();
 
+
         world.on("gamepad connected", function(gamepadID) {
+            console.log(gamepadID);
             world.create(new Player(
             {
                 id : world.gameObjects.length,
                 tag : "player",
                 playerID : gamepadID,
-                spritesheet : world.manifest.images["red_dragon_anims.png"],
-                anims : c.ANIMATIONS["RED_DRAGON"],
-                position : { x : 150, y : 150 },
-                size : { width : 64, height : 64 }
+                spritesheet : world.manifest.images[prefabs.players[gamepadID].spritesheet],
+                anims : c.ANIMATIONS[prefabs.players[gamepadID].anims],
+                position : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT - 150 },
+                size : { width : 96, height : 96 },
+                speed : 3
             }));
+
+            if (world.find("tag", "player").length >= 1)
+            {
+                $("#menuScreen").fadeOut(function() {
+                    $("#gameScreen").fadeIn(function() {
+                        initGame();                        
+                    });
+                });
+            }
         });
 
         input.startPollingGamepads();
+    }
+
+    function initGame()
+    {
+        world.state = "ingame";
+
         requestAnimationFrame(gameloop);
     }
 
@@ -59,5 +78,5 @@ $(function() {
         world.bgContext = bgContext;
     }
 
-    loader(init);
+    loader(initMenu);
 });

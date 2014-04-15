@@ -23,6 +23,11 @@ var Player = function Player(params)
     this.anims       = params.anims;
     this.activeAnim  = this.anims[params.activeAnim] || this.anims['fly'];
 
+    if (this.playerID === 1)
+    {
+        this.frameNum = 2;
+    }
+
     this.run = function()
     {
         this.rotate();

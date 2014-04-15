@@ -4,7 +4,7 @@ var world = require("../world");
 
 function addRenderSystem(target)
 {
-    target.zIndex    = 0;    
+    target.zIndex      = 0;    
     target.frameNum    = 0;
     target.frameCount  = 0;
     target.isAnimating = true;
@@ -42,6 +42,7 @@ function addRenderSystem(target)
                 }
             }
         }
+        
         this.spritePos.x = this.frameNum * this.spriteSize.width;
         this.spritePos.y = this.activeAnim["animY"];
 
