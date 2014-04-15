@@ -74,6 +74,11 @@ Player.prototype.dash = function()
     }
 }
 
+Player.prototype.shoot = function()
+{
+    
+}
+
 addRenderSystem(Player.prototype);
 
 module.exports = Player;
