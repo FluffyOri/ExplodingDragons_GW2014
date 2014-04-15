@@ -8,16 +8,14 @@ var init;
 function loader(callback)
 {
     init = callback;
+    world.manifest.images = {};
 
     for (var i in images)
     {
-        world.manifest.images = {};
-
         nbImages++;
         var img = new Image();
         img.src = images[i];
         img.onload = function() { count++; };
-        
         var path = "assets/images/";
         world.manifest.images[images[i].replace(path, "")] = img;
     }

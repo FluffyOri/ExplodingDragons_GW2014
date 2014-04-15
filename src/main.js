@@ -14,15 +14,15 @@ $(function() {
         defineCanvas();
 
         world.on("gamepad connected", function(gamepadID) {
-            world.gameObjects.push(new Player(
+            world.create(new Player(
             {
                 id : world.gameObjects.length,
                 playerID : gamepadID,
-                image : world.manifest.images["red_dragon.png"],
-                position : { x : 150, y : 150 }
+                image : world.manifest.images["green_dragon.png"],
+                position : { x : 150, y : 150 },
+                size : { width : 64, height : 64 }
             }));
         });
-
 
         input.startPollingGamepads();
         requestAnimationFrame(gameloop);
