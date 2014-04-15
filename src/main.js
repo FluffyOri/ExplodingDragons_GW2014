@@ -1,8 +1,7 @@
 $(function() {
-
     //requirements
-    var world  = require("./world");
     var c      = require("./config/constantes");
+    var world  = require("./world");
     var images = require("./config/images");
     var input  = require("./controllers/inputs");
     var loader = require("./controllers/loader");
@@ -16,7 +15,6 @@ $(function() {
 
 
         world.on("gamepad connected", function(gamepadID) {
-            console.log(gamepadID);
             world.create(new Player(
             {
                 id : world.gameObjects.length,
