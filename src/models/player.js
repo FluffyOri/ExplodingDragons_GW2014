@@ -78,14 +78,14 @@ Player.prototype.dash = function()
 {
     if (input.getKeyDown("LB"))
     {
-        this.position.x += - Math.sin(this.angle - Math.PI/2) * this.dashSpeed;
-        this.position.y += Math.cos(this.angle - Math.PI/2) * this.dashSpeed;
+        this.position.x += Math.sin(this.angle) * this.dashSpeed;
+        this.position.y += - Math.cos(this.angle) * this.dashSpeed;
     }
 
     if (input.getKeyDown("RB"))
     {
-        this.position.x += Math.sin(this.angle - Math.PI/2) * this.dashSpeed;
-        this.position.y += - Math.cos(this.angle - Math.PI/2) * this.dashSpeed;
+        this.position.x += - Math.sin(this.angle) * this.dashSpeed;
+        this.position.y += Math.cos(this.angle) * this.dashSpeed;
     }
 }
 
