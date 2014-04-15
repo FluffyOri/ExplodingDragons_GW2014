@@ -63,13 +63,8 @@ Player.prototype.rotate = function()
 
     if ((axisX < -c.ANALOG_DEAD || axisX > c.ANALOG_DEAD) || (axisY < -c.ANALOG_DEAD || axisY > c.ANALOG_DEAD))
     {
-        this.vecDir =
-        {
-            x : input.getAxis("RIGHT_HORIZONTAL", this.playerID),
-            y : input.getAxis("RIGHT_VERTICAL", this.playerID)
-        }
-
-        this.angle = (Math.atan2(input.getAxis("RIGHT_HORIZONTAL", this.playerID), input.getAxis("RIGHT_VERTICAL", this.playerID)) - Math.PI/2) * -1;  
+        this.angle = (Math.atan2(axisX, axisY) - Math.PI/2) * -1;
+        this.vecDir = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     }
 }
 
@@ -113,14 +108,14 @@ Player.prototype.dash = function()
 
     if (datTime - this.prevDash > this.dashDelay)
     {
-        if (input.getKeyDown("LB"))
+        if (input.getKeyDown("LB", this.playerID))
         {
             this.position.x += Math.sin(this.angle) * this.dashSpeed;
             this.position.y += - Math.cos(this.angle) * this.dashSpeed;
             this.prevDash = new Date().getTime();
         }
     
-        if (input.getKeyDown("RB"))
+        if (input.getKeyDown("RB", this.playerID))
         {
             this.position.x += - Math.sin(this.angle) * this.dashSpeed;
             this.position.y += Math.cos(this.angle) * this.dashSpeed;
