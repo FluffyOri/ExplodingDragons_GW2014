@@ -9,5 +9,5 @@ canvas
     border : 1px solid gold;
     margin : auto;
     display: block;
-    background-color: black;
+    background-image: url("../images/sea_background.png");
 }

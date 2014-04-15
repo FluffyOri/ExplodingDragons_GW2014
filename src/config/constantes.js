@@ -5,4 +5,17 @@ module.exports = {
     GAME_HEIGHT   : 720,
 
     ANALOG_DEAD   : 0.3,
+
+    ANIMATIONS    : {
+        "RED_DRAGON" : 
+        {
+            "fly" :
+            {
+                "rate"  : 4,
+                "length" : 8,
+                "animY"   : 0,
+                "loop" : true
+            }
+        }
+    }
 }

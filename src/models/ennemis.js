@@ -4,10 +4,12 @@ var world = require("../world");
 var addRenderSystem = require("../modules/render");
 var Ennemis = function Ennemis(params)
 {
-	this.position = params.position
-	this.size = params.size
+	this.position = params.position;
 	this.size = params.size || {width : 50, height :50};
 	this.speed = params.speed || 10;
+	this.color = "green";
+	this.x = params.x
+	this.y = params.y
 	// 1 = droite & -1 = gauche;
 	this.direction = params.direction || 1;
 	this.context = params.context || world.context;
