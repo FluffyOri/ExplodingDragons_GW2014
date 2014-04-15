@@ -20,6 +20,11 @@ function addRenderSystem(target)
         this.context.drawImage(this.image, -this.size.width / 2, -this.size.height / 2, this.size.width, this.size.height);
         this.context.restore();
     }
+
+    target.animate = function()
+    {
+        
+    }
 }
 
 module.exports = addRenderSystem;

@@ -1,12 +1,12 @@
 $(function() {
-
     //requirements
-    var world  = require("./world");
     var c      = require("./config/constantes");
+    var world  = require("./world");
     var images = require("./config/images");
     var input  = require("./controllers/inputs");
     var loader = require("./controllers/loader");
     var Player = require("./models/player");
+    var Bullet = require("./models/bullet");
 
     //init function
     function init()
@@ -14,15 +14,15 @@ $(function() {
         defineCanvas();
 
         world.on("gamepad connected", function(gamepadID) {
-            world.create(new Player(
+            world.gameObjects.push(new Player(
             {
                 id : world.gameObjects.length,
                 playerID : gamepadID,
-                image : world.manifest.images["green_dragon.png"],
-                position : { x : 150, y : 150 },
-                size : { width : 64, height : 64 }
+                image : world.manifest.images["red_dragon.png"],
+                position : { x : 150, y : 150},
+                size : { width : 96, height : 96}
             }));
-        });
+        })
 
         input.startPollingGamepads();
         requestAnimationFrame(gameloop);
