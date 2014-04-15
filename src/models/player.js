@@ -63,7 +63,7 @@ Player.prototype.rotate = function()
 
     if ((axisX < -c.ANALOG_DEAD || axisX > c.ANALOG_DEAD) || (axisY < -c.ANALOG_DEAD || axisY > c.ANALOG_DEAD))
     {
-        this.angle = (Math.atan2(axisX, axisY) - Math.PI/2) * -1;
+        this.angle  = (Math.atan2(axisX, axisY) - Math.PI/2) * -1;
         this.vecDir = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     }
 }
@@ -135,9 +135,10 @@ Player.prototype.shoot = function()
             world.create(new Bullet(
                 {
                     playerID : this.playerID,
-                    position : { x : this.position.x + this.vecDir.x * (4*this.size.width/5), 
-                                 y : this.position.y + this.vecDir.y * (this.size.height/2)
-                               },
+                    position : { 
+                        x : (this.position.x + this.size.width / 2) + this.vecDir.x  * this.size.width / 2, 
+                        y : (this.position.y + this.size.height / 2) + this.vecDir.y * this.size.height / 2
+                    },
                     startAngle : this.angle
                 }));
     
