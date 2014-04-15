@@ -27,6 +27,8 @@ var Player = function Player(params)
     this.dashDelay   = params.dashDelay        || 5000;
     this.prevDash    = 0;
 
+    // this.createGauge();
+
     this.run = function()
     {
         this.rotate();
@@ -37,6 +39,11 @@ var Player = function Player(params)
         this.drawImage();
     }
 }
+
+// Player.prototype.createGauge = function()
+// {
+//     world.create(new Gauge())
+// }
 
 Player.prototype.rotate = function()
 {
@@ -129,6 +136,7 @@ Player.prototype.shoot = function()
                 }));
     
             this.prevShot = new Date().getTime();
+            this.attackLimit -= 10;
         }
     }
 }
