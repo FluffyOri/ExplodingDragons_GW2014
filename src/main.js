@@ -13,7 +13,6 @@ $(function() {
         world.state = "menu";
         defineCanvas();
 
-
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
             {
@@ -29,11 +28,15 @@ $(function() {
 
             if (world.find("tag", "player").length >= 1)
             {
-                $("#menuScreen").fadeOut(function() {
-                    $("#gameScreen").fadeIn(function() {
-                        initGame();                        
-                    });
-                });
+                // $("#menuScreen").fadeOut(function() {
+                //     $("#gameScreen").fadeIn(function() {
+                //         initGame();                        
+                //     });
+                // });
+                
+                $("#menuScreen").hide();
+                $("#gameScreen").show()
+                initGame();
             }
         });
 
