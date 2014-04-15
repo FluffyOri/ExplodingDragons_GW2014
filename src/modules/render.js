@@ -44,7 +44,7 @@ function addRenderSystem(target)
         }
         
         this.spritePos.x = this.frameNum * this.spriteSize.width;
-        this.spritePos.y = this.activeAnim["animY"];
+        this.spritePos.y = this.animY;
 
         this.context.save();
         this.context.translate(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);

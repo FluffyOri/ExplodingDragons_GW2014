@@ -16,14 +16,15 @@ $(function() {
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
             {
-                id : world.gameObjects.length,
-                tag : "player",
-                playerID : gamepadID,
-                spritesheet : world.manifest.images[prefabs.players[gamepadID].spritesheet],
-                anims : c.ANIMATIONS[prefabs.players[gamepadID].anims],
-                position : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT - 150 },
-                size : { width : 96, height : 96 },
-                speed : 3
+                tag               : "player",
+                playerID          : gamepadID,
+                spritesheet       : world.manifest.images[prefabs.players[gamepadID].spritesheet],
+                spritesheetBullet : world.manifest.images[prefabs.players[gamepadID].spritesheetBullet],
+                anims             : c.ANIMATIONS[prefabs.players[gamepadID].anims],
+                position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT - 150 },
+                size              : { width : 96, height : 96 },
+                speed             : 3,
+                attackDelay       : 250
             }));
 
             if (world.find("tag", "player").length >= 1)

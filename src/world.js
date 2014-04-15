@@ -12,8 +12,11 @@ var World = function World()
 
         for (var i = 0; i < this.gameObjects.length; i++)
         {
-            this.gameObjects[i].run();
+            if (this.gameObjects[i])
+                this.gameObjects[i].run();
         }
+
+        this.karthus();
     }
 
     this.create = function(object)
@@ -35,6 +38,17 @@ var World = function World()
 
         return objects;
     }
+
+    this.karthus = function()
+    {
+        for (var i = 0; i < this.gameObjects.length; i++)
+        {
+            if (this.gameObjects[i].dead)
+            {
+                this.gameObjects.splice(i, 1);
+            }
+        }
+    }
 }
 
 EventEmitter.mixins(World.prototype);
@@ -44,7 +58,8 @@ window.world = world; //debug
 
 world.on("new gameobject", function() {
     world.gameObjects.sort(function(a, b) {
-        return a.zIndex - b.zIndex;
+        if (a && b)
+            return a.zIndex - b.zIndex;
     });
 });
 
