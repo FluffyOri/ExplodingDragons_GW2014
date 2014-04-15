@@ -6,23 +6,26 @@ var addRenderSystem = require("../modules/render");
 
 var Player = function Player(params)
 {
-    this.id       = params.id;
-    this.playerID = params.playerID;
-    this.gamepad  = input.gamepads[this.playerID];
-    this.position = params.position || { x : 0, y : 0 };
-    this.size     = params.size     || { width : 50, height : 50 };
-    this.speed    = params.speed    || 10;
+    this.id        = params.id;
+    this.playerID  = params.playerID;
+    this.gamepad   = input.gamepads[this.playerID];
+    this.position  = params.position   || { x : 0, y : 0 };
+    this.size      = params.size       || { width : 50, height : 50 };
+    this.speed     = params.speed      || 10;
+    this.dashSpeed = params.dashSpeed  || 10;
     
-    this.context  = params.context  || world.context;
-    this.color    = params.color    || "red";
-    this.image    = params.image;
+    this.context   = params.context    || world.context;
+    this.color     = params.color      || "red";
+    this.image     = params.image;
     
-    this.angle    = params.startAngle || 0;
+    this.angle     = params.startAngle || 0;
 
     this.run = function()
     {
         this.rotate();
         this.move();
+        this.dash();
+        this.shoot();
         this.drawImage();
     }
 }
@@ -53,6 +56,21 @@ Player.prototype.move = function()
     {
         //this.position.y += this.speed * ((axisY > 0) ? 1 : -1);        
         this.position.y += this.speed * axisY;        
+    }
+}
+
+Player.prototype.dash = function()
+{
+    if (input.getKeyDown("LB"))
+    {
+        this.position.x += - Math.sin(this.angle - Math.PI/2) * this.dashSpeed;
+        this.position.y += Math.cos(this.angle - Math.PI/2) * this.dashSpeed;
+    }
+
+    if (input.getKeyDown("RB"))
+    {
+        this.position.x += Math.sin(this.angle - Math.PI/2) * this.dashSpeed;
+        this.position.y += - Math.cos(this.angle - Math.PI/2) * this.dashSpeed;
     }
 }
 
