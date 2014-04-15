@@ -7,6 +7,7 @@ var Ennemis = function Ennemis(params)
 	this.position = params.position
 	this.size = params.size
 	this.speed = params.speed || 10;
+	this.color = "green";
 	this.x = params.x
 	this.y = params.y
 	// 1 = droite & -1 = gauche;
@@ -16,7 +17,7 @@ var Ennemis = function Ennemis(params)
 	this.run = function()
 	{
 		this.move(10,1);
-		this.drawImage();
+		this.drawSquare();
 	}
 }
 Ennemis.prototype.move = function()

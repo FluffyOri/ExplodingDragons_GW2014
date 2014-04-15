@@ -22,6 +22,7 @@ var Player = function Player(params)
     {
         this.rotate();
         this.move();
+        this.limits();
         this.drawImage();
     }
 }
@@ -33,33 +34,42 @@ Player.prototype.rotate = function()
 
     if ((axisX < -c.ANALOG_DEAD || axisX > c.ANALOG_DEAD) || (axisY < -c.ANALOG_DEAD || axisY > c.ANALOG_DEAD))
     {
-        this.angle = Math.atan2(input.getAxis("RIGHT_HORIZONTAL", this.playerID), input.getAxis("RIGHT_VERTICAL", this.playerID)) * -1;    
+        this.angle = (Math.atan2(input.getAxis("RIGHT_HORIZONTAL", this.playerID), input.getAxis("RIGHT_VERTICAL", this.playerID)) - Math.PI/2) * -1;  
     }
 }
 
 Player.prototype.move = function()
 {
-    this.prevPos = this.position;
+    this.prevPos = 
+    {
+        x : this.position.x,
+        y : this.position.y
+    }
 
     var axisX = input.getAxis("LEFT_HORIZONTAL", this.playerID);
     var axisY = input.getAxis("LEFT_VERTICAL", this.playerID);
 
     if (axisX < -c.ANALOG_DEAD || axisX > c.ANALOG_DEAD)
     {
-        //this.position.x += this.speed * ((axisX > 0) ? 1 : -1);        
-        this.position.x += this.speed * axisX;        
+        this.position.x += this.speed * axisX;
     }
 
     if (axisY < -c.ANALOG_DEAD || axisY > c.ANALOG_DEAD)
     {
-        //this.position.y += this.speed * ((axisY > 0) ? 1 : -1);        
-        this.position.y += this.speed * axisY;        
+        this.position.y += this.speed * axisY;
     }
 }
 
-Player.prototype.collisions = function()
+Player.prototype.limits = function()
 {
-    
+    if (this.position.x < 0 || this.position.x + this.size.width > c.GAME_WIDTH)
+    {
+        this.position.x = this.prevPos.x;
+    }
+    if (this.position.y < 0 || this.position.y + this.size.height > c.GAME_HEIGHT)
+    {        
+        this.position.y = this.prevPos.y;
+    }
 }
 
 addRenderSystem(Player.prototype);
