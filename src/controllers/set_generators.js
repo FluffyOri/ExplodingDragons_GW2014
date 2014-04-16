@@ -61,11 +61,11 @@ function setGenerators()
         startDelay : 0,
         delayInterval : { min : 500, max : 1000 },
         sides : ["left", "right", "top", "bottom"],
+        focusPlayer : true,        
         objectClass : LightShip,
         objectParams : {
             speed : 1,
             attackDelay : 5000,
-            focusPlayer : true,        
             marginInterval : 0,
             size : { width : 48, height : 48 },
             spritesheet : world.manifest.images["light_ship.png"],

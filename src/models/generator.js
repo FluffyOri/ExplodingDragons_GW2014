@@ -20,6 +20,7 @@ var Generator = function Generator(params)
     this.delayInterval  = params.delayInterval || 1000;
     this.delay          = params.startDelay || 0;
     this.marginInterval = params.marginInterval || 0;
+    console.log(params.focusPlayer)
     this.focusPlayer    = params.focusPlayer;
 
     this.lastPop       = new Date().getTime();
@@ -74,10 +75,14 @@ Generator.prototype.popObject = function()
             break;
         }
 
-        var players = world.find("tag", "player");
-        var target = players[Math.floor(Math.random() * players.length)];
+        if (this.focusPlayer)
+        {
+            console.log("yolo")
+            var players = world.find("tag", "player");
+            var target = players[Math.floor(Math.random() * players.length)];
 
-        objectParams.angle = utils.getAngle(objectParams.position, target.position);   
+            objectParams.angle = utils.getAngle(objectParams.position, target.position);            
+        }
 
         world.create(new this.objectClass(objectParams));
 
