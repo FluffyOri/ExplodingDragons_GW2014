@@ -9,6 +9,7 @@ function setGenerators()
 {
     //islands
     world.create(new Generator({
+        startDelay : 0,
         delayInterval : { min : 8000, max : 20000 },
         sides : ["right"],
         objectClass : Decor,
@@ -23,8 +24,9 @@ function setGenerators()
 
     //light ship
     world.create(new Generator({
-        delayInterval : { min : 5000, max : 10000 },
-        sides : ["left"],
+        startDelay : 1500,
+        delayInterval : { min : 1000, max : 2000 },
+        sides : ["left", "right", "top", "bottom"],
         objectClass : LightShip,
         objectParams : {
             speed : 1,

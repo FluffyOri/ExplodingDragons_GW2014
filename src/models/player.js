@@ -208,9 +208,11 @@ Player.prototype.collisions = function()
             if (this.position.x + this.size.width  > other.position.x && this.position.x < other.position.x + other.size.width &&
                 this.position.y + this.size.height > other.position.y && this.position.y < other.position.y + other.size.height)
             {
-                console.log("huehue")
-                this.dead = true;
-                other.dead = true;
+                console.log("hit by " + other.layer);
+                if (other.layer === "enemy")
+                {
+                    other.dead = true;
+                }
             }
         }
     }

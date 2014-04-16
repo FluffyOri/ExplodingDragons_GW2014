@@ -22,13 +22,13 @@ $(function() {
                 spritesheet       : world.manifest.images[prefabs.players[gamepadID].spritesheet],
                 spritesheetBullet : world.manifest.images[prefabs.players[gamepadID].spritesheetBullet],
                 anims             : c.ANIMATIONS[prefabs.players[gamepadID].anims],
-                position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT - 150 },
+                position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT - 300 },
                 size              : { width : 96, height : 96 },
                 speed             : 8,
                 attackDelay       : 500
             }));
 
-            if (world.find("tag", "player").length >= 1)
+            if (world.find("tag", "player").length >= 2)
             {
                 // $("#menuScreen").fadeOut(function() {
                 //     $("#gameScreen").fadeIn(function() {

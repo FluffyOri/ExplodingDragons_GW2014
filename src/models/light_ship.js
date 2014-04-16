@@ -150,7 +150,10 @@ LightShip.prototype.collisions = function()
                 this.position.y + this.size.height > other.position.y && this.position.y < other.position.y + other.size.height)
             {
                 this.dead = true;
-                other.dead = true;
+                if (other.tag === "bullet")
+                {
+                    other.dead = true;
+                }
             }
         }
     }

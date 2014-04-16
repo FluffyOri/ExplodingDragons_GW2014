@@ -8,6 +8,7 @@ var Bullet = function Bullet(params)
 {
     this.id          = world.gameObjects.length;
     this.layer       = params.layer;
+    this.tag         = "bullet";
     this.playerID    = params.playerID;
     this.position    = params.position;
     this.size        = params.size       || { width : 5, height : 5 };
