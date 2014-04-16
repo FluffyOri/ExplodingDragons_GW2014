@@ -58,8 +58,7 @@ window.world = world; //debug
 
 world.on("new gameobject", function() {
     world.gameObjects.sort(function(a, b) {
-        if (a && b)
-            return a.zIndex - b.zIndex;
+        return a.zIndex - b.zIndex;
     });
 });
 

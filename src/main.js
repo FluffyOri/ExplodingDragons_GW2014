@@ -1,12 +1,14 @@
 $(function() {
     //requirements
-    var c      = require("./config/constantes");
-    var world  = require("./world");
-    var images = require("./config/images");
-    var input  = require("./controllers/inputs");
-    var loader = require("./controllers/loader");
-    var Player = require("./models/player");
-    var prefabs = require("./config/prefabs");
+    var c         = require("./config/constantes");
+    var world     = require("./world");
+    var images    = require("./config/images");
+    var input     = require("./controllers/inputs");
+    var loader    = require("./controllers/loader");
+    var Player    = require("./models/player");
+    var Decor     = require("./models/decor");
+    var Generator = require("./models/generator");
+    var prefabs   = require("./config/prefabs");
 
     function initMenu()
     {
@@ -48,6 +50,8 @@ $(function() {
     {
         world.state = "ingame";
 
+        setGenerators();
+
         requestAnimationFrame(gameloop);
     }
 
@@ -78,6 +82,23 @@ $(function() {
         world.context   = context;
         world.bgBuffer  = bgBuffer;
         world.bgContext = bgContext;
+    }
+
+    function setGenerators()
+    {
+        //islands
+        world.create(new Generator({
+            delayInterval : { min : 1000, max : 5000 },
+            sides : ["right"],
+            objectClass : Decor,
+            objectParams : {
+                speed : 0.5,
+                size : { width : 100, height : 100 },
+                spritesheet : world.manifest.images["islands.png"],
+                spriteSize : { width : 500, height : 500 },
+                spritePos : { x : 0, y : 0 }
+            }
+        }));
     }
 
     loader(initMenu);
