@@ -7,6 +7,8 @@ var EventEmitter    = require("../../lib/events-emitter.js");
 var Bullet = function Bullet(params)
 {
     this.id          = world.gameObjects.length;
+    this.layer       = params.layer;
+    this.tag         = "bullet";
     this.playerID    = params.playerID;
     this.position    = params.position;
     this.size        = params.size       || { width : 5, height : 5 };
@@ -21,6 +23,8 @@ var Bullet = function Bullet(params)
     this.anims       = params.anims;
     this.activeAnim  = this.anims[params.activeAnim] || this.anims['basic'];
     this.animY       = this.activeAnim["animY"];
+
+    this.colliderPadding = 0;
 
     this.run = function()
     {
@@ -42,23 +46,6 @@ Bullet.prototype.limits = function()
         this.position.y + this.size.height < 0 || this.position.y > c.GAME_HEIGHT)
     {
         this.dead = true;
-    }
-}
-
-Bullet.prototype.collisions = function()
-{
-    for (var i = 0; i < world.gameObjects.length; i++)
-    {
-        var other = world.gameObjects[i];
-
-        if (other.destructible && other.playerID != this.playerID)
-        {
-            if (this.position.x + this.size.width  > other.position.x && this.position.x < other.position.x + other.size.width &&
-                this.position.y + this.size.height > other.position.y && this.position.y < other.position.y + other.size.height)
-            {
-                console.log("JTE COLLIDE TA FACE MAIS JDOIS ATT DAVOIR 2 MANETTES POUR TESTER WESH");
-            }
-        }
     }
 }
 

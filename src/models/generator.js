@@ -17,7 +17,7 @@ var Generator = function Generator(params)
     this.objectClass   = params.objectClass;
     this.objectParams  = params.objectParams;
     this.delayInterval = params.delayInterval || 1000;
-    this.delay         = 0;
+    this.delay         = params.startDelay || 0;
 
     this.lastPop       = new Date().getTime();
 
@@ -35,7 +35,7 @@ Generator.prototype.popObject = function()
     {
         var side = this.chooseSide();
         var objectParams = this.objectParams;
-
+        
         switch (side)
         {
             case "left":
@@ -59,7 +59,15 @@ Generator.prototype.popObject = function()
                     x : randomIntFromInterval(0, c.CANVAS_WIDTH - objectParams.size.width/2),
                     y : - objectParams.size.height
                 }
-                objectParams.angle = 3*Math.PI/2;
+                objectParams.angle = Math.PI/2;
+            break;
+
+            case "bottom":
+                objectParams.position = {
+                    x : randomIntFromInterval(0, c.CANVAS_WIDTH - objectParams.size.width/2),
+                    y : c.CANVAS_HEIGHT
+                }
+                objectParams.angle = -Math.PI/2;
             break;
         }
 

@@ -1,5 +1,6 @@
 //requirements
 var c               = require("../config/constantes");
+var utils           = require("../controllers/utils");
 var world           = require("../world");
 var addRenderSystem = require("../modules/render");
 var Bullet          = require("../models/bullet");
@@ -9,7 +10,7 @@ var LightShip = function LightShip(params)
 {
     this.id                = world.gameObjects.length;
     this.tag               = params.tag;
-    this.destructible      = true;
+    this.layer             = "enemy";
     this.playerID          = -1;
     this.position          = params.position         || { x : 0, y : 0 };
     this.size              = params.size             || { width : 50, height : 50 };
@@ -17,6 +18,7 @@ var LightShip = function LightShip(params)
     this.zIndex            = params.zIndex           || 500;
     this.context           = params.context          || world.context;
     this.angle             = params.angle            || 0;
+    this.moveDirection     = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     this.direction         = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     
     this.attackDelay       = params.attackDelay      || 100;
@@ -29,7 +31,8 @@ var LightShip = function LightShip(params)
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['fly'];
     this.animY             = this.activeAnim["animY"];
 
-    console.log(this.direction);
+    this.colliderPadding = 0;
+
     var self = this;
     this.on("set animation", function(name) {
         if (self.activeAnim != self.anims[name])
@@ -45,16 +48,18 @@ var LightShip = function LightShip(params)
     this.run = function()
     {
         this.move();
-        this.limits();
+        this.limits();        
+        this.setFocus();
         this.shoot();
+        this.collisions();
         this.animate();
     }
 }
 
 LightShip.prototype.move = function()
 {
-    this.position.x += this.direction.x * this.speed;
-    this.position.y += this.direction.y * this.speed;
+    this.position.x += this.moveDirection.x * this.speed;
+    this.position.y += this.moveDirection.y * this.speed;
 }
 
 LightShip.prototype.limits = function()
@@ -65,6 +70,41 @@ LightShip.prototype.limits = function()
     //     this.angle += Math.PI;        
     //     this.direction = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     // }
+}
+
+LightShip.prototype.isInScreen = function()
+{
+    //if (this.position.x > 0 && this.position.x + this.size.x < c.CANVAS_WIDTH)
+}
+
+LightShip.prototype.setFocus = function()
+{
+    var players = world.find("tag", "player");
+    for (var i = 0; i < players.length; i++)
+    {
+        if (i === 0)
+        {
+            this.targetPos = 
+            {
+                x : players[i].position.x + players[i].size.width / 2 ,
+                y : players[i].position.y + players[i].size.height / 2 
+            }
+        }
+        else
+        {
+            if (utils.getDistance(this.position, players[i].position) < utils.getDistance(this.position, this.targetPos))
+            {
+                this.targetPos = 
+                {
+                    x : players[i].position.x + players[i].size.width / 2,
+                    y : players[i].position.y + players[i].size.height / 2
+                }
+            }      
+        }
+    }
+
+    this.angle = utils.getAngle(this.position, this.targetPos);    
+    this.direction = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
 }
 
 LightShip.prototype.shoot = function()
@@ -82,7 +122,7 @@ LightShip.prototype.shoot = function()
         }
         else
         {
-            var canonDistance = this.size.width / 2 - 10;
+            var canonDistance = this.size.width / 2;
         }
 
         world.create(new Bullet(
@@ -94,6 +134,7 @@ LightShip.prototype.shoot = function()
                 },
                 size : { width : 64, height : 10 },
                 startAngle : this.angle,
+                layer : this.layer,
                 spritesheet : this.spritesheetBullet,
                 spriteSize : { width : 128, height : 18 },
                 anims : c.ANIMATIONS["BULLET_ENEMY"],
@@ -101,6 +142,29 @@ LightShip.prototype.shoot = function()
 
         this.prevShot = new Date().getTime();
         this.attackLimit -= 10;
+    }
+}
+
+LightShip.prototype.collisions = function()
+{
+    for (var i = 0; i < world.gameObjects.length; i++)
+    {
+        var other = world.gameObjects[i];
+
+        if (other.layer === "player")
+        {
+            if (this.position.x + this.size.width > other.position.x - other.colliderPadding  && 
+                this.position.x < other.position.x + other.size.width + other.colliderPadding &&
+                this.position.y + this.size.height > other.position.y - other.colliderPadding && 
+                this.position.y < other.position.y + other.size.height + other.colliderPadding)
+            {
+                this.dead = true;
+                if (other.tag === "bullet")
+                {
+                    other.dead = true;
+                }
+            }
+        }
     }
 }
 
