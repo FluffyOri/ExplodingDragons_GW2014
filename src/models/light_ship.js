@@ -72,6 +72,11 @@ LightShip.prototype.limits = function()
     // }
 }
 
+LightShip.prototype.isInScreen = function()
+{
+    //if (this.position.x > 0 && this.position.x + this.size.x < c.CANVAS_WIDTH)
+}
+
 LightShip.prototype.setFocus = function()
 {
     var players = world.find("tag", "player");
