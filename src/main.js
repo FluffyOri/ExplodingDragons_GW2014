@@ -1,39 +1,65 @@
 $(function() {
-
     //requirements
-    var world  = require("./world");
-    var c      = require("./config/constantes");
-    var images = require("./config/images");
-    var input  = require("./controllers/inputs");
-    var loader = require("./controllers/loader");
-    var Player = require("./models/player");
-    var Ennemis= require("./models/ennemis");
+    var c         = require("./config/constantes");
+    var world     = require("./world");
+    var images    = require("./config/images");
+    var input     = require("./controllers/inputs");
+    var loader    = require("./controllers/loader");
+    var Player    = require("./models/player");
+    var Decor     = require("./models/decor");
+    var Ennemis   = require("./models/ennemis");
+    var Generator = require("./models/generator");
+    var prefabs   = require("./config/prefabs");
 
-    //init function
-    function init()
+    function initMenu()
     {
+        world.state = "menu";
         defineCanvas();
 
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
             {
-                id : world.gameObjects.length,
-                tag : "player",
-                playerID : gamepadID,
-                spritesheet : world.manifest.images["red_dragon_anims.png"],
-                anims : c.ANIMATIONS["RED_DRAGON"],
-                position : { x : 150, y : 150 },
-                size : { width : 64, height : 64 }
+                tag               : "player",
+                playerID          : gamepadID,
+                spritesheet       : world.manifest.images[prefabs.players[gamepadID].spritesheet],
+                spritesheetBullet : world.manifest.images[prefabs.players[gamepadID].spritesheetBullet],
+                anims             : c.ANIMATIONS[prefabs.players[gamepadID].anims],
+                position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT - 150 },
+                size              : { width : 96, height : 96 },
+                speed             : 3,
+                attackDelay       : 250
             }));
+
             world.gameObjects.push(new Ennemis(
             {
                 x : 50,
                 y :150,
                 position :{ x : 400, y :400 }
             }));
+
+            if (world.find("tag", "player").length >= 1)
+            {
+                // $("#menuScreen").fadeOut(function() {
+                //     $("#gameScreen").fadeIn(function() {
+                //         initGame();                        
+                //     });
+                // });
+                
+                $("#menuScreen").hide();
+                $("#gameScreen").show()
+                initGame();
+            }
         });
         
         input.startPollingGamepads();
+    }
+
+    function initGame()
+    {
+        world.state = "ingame";
+
+        setGenerators();
+
         requestAnimationFrame(gameloop);
     }
     //looping at 60 frames per second
@@ -65,5 +91,22 @@ $(function() {
         world.bgContext = bgContext;
     }
 
-    loader(init);
+    function setGenerators()
+    {
+        //islands
+        world.create(new Generator({
+            delayInterval : { min : 1000, max : 5000 },
+            sides : ["right"],
+            objectClass : Decor,
+            objectParams : {
+                speed : 0.5,
+                size : { width : 100, height : 100 },
+                spritesheet : world.manifest.images["islands.png"],
+                spriteSize : { width : 500, height : 500 },
+                spritePos : { x : 0, y : 0 }
+            }
+        }));
+    }
+
+    loader(initMenu);
 });

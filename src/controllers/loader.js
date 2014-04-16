@@ -27,6 +27,14 @@ function loading()
 {
     if (count >= nbImages)
     {
+        // $("#loadingScreen").fadeOut(function() {
+        //     $("#menuScreen").fadeIn(function() {
+        //         init();                
+        //     });
+        // });
+        // 
+        $("#loadingScreen").hide();
+        $("#menuScreen").show();
         init();
 
         return;

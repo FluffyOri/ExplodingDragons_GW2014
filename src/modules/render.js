@@ -4,7 +4,8 @@ var world = require("../world");
 
 function addRenderSystem(target)
 {
-    target.zIndex    = 0;    
+    target.angle       = 0;
+    target.zIndex      = 0;    
     target.frameNum    = 0;
     target.frameCount  = 0;
     target.isAnimating = true;
@@ -25,6 +26,17 @@ function addRenderSystem(target)
         this.context.restore();
     }
 
+    target.drawFrame = function()
+    {
+        this.context.save();
+        this.context.translate(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);
+        this.context.rotate(this.angle);
+        this.context.drawImage(this.spritesheet,
+            this.spritePos.x, this.spritePos.y, this.spriteSize.width, this.spriteSize.height,
+            -this.size.width / 2, -this.size.height / 2, this.size.width, this.size.height);
+        this.context.restore();
+    }
+
     target.animate = function()
     {
         this.frameCount++;
@@ -42,8 +54,9 @@ function addRenderSystem(target)
                 }
             }
         }
+        
         this.spritePos.x = this.frameNum * this.spriteSize.width;
-        this.spritePos.y = this.activeAnim["animY"];
+        this.spritePos.y = this.animY;
 
         this.context.save();
         this.context.translate(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);

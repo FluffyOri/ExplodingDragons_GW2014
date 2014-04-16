@@ -4,6 +4,7 @@ var World = function World()
 {
     this.gameObjects = [];
     this.manifest = {};
+    this.state = "loading";
 
     this.run = function()
     {
@@ -11,8 +12,11 @@ var World = function World()
 
         for (var i = 0; i < this.gameObjects.length; i++)
         {
-            this.gameObjects[i].run();
+            if (this.gameObjects[i])
+                this.gameObjects[i].run();
         }
+
+        this.karthus();
     }
 
     this.create = function(object)
@@ -33,6 +37,17 @@ var World = function World()
         }
 
         return objects;
+    }
+
+    this.karthus = function()
+    {
+        for (var i = 0; i < this.gameObjects.length; i++)
+        {
+            if (this.gameObjects[i].dead)
+            {
+                this.gameObjects.splice(i, 1);
+            }
+        }
     }
 }
 
