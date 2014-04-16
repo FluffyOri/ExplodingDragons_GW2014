@@ -31,6 +31,8 @@ var LightShip = function LightShip(params)
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['fly'];
     this.animY             = this.activeAnim["animY"];
 
+    this.colliderPadding = 0;
+
     var self = this;
     this.on("set animation", function(name) {
         if (self.activeAnim != self.anims[name])
@@ -146,8 +148,10 @@ LightShip.prototype.collisions = function()
 
         if (other.layer === "player")
         {
-            if (this.position.x + this.size.width  > other.position.x && this.position.x < other.position.x + other.size.width &&
-                this.position.y + this.size.height > other.position.y && this.position.y < other.position.y + other.size.height)
+            if (this.position.x + this.size.width > other.position.x - other.colliderPadding  && 
+                this.position.x < other.position.x + other.size.width + other.colliderPadding &&
+                this.position.y + this.size.height > other.position.y - other.colliderPadding && 
+                this.position.y < other.position.y + other.size.height + other.colliderPadding)
             {
                 this.dead = true;
                 if (other.tag === "bullet")

@@ -24,6 +24,8 @@ var Bullet = function Bullet(params)
     this.activeAnim  = this.anims[params.activeAnim] || this.anims['basic'];
     this.animY       = this.activeAnim["animY"];
 
+    this.colliderPadding = 0;
+
     this.run = function()
     {
         this.move();

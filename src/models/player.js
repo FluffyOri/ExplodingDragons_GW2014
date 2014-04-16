@@ -29,14 +29,14 @@ var Player = function Player(params)
     this.dashDelay         = params.dashDelay        || 5000;
     this.prevDash          = 0;
     
-    // this.createGauge();
-    
     this.spritesheet       = params.spritesheet;
     this.spritesheetBullet = params.spritesheetBullet;
     this.spriteSize        = params.spriteSize || { width : 128, height : 128 };
     this.anims             = params.anims;
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['idle'];
     this.animY             = this.activeAnim["animY"];
+
+    this.colliderPadding   = params.colliderPadding || -25;
 
     if (this.playerID === 1)
     {
@@ -205,10 +205,11 @@ Player.prototype.collisions = function()
 
         if (other.layer === "enemy" || (other.layer === "player" && other.playerID !== this.playerID))
         {
-            if (this.position.x + this.size.width  > other.position.x && this.position.x < other.position.x + other.size.width &&
-                this.position.y + this.size.height > other.position.y && this.position.y < other.position.y + other.size.height)
+            if (this.position.x + this.size.width + this.colliderPadding > other.position.x  && 
+                this.position.x - this.colliderPadding < other.position.x + other.size.width &&
+                this.position.y + this.size.height + this.colliderPadding > other.position.y && 
+                this.position.y - this.colliderPadding < other.position.y + other.size.height)
             {
-                console.log("hit by " + other.layer);
                 if (other.layer === "enemy")
                 {
                     other.dead = true;

@@ -28,7 +28,7 @@ $(function() {
                 attackDelay       : 500
             }));
 
-            if (world.find("tag", "player").length >= 2)
+            if (world.find("tag", "player").length >= 1)
             {
                 // $("#menuScreen").fadeOut(function() {
                 //     $("#gameScreen").fadeIn(function() {
