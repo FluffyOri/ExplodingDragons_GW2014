@@ -61,7 +61,7 @@ function setGenerators()
         objectClass : LightShip,
         objectParams : {
             speed : 1,
-            attackDelay : 2000,
+            attackDelay : 5000,
             size : { width : 48, height : 48 },
             spritesheet : world.manifest.images["light_ship.png"],
             spritesheetBullet : world.manifest.images["enemy_bullet.png"],
