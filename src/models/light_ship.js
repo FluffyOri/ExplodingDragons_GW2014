@@ -135,6 +135,7 @@ LightShip.prototype.shoot = function()
                 size : { width : 64, height : 10 },
                 startAngle : this.angle,
                 layer : this.layer,
+                speed : 6,
                 spritesheet : this.spritesheetBullet,
                 spriteSize : { width : 128, height : 18 },
                 anims : c.ANIMATIONS["BULLET_ENEMY"],
