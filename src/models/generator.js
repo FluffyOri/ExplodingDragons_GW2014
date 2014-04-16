@@ -11,6 +11,7 @@ function randomIntFromInterval(min,max)
 
 var Generator = function Generator(params)
 {
+    this.zIndex        = 0;
     this.sides         = params.sides;
     this.objectClass   = params.objectClass;
     this.objectParams  = params.objectParams;

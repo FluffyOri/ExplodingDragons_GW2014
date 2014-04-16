@@ -7,6 +7,7 @@ $(function() {
     var loader    = require("./controllers/loader");
     var Player    = require("./models/player");
     var Decor     = require("./models/decor");
+    var LightShip = require("./models/light_ship");
     var Generator = require("./models/generator");
     var prefabs   = require("./config/prefabs");
 
@@ -96,6 +97,23 @@ $(function() {
                 size : { width : 100, height : 100 },
                 spritesheet : world.manifest.images["islands.png"],
                 spriteSize : { width : 500, height : 500 },
+                spritePos : { x : 0, y : 0 }
+            }
+        }));
+
+        //light ship
+        world.create(new Generator({
+            delayInterval : { min : 5000, max : 10000 },
+            sides : ["left"],
+            objectClass : LightShip,
+            objectParams : {
+                speed : 1,
+                attackDelay : 2000,
+                size : { width : 48, height : 48 },
+                spritesheet : world.manifest.images["light_ship.png"],
+                spritesheetBullet : world.manifest.images["enemy_bullet.png"],
+                anims : c.ANIMATIONS["LIGHT_SHIP"],
+                spriteSize : { width : 128, height : 128 },
                 spritePos : { x : 0, y : 0 }
             }
         }));

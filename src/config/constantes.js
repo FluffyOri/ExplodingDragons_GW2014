@@ -23,20 +23,6 @@ module.exports = {
                 "animY"   : 128,
                 "loop" : true
             },
-            "flyShooting" :
-            {
-                "rate"  : 9,
-                "length" : 12,
-                "animY"   : 256,
-                "loop" : true
-            },
-            "idleShooting" :
-            {
-                "rate"  : 6,
-                "length" : 12,
-                "animY"   : 384,
-                "loop" : true
-            }
         },
         "BULLET_FIRE" : 
         {
@@ -46,6 +32,26 @@ module.exports = {
                 "length" : 6,
                 "animY"   : 0,
                 "loop" : true
+            }
+        },
+        "LIGHT_SHIP" : 
+        {
+            "fly" :
+            {
+                "rate"  : 1,
+                "length" : 12,
+                "animY"   : 0,
+                "loop" : true
+            },
+        },
+        "BULLET_ENEMY" : 
+        {
+            "basic" :
+            {
+                "rate"   : 6,
+                "length" : 4,
+                "animY"  : 0,
+                "loop"   : true
             }
         }
     }
