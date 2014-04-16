@@ -12,6 +12,7 @@ function randomIntFromInterval(min,max)
 var Generator = function Generator(params)
 {
     this.zIndex        = 0;
+    this.tag           = params.tag || null;
     this.sides         = params.sides;
     this.objectClass   = params.objectClass;
     this.objectParams  = params.objectParams;
@@ -40,7 +41,7 @@ Generator.prototype.popObject = function()
             case "left":
                 objectParams.position = {
                     x : - objectParams.size.width,
-                    y : randomIntFromInterval(0, c.CANVAS_HEIGHT - objectParams.size.height/2) 
+                    y : randomIntFromInterval(- 50, c.CANVAS_HEIGHT - objectParams.size.height/2 + 50) 
                 }
                 objectParams.angle = 0;
             break;
@@ -48,7 +49,7 @@ Generator.prototype.popObject = function()
             case "right":
                 objectParams.position = {
                     x : c.CANVAS_WIDTH,
-                    y : randomIntFromInterval(0, c.CANVAS_HEIGHT - objectParams.size.height/2)
+                    y : randomIntFromInterval(- 50, c.CANVAS_HEIGHT - objectParams.size.height/2 + 50)
                 }
                 objectParams.angle = Math.PI;
             break;

@@ -9,7 +9,8 @@ function setGenerators()
 {
     //islands
     world.create(new Generator({
-        delayInterval : { min : 8000, max : 20000 },
+        tag : "island_generator",
+        delayInterval : { min : 9000, max : 20000 },
         sides : ["right"],
         objectClass : Decor,
         objectParams : {
@@ -17,6 +18,36 @@ function setGenerators()
             size : { width : 200, height : 200 },
             spritesheet : world.manifest.images["islands.png"],
             spriteSize : { width : 250, height : 250 },
+            spritePos : { x : 0, y : 0 }
+        }
+    }));
+
+    //cloud foreground
+    world.create(new Generator(
+    {
+        delayInterval : { min : 2000, max : 10000 },
+        sides : ["left"],
+        objectClass : Decor,
+        objectParams : {
+            size : { width : 150, height : 150 },
+            zIndex : 10,
+            spritesheet : world.manifest.images["clouds_foreground.png"],
+            spriteSize : { width : 250, height : 192 },
+            spritePos : { x : 0, y : 0 }
+        }
+    }));
+
+    //cloud 1st plan
+    world.create(new Generator(
+    {
+        delayInterval : { min : 5000, max : 20000 },
+        sides : ["left"],
+        objectClass : Decor,
+        objectParams : {
+            size : { width : 150, height : 150 },
+            zIndex : 2000,
+            spritesheet : world.manifest.images["clouds_first.png"],
+            spriteSize : { width : 250, height : 192 },
             spritePos : { x : 0, y : 0 }
         }
     }));

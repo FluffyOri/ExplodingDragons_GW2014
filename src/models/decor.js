@@ -8,13 +8,14 @@ var Decor = function Decor(params)
 {
     this.id          = world.gameObjects.length;
     this.position    = params.position;
-    this.size        = params.size       || { width : 10, height : 10 };
-    this.speed       = params.speed      || 5;
+    this.size        = params.size       || { width : (Math.random() * 100) + 50, height : (Math.random() * 100) + 50 };
+    this.speed       = params.speed      || Math.random() + 0.5;
     this.zIndex      = params.zIndex     || 0;
     this.context     = params.context    || world.context;
     this.direction   = { x : Math.cos(params.angle), y : Math.sin(params.angle) };
     this.spritesheet = params.spritesheet;
-    this.spritePos   = { x : (Math.floor(Math.random()*10) - 1) * 500, y : 0 };
+    this.angle       = Math.random()*4 - 1;
+    this.spritePos   = { x : (Math.floor(Math.random()*10) - 1) * 250, y : 0 };
     this.spriteSize  = params.spriteSize || { width : 250, height : 250 };
 
     this.run = function()
