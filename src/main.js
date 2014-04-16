@@ -8,11 +8,14 @@ $(function() {
     var Decor     = require("./models/decor");
     var prefabs   = require("./config/prefabs");
     var setGenerators = require("./controllers/set_generators");
+    var Ennemis   = require("./models/ennemis");
+    var manageTime= require("./config/manageTime");
 
     function initMenu()
     {
         world.state = "menu";
         defineCanvas();
+
 
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
@@ -28,7 +31,6 @@ $(function() {
                 colliderPadding   : -25,
                 attackDelay       : 500
             }));
-
             if (world.find("tag", "player").length >= 1)
             {
                 // $("#menuScreen").fadeOut(function() {
@@ -42,7 +44,7 @@ $(function() {
                 initGame();
             }
         });
-
+        
         input.startPollingGamepads();
     }
 
@@ -56,11 +58,11 @@ $(function() {
 
         requestAnimationFrame(gameloop);
     }
-
     //looping at 60 frames per second
     function gameloop()
     {
         world.run();
+        //manageTime();
         requestAnimationFrame(gameloop);
     }
 
