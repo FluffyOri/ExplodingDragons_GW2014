@@ -25,8 +25,8 @@ function setGenerators()
     //cloud foreground
     world.create(new Generator(
     {
-        delayInterval : { min : 2000, max : 10000 },
-        sides : ["left"],
+        delayInterval : { min : 10000, max : 20000 },
+        sides : ["right"],
         objectClass : Decor,
         objectParams : {
             size : { width : 150, height : 150 },
@@ -40,8 +40,8 @@ function setGenerators()
     //cloud 1st plan
     world.create(new Generator(
     {
-        delayInterval : { min : 5000, max : 20000 },
-        sides : ["left"],
+        delayInterval : { min : 10000, max : 25000 },
+        sides : ["right"],
         objectClass : Decor,
         objectParams : {
             size : { width : 150, height : 150 },

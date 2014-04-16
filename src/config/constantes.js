@@ -4,7 +4,7 @@ module.exports = {
     GAME_WIDTH    : 1280,
     GAME_HEIGHT   : 720,
 
-    ANALOG_DEAD   : 1.0,
+    ANALOG_DEAD   : 0.4,
 
     ANIMATIONS    : {
         "DRAGON_PLAYER" : 
