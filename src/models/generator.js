@@ -20,7 +20,6 @@ var Generator = function Generator(params)
     this.delayInterval  = params.delayInterval || 1000;
     this.delay          = params.startDelay || 0;
     this.marginInterval = params.marginInterval || 0;
-    console.log(params.focusPlayer)
     this.focusPlayer    = params.focusPlayer;
 
     this.lastPop       = new Date().getTime();
@@ -77,7 +76,6 @@ Generator.prototype.popObject = function()
 
         if (this.focusPlayer)
         {
-            console.log("yolo")
             var players = world.find("tag", "player");
             var target = players[Math.floor(Math.random() * players.length)];
 
