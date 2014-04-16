@@ -184,6 +184,7 @@ Player.prototype.shoot = function()
                     layer : this.layer,
                     startAngle : this.angle,
                     spritesheet : this.spritesheetBullet,
+                    speed : 10,
                     anims : c.ANIMATIONS["BULLET_FIRE"],
                 }));
     

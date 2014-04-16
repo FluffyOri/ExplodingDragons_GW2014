@@ -2,6 +2,7 @@ $(function() {
     //requirements
     var c         = require("./config/constantes");
     var world     = require("./world");
+    var stats     = require("../lib/stats.js");
     var input     = require("./controllers/inputs");
     var loader    = require("./controllers/loader");
     var Player    = require("./models/player");
@@ -38,7 +39,6 @@ $(function() {
                 //         initGame();                        
                 //     });
                 // });
-                
                 $("#menuScreen").hide();
                 $("#gameScreen").show()
                 initGame();
@@ -61,8 +61,13 @@ $(function() {
     //looping at 60 frames per second
     function gameloop()
     {
+        stats.begin();
+        
         world.run();
         //manageTime();
+
+        stats.end();
+
         requestAnimationFrame(gameloop);
     }
 

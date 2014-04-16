@@ -31,9 +31,10 @@ var LightShip = function LightShip(params)
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['fly'];
     this.animY             = this.activeAnim["animY"];
 
-    this.precision         = [ -10, -5, 0, 0, 0, 5, 10];
 
-    this.colliderPadding = 0;
+    this.precision         = [ -10, -5, 0, 0, 0, 5, 10];
+    this.colliderPadding   = 0;
+    this.visible           = false;
 
     var self = this;
     this.on("set animation", function(name) {
@@ -49,9 +50,9 @@ var LightShip = function LightShip(params)
 
     this.run = function()
     {
+        this.setFocus();
         this.move();
         this.limits();        
-        this.setFocus();
         this.shoot();
         this.collisions();
         this.animate();
@@ -66,17 +67,26 @@ LightShip.prototype.move = function()
 
 LightShip.prototype.limits = function()
 {
-    // if (this.position.x < 0 || this.position.x + this.size.width > c.GAME_WIDTH ||
-    //     this.position.y < 0 || this.position.y + this.size.height > c.GAME_HEIGHT)
-    // {
-    //     this.angle += Math.PI;        
-    //     this.direction = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
-    // }
+    this.isVisible();
+
+    if (this.visible)
+    {
+        if (this.position.x < 0 || this.position.x + this.size.width  > c.GAME_WIDTH ||
+            this.position.y < 0 || this.position.y + this.size.height > c.GAME_HEIGHT)
+        {
+            var angle = utils.getAngle(this.position, this.targetPos);
+            this.moveDirection = { x : Math.cos(angle), y : Math.sin(angle) };
+        }        
+    }
 }
 
-LightShip.prototype.isInScreen = function()
+LightShip.prototype.isVisible = function()
 {
-    //if (this.position.x > 0 && this.position.x + this.size.x < c.CANVAS_WIDTH)
+    if (this.position.x > 0 && this.position.x + this.size.width  < c.CANVAS_WIDTH &&
+        this.position.y > 0 && this.position.y + this.size.height < c.CANVAS_HEIGHT && !this.visible)
+    {
+        this.visible = true;
+    }
 }
 
 LightShip.prototype.setFocus = function()
@@ -140,6 +150,7 @@ LightShip.prototype.shoot = function()
                 startAngle : this.angle + randomAim,
                 speed : 10,
                 layer : this.layer,
+                speed : 6,
                 spritesheet : this.spritesheetBullet,
                 spriteSize : { width : 128, height : 18 },
                 anims : c.ANIMATIONS["BULLET_ENEMY"],

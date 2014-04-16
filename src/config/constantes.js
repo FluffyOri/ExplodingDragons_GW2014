@@ -18,7 +18,7 @@ module.exports = {
             },
             "idle" :
             {
-                "rate"  : 2,
+                "rate"  : 4,
                 "length" : 12,
                 "animY"   : 128,
                 "loop" : true
