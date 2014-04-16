@@ -17,7 +17,7 @@ var Bullet = function Bullet(params)
     this.angle       = params.startAngle || 0;
     
     this.spritesheet = params.spritesheet;
-    this.spriteSize  = params.spriteSize || { width : 104, height : 36 };
+    this.spriteSize  = params.spriteSize || { width : 290, height : 140 };
     this.anims       = params.anims;
     this.activeAnim  = this.anims[params.activeAnim] || this.anims['basic'];
     this.animY       = this.activeAnim["animY"];

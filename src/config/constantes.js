@@ -11,28 +11,28 @@ module.exports = {
         {
             "fly" :
             {
-                "rate"  : 11,
+                "rate"  : 9,
                 "length" : 12,
                 "animY"   : 0,
                 "loop" : true
             },
             "idle" :
             {
-                "rate"  : 8,
+                "rate"  : 6,
                 "length" : 12,
                 "animY"   : 128,
                 "loop" : true
             },
             "flyShooting" :
             {
-                "rate"  : 11,
+                "rate"  : 9,
                 "length" : 12,
                 "animY"   : 256,
                 "loop" : true
             },
             "idleShooting" :
             {
-                "rate"  : 8,
+                "rate"  : 6,
                 "length" : 12,
                 "animY"   : 384,
                 "loop" : true

@@ -176,10 +176,10 @@ Player.prototype.shoot = function()
                 {
                     playerID : this.playerID,
                     position : { 
-                        x : (this.position.x + this.size.width / 2)  + this.vecDir.x * canonDistance - 6,
-                        y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 6
+                        x : (this.position.x + this.size.width / 2)  + this.vecDir.x * canonDistance - 7,
+                        y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 7
                     },
-                    size : { width : 26, height : 9 },
+                    size : { width : 29, height : 14 },
                     startAngle : this.angle,
                     spritesheet : this.spritesheetBullet,
                     anims : c.ANIMATIONS["BULLET_FIRE"],
