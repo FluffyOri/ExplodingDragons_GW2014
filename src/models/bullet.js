@@ -11,8 +11,8 @@ var Bullet = function Bullet(params)
     this.position    = params.position;
     this.size        = params.size       || { width : 5, height : 5 };
     this.color       = params.color      || "red";
-    this.speed       = params.speed      || 10;
-    this.zIndex      = params.zIndex     || 0;
+    this.speed       = params.speed      || 20;
+    this.zIndex      = params.zIndex     || 900;
     this.context     = params.context    || world.context;
     this.angle       = params.startAngle || 0;
     

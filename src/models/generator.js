@@ -39,7 +39,7 @@ Generator.prototype.popObject = function()
             case "left":
                 objectParams.position = {
                     x : - objectParams.size.width,
-                    y : randomIntFromInterval(0, c.CANVAS_HEIGHT - objectParams.size.height) 
+                    y : randomIntFromInterval(0, c.CANVAS_HEIGHT - objectParams.size.height/2) 
                 }
                 objectParams.angle = 0;
             break;
@@ -47,9 +47,17 @@ Generator.prototype.popObject = function()
             case "right":
                 objectParams.position = {
                     x : c.CANVAS_WIDTH,
-                    y : randomIntFromInterval(0, c.CANVAS_HEIGHT - objectParams.size.height)
+                    y : randomIntFromInterval(0, c.CANVAS_HEIGHT - objectParams.size.height/2)
                 }
                 objectParams.angle = Math.PI;
+            break;
+
+            case "top":
+                objectParams.position = {
+                    x : randomIntFromInterval(0, c.CANVAS_WIDTH - objectParams.size.width/2),
+                    y : - objectParams.size.height
+                }
+                objectParams.angle = 3*Math.PI/2;
             break;
         }
 
@@ -70,7 +78,7 @@ Generator.prototype.chooseSide = function()
 
 Generator.prototype.scheduleNextPop = function()
 {
-    return randomIntFromInterval(this.delayInterval.max, this.delayInterval.min);
+    return randomIntFromInterval(this.delayInterval.min, this.delayInterval.max);
 }
 
 module.exports = Generator;

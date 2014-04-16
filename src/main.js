@@ -25,8 +25,8 @@ $(function() {
                 anims             : c.ANIMATIONS[prefabs.players[gamepadID].anims],
                 position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT - 150 },
                 size              : { width : 96, height : 96 },
-                speed             : 3,
-                attackDelay       : 250
+                speed             : 8,
+                attackDelay       : 500
             }));
 
             if (world.find("tag", "player").length >= 1)
@@ -51,6 +51,8 @@ $(function() {
         world.state = "ingame";
 
         setGenerators();
+
+        initDecor();
 
         requestAnimationFrame(gameloop);
     }
@@ -88,17 +90,35 @@ $(function() {
     {
         //islands
         world.create(new Generator({
-            delayInterval : { min : 1000, max : 5000 },
+            delayInterval : { min : 8000, max : 20000 },
             sides : ["right"],
             objectClass : Decor,
             objectParams : {
-                speed : 0.5,
-                size : { width : 100, height : 100 },
+                speed : 0.4,
+                size : { width : 200, height : 200 },
                 spritesheet : world.manifest.images["islands.png"],
-                spriteSize : { width : 500, height : 500 },
+                spriteSize : { width : 250, height : 250 },
                 spritePos : { x : 0, y : 0 }
             }
         }));
+    }
+
+    function initDecor()
+    {
+        //island
+        for (var i = 0; i < 750; i += 250)
+        {
+            world.create(new Decor(
+            {
+                speed : 0.4,
+                size : { width : 200, height : 200 },
+                angle : Math.PI,
+                position : { x : i, y : i},
+                spritesheet : world.manifest.images["islands.png"],
+                spriteSize : { width : 250, height : 250 },
+                spritePos : { x : 0, y : 0 }
+            }));
+        }
     }
 
     loader(initMenu);
