@@ -15,6 +15,7 @@ function setGenerators()
         sides : ["right"],
         objectClass : Decor,
         objectParams : {
+            marginInterval : 50,
             speed : 0.4,
             size : { width : 200, height : 200 },
             spritesheet : world.manifest.images["islands.png"],
@@ -32,6 +33,7 @@ function setGenerators()
         objectParams : {
             size : { width : 150, height : 150 },
             zIndex : 10,
+            marginInterval : 50,
             spritesheet : world.manifest.images["clouds_foreground.png"],
             spriteSize : { width : 250, height : 192 },
             spritePos : { x : 0, y : 0 }
@@ -47,6 +49,7 @@ function setGenerators()
         objectParams : {
             size : { width : 150, height : 150 },
             zIndex : 2000,
+            marginInterval : 50,
             spritesheet : world.manifest.images["clouds_first.png"],
             spriteSize : { width : 250, height : 192 },
             spritePos : { x : 0, y : 0 }
@@ -55,12 +58,14 @@ function setGenerators()
 
     //light ship
     world.create(new Generator({
-        startDelay : 1500,
-        delayInterval : { min : 1000, max : 2000 },
+        startDelay : 0,
+        delayInterval : { min : 500, max : 1000 },
         sides : ["left", "right", "top", "bottom"],
         objectClass : LightShip,
         objectParams : {
-            speed : 1,
+            focusPlayer : true,        
+            marginInterval : 0,
+            speed : 3,
             attackDelay : 2000,
             size : { width : 48, height : 48 },
             spritesheet : world.manifest.images["light_ship.png"],
