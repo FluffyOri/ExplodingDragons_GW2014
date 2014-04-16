@@ -31,6 +31,8 @@ var LightShip = function LightShip(params)
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['fly'];
     this.animY             = this.activeAnim["animY"];
 
+    this.precision         = [ -10, -5, 0, 0, 0, 5, 10];
+
     this.colliderPadding = 0;
 
     var self = this;
@@ -86,7 +88,7 @@ LightShip.prototype.setFocus = function()
         {
             this.targetPos = 
             {
-                x : players[i].position.x + players[i].size.width / 2 ,
+                x : players[i].position.x + players[i].size.width / 2,
                 y : players[i].position.y + players[i].size.height / 2 
             }
         }
@@ -125,6 +127,8 @@ LightShip.prototype.shoot = function()
             var canonDistance = this.size.width / 2;
         }
 
+        var randomAim = this.precision[Math.floor(Math.random() * this.precision.length)] * Math.PI/180;
+
         world.create(new Bullet(
             {
                 playerID : this.playerID,
@@ -132,8 +136,9 @@ LightShip.prototype.shoot = function()
                     x : (this.position.x + this.size.width / 2)  + this.direction.x * canonDistance - 32,
                     y : (this.position.y + this.size.height / 2) + this.direction.y * canonDistance - 5
                 },
-                size : { width : 64, height : 10 },
-                startAngle : this.angle,
+                size : { width : 28, height : 8 },
+                startAngle : this.angle + randomAim,
+                speed : 10,
                 layer : this.layer,
                 spritesheet : this.spritesheetBullet,
                 spriteSize : { width : 128, height : 18 },
