@@ -1,5 +1,8 @@
 var EventEmitter = require("../lib/events-emitter.js");
-
+    //this.elapsedTime += Date.now() - this.lastUpdate;
+    //this.lastUpdate = Date.now();
+    //this.elapsedTime = 0;
+    //this.frameSinceLastState = 0;
 var World = function World()
 {
     this.gameObjects = [];

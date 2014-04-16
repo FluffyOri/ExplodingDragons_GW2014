@@ -5,25 +5,31 @@ var addRenderSystem = require("../modules/render");
 
 var Ennemis = function Ennemis(params)
 {
-	this.id			= params.id;
-	this.tag		= params.tag;
-	this.position 	= params.position 	|| { x : 100, y : 100};
-	this.size 		= params.size 		|| {width : 50, height :50};
-	this.speed 		= params.speed		|| 10;
+    this.id                = world.gameObjects.length;
+    this.tag               = params.tag;
+    this.destructible      = true;
+	this.x 				   = params.x;
+	this.y                 = params.y;
+	this.size 			   = params.size 		|| {width : 50, height :50};
+	this.speed 			   = params.speed		|| 10;
+	this.position 	   	   = {
+								x : params.x,
+								y : params.y
+							}
 	// 1 = droite & -1 = gauche;
-	this.direction 	= params.direction 	|| 1;
-	this.context 	= params.context 	|| world.context;
-	this.color 		= params.color 		|| "red";
-	this.spritesheet= params.image;
-	this.angle 		= params.startAngle || 0;
-	this.anims		= params.anims;
-	this.activeAnim = //this.anims[params.activeAnim] || this.anims['fly'];
-	this.firstPosition = this.position;
-	this.oriX = this.position.x;
-	this.oriY = this.position.y;
-	this.type = type;
-	this.spline = spline;
-
+	this.direction 	       = params.direction 	|| 1;
+	this.context 	       = params.context 	|| world.context;
+	this.color 		       = params.color 		|| "red";
+	this.spritesheet       = params.image;
+	this.angle 		       = params.startAngle  || 0;
+	this.anims		       = params.anims;
+	//this.activeAnim = //this.anims[params.activeAnim] || this.anims['fly'];
+	this.firstPosition     = this.position;
+	this.oriX              = params.x;
+	this.oriY              = params.y;
+	this.type              = params.type;
+	this.spline = [];
+	this.path = [];
 	for (var i = 0 ; i < this.spline.length-4 ; i++){
 		for (var t = 0; t < 1; t += 0.05) {
 		    var ax = (-this.spline[i][0] + 3*this.spline[i+1][0] - 3*this.spline[i+2][0] + this.spline[i+3][0]) / 6;
@@ -52,12 +58,13 @@ var Ennemis = function Ennemis(params)
 	}
 }
 Ennemis.prototype.move = function(){
-	//var angle = Math.atan2(c.CANVAS_WIDTH /2 - this.position.x, c.CANVAS_HEIGHT/2 - this.position.y)
-	var angle = Math.atan2(c.CANVAS_WIDTH /2 - this.position.x, c.CANVAS_HEIGHT/2 - this.position.y);
-	var thisTime = new Date().getTime();
-	this.position.x = Math.cos(angle) * thisTime + this.firstPosition.x;
-	this.position.y = Math.sin(angle) * thisTime + this.firstPosition.y;
-
+	if (this.pathIndex < this.path.length){
+	   	this.x =this.path[this.pathIndex][0] + this.oriX;
+		this.y =this.path[this.pathIndex][1] + this.oriY;
+	}
+	this.pathIndex+=2;
+	if (this.pathIndex >= this.path.length -3)
+		return true
 }
 Ennemis.prototype.kamikaze = function(){
 	var depart = this.cible;

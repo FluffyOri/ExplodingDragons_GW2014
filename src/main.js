@@ -10,11 +10,13 @@ $(function() {
     var Ennemis   = require("./models/ennemis");
     var Generator = require("./models/generator");
     var prefabs   = require("./config/prefabs");
+    var manageTime= require("./config/manageTime");
 
     function initMenu()
     {
         world.state = "menu";
         defineCanvas();
+
 
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
@@ -29,14 +31,6 @@ $(function() {
                 speed             : 3,
                 attackDelay       : 250
             }));
-
-            world.gameObjects.push(new Ennemis(
-            {
-                x : 50,
-                y :150,
-                position :{ x : 400, y :400 }
-            }));
-
             if (world.find("tag", "player").length >= 1)
             {
                 // $("#menuScreen").fadeOut(function() {
@@ -66,6 +60,7 @@ $(function() {
     function gameloop()
     {
         world.run();
+        manageTime();
         requestAnimationFrame(gameloop);
     }
 

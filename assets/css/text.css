@@ -3,7 +3,10 @@ body
     background-color: white;
     margin : 0;
 }
-
+#maincanvas
+{
+    position: absolute
+}
 #wrapper
 {    
     border : 1px solid pink;
@@ -43,4 +46,37 @@ body
     50%  { background-image: url("../images/sea_background_3.png"); }
     75%  { background-image: url("../images/sea_background_2.png"); }
     to   { background-image: url("../images/sea_background_1.png"); }
+}
+.HuPlayer
+{
+    display: none;
+}
+#HudP1
+{
+    /*display: block;*/
+    width: 200px;
+    height: 150px;
+    background-color: red;
+    position: absolute;
+    margin-top:0;
+    margin-left: 0;
+}
+#HudP2
+{
+    /*display: block;*/
+    width: 200px;
+    height: 150px;
+    background-color: green;
+    position: absolute;
+    margin-left: 1200px; 
+}
+.HudEnnemies
+{
+    /*display: block;*/
+    width: 400px;
+    height:100px;
+    background-color: black;
+    position: absolute;
+    margin-top: 70px;
+    margin-left: 460px;
 }
