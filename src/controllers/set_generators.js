@@ -10,7 +10,7 @@ function setGenerators()
     //islands
     world.create(new Generator({
         tag : "island_generator",
-        delayInterval : { min : 9000, max : 20000 },
+        delayInterval : { min : 10000, max : 22000 },
         startDelay : 0,
         sides : ["right"],
         objectClass : Decor,
