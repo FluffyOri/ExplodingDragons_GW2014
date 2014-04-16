@@ -10,7 +10,7 @@ var Player = function Player(params)
 {
     this.id                = world.gameObjects.length;
     this.tag               = params.tag;
-    this.destructible      = true;
+    this.layer             = "player";
     this.playerID          = params.playerID;
     this.gamepad           = input.gamepads[this.playerID];
     this.position          = params.position         || { x : 0, y : 0 };
@@ -62,6 +62,7 @@ var Player = function Player(params)
         this.dash();
         this.limits();
         this.shoot();
+        this.collisions();
         this.animate();
     }
 }
@@ -180,6 +181,7 @@ Player.prototype.shoot = function()
                         y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 7
                     },
                     size : { width : 30, height : 14 },
+                    layer : this.layer,
                     startAngle : this.angle,
                     spritesheet : this.spritesheetBullet,
                     anims : c.ANIMATIONS["BULLET_FIRE"],
@@ -192,6 +194,25 @@ Player.prototype.shoot = function()
     else
     {
         this.animY = this.activeAnim["animY"];
+    }
+}
+
+Player.prototype.collisions = function()
+{
+    for (var i = 0; i < world.gameObjects.length; i++)
+    {
+        var other = world.gameObjects[i];
+
+        if (other.layer === "enemy" || (other.layer === "player" && other.playerID !== this.playerID))
+        {
+            if (this.position.x + this.size.width  > other.position.x && this.position.x < other.position.x + other.size.width &&
+                this.position.y + this.size.height > other.position.y && this.position.y < other.position.y + other.size.height)
+            {
+                console.log("huehue")
+                this.dead = true;
+                other.dead = true;
+            }
+        }
     }
 }
 
