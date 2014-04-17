@@ -65,10 +65,20 @@ module.exports = {
         {
             "EXPLOSION" :
             {
-                "rate"   : 2,
+                "rate"   : 1,
                 "length" : 14,
                 "animY"  : 0,
                 "loop"   : false
+            }
+        },
+        "KAMIKAZE" :
+        {
+            "fly" :
+            {
+                "rate"   : 2,
+                "length" : 8,
+                "animY"  : 0,
+                "loop"   : true
             }
         }
     }

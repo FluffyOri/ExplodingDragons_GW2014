@@ -3,6 +3,7 @@ var c         = require("../config/constantes");
 var world     = require("../world");
 var Decor     = require("../models/decor");
 var LightShip = require("../models/light_ship");
+var Kamikaze  = require("../models/Kamikaze");
 var Generator = require("../models/generator");
 
 function setGenerators()
@@ -91,6 +92,25 @@ function setGenerators()
             spritesheet : world.manifest.images["light_ship.png"],
             spritesheetBullet : world.manifest.images["enemy_bullet.png"],
             anims : c.ANIMATIONS["LIGHT_SHIP"],
+            spriteSize : { width : 128, height : 128 },
+            spritePos : { x : 0, y : 0 }
+        }
+    }));
+
+    //KAMIKAZE
+    world.create(new Generator({
+        startDelay : 0,
+        delayInterval : { min : 2500, max : 6000 },
+        sides : ["left", "right", "top", "bottom"],
+        focusPlayer : true,        
+        objectClass : Kamikaze,
+        objectParams : {
+            speed : 10,
+            attackDelay : 5000,
+            marginInterval : 0,
+            size : { width : 55, height : 55 },
+            spritesheet : world.manifest.images["phoenix.png"],
+            anims : c.ANIMATIONS["KAMIKAZE"],
             spriteSize : { width : 128, height : 128 },
             spritePos : { x : 0, y : 0 }
         }

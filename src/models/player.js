@@ -26,8 +26,8 @@ var Player = function Player(params)
     this.attackDelay       = params.attackDelay      || 100;
     this.prevShot          = 0;
     
-    this.hitPoints         = params.hitPoints        || 10;
-    this.maxHitPoints      = this.hitPoints;
+    this.hitPoints         = params.hitPoints        || 100;
+    this.maxHitPoints      = this.hitPoints          || 100;
     this.shielded          = false;
     this.respawnRange      = params.respawnRange     || 200;
 
@@ -234,7 +234,7 @@ Player.prototype.collisions = function()
                     other.dead = true;
                     world.create(new EXPLOSION({
                         position : { x : other.position.x, y : other.position.y },
-                        size : { width  : other.size.width, height : other.size.width },
+                        size : { width  : other.size.width * 1.5, height : other.size.width * 1.5 },
                         zIndex : this.zIndex+1,
                         spritesheet : world.manifest.images["dragon_explosion.png"],
                         anims  : c.ANIMATIONS["EXPLOSION"],
@@ -255,7 +255,7 @@ Player.prototype.respawn = function()
 {
     world.create(new EXPLOSION({
         position : { x : this.position.x - 100, y : this.position.y - 100 },
-        size : { width  : this.size.width + 200, height : this.size.width + 200 },
+        size : { width  : this.size.width + 100, height : this.size.width + 100 },
         zIndex : this.zIndex+1,
         spritesheet : world.manifest.images["dragon_explosion.png"],
         anims  : c.ANIMATIONS["EXPLOSION"],
