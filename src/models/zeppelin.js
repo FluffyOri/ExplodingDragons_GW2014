@@ -7,7 +7,7 @@ var Bullet          = require("../models/bullet");
 var EXPLOSION       = require("../models/explosion");
 var EventEmitter    = require("../../lib/events-emitter.js");
 
-var Kamikaze = function Kamikaze(params)
+var Zeppelin = function Zeppelin(params)
 {
     this.id                = world.gameObjects.length;
     this.tag               = params.tag;
@@ -15,22 +15,27 @@ var Kamikaze = function Kamikaze(params)
     this.playerID          = -1;
     this.position          = params.position         || { x : 0, y : 0 };
     this.size              = params.size             || { width : 50, height : 50 };
-    this.speed             = params.speed            || 8;
+    this.speed             = params.speed            || 6;
     this.zIndex            = params.zIndex           || 500;
     this.context           = params.context          || world.context;
     this.angle             = params.angle            || 0;
     this.moveDirection     = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     this.direction         = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     
-    this.hitPoints         = params.hitPoints || 1;
+    this.attackDelay       = params.attackDelay      || 5000;
+    this.prevShot          = 0;
+    this.hitPoints         = params.hitPoints || 2;
     this.damage            = params.damage || 1;
 
     this.spritesheet       = params.spritesheet;
+    this.spritesheetBullet = params.spritesheetBullet;
     this.spriteSize        = params.spriteSize || { width : 128, height : 128 };
     this.anims             = params.anims;
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['fly'];
     this.animY             = this.activeAnim["animY"];
 
+
+    this.precision         = [ -10, -5, 0, 0, 0, 5, 10];
     this.colliderPadding   = 0;
     this.visible           = false;
 
@@ -45,24 +50,25 @@ var Kamikaze = function Kamikaze(params)
             self.isAnimating = true;
         }
     });
-    
+
     this.run = function()
     {
         this.setFocus();
         this.move();
-        this.limits();
+        this.limits();        
+        this.shoot();
         this.collisions();
         this.animate();
     }
 }
 
-Kamikaze.prototype.move = function()
+Zeppelin.prototype.move = function()
 {
     this.position.x += this.moveDirection.x * this.speed;
     this.position.y += this.moveDirection.y * this.speed;
 }
 
-Kamikaze.prototype.limits = function()
+Zeppelin.prototype.limits = function()
 {
     this.isVisible();
 
@@ -77,7 +83,7 @@ Kamikaze.prototype.limits = function()
     }
 }
 
-Kamikaze.prototype.isVisible = function()
+Zeppelin.prototype.isVisible = function()
 {
     if (this.position.x > 0 && this.position.x + this.size.width  < c.CANVAS_WIDTH &&
         this.position.y > 0 && this.position.y + this.size.height < c.CANVAS_HEIGHT && !this.visible)
@@ -86,7 +92,7 @@ Kamikaze.prototype.isVisible = function()
     }
 }
 
-Kamikaze.prototype.setFocus = function()
+Zeppelin.prototype.setFocus = function()
 {
     var players = world.find("tag", "player");
     for (var i = 0; i < players.length; i++)
@@ -114,10 +120,50 @@ Kamikaze.prototype.setFocus = function()
 
     this.angle = utils.getAngle(this.position, this.targetPos);    
     this.direction = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
-    this.moveDirection = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
 }
 
-Kamikaze.prototype.collisions = function()
+Zeppelin.prototype.shoot = function()
+{
+    var datTime = new Date().getTime();
+
+    this.animY = this.activeAnim["animY"] + 128;
+
+    if (datTime - this.prevShot > this.attackDelay)
+    {
+
+        if (this.moving)
+        {
+            var canonDistance = this.size.width / 2;
+        }
+        else
+        {
+            var canonDistance = this.size.width / 2;
+        }
+
+        var randomAim = this.precision[Math.floor(Math.random() * this.precision.length)] * Math.PI/180;
+
+        world.create(new Bullet(
+            {
+                playerID : this.playerID,
+                position : { 
+                    x : (this.position.x + this.size.width / 2)  + this.direction.x * canonDistance - 32,
+                    y : (this.position.y + this.size.height / 2) + this.direction.y * canonDistance - 5
+                },
+                size : { width : 30, height : 12 },
+                startAngle : this.angle + randomAim,
+                speed : 10,
+                layer : this.layer,
+                spritesheet : this.spritesheetBullet,
+                spriteSize : { width : 128, height : 18 },
+                anims : c.ANIMATIONS["BULLET_ENEMY"],
+            }));
+
+        this.prevShot = new Date().getTime();
+        this.attackLimit -= 10;
+    }
+}
+
+Zeppelin.prototype.collisions = function()
 {
     for (var i = 0; i < world.gameObjects.length; i++)
     {
@@ -164,13 +210,13 @@ Kamikaze.prototype.collisions = function()
     }
 }
 
-Kamikaze.prototype.isDead = function()
+Zeppelin.prototype.isDead = function()
 {
     if (this.hitPoints <= 0)
         return true;
 }
 
-EventEmitter.mixins(Kamikaze.prototype);
-addRenderSystem(Kamikaze.prototype);
+EventEmitter.mixins(Zeppelin.prototype);
+addRenderSystem(Zeppelin.prototype);
 
-module.exports = Kamikaze;
+module.exports = Zeppelin;
