@@ -24,7 +24,9 @@ var LightShip = function LightShip(params)
     
     this.attackDelay       = params.attackDelay      || 5000;
     this.prevShot          = 0;
-    
+    this.hitPoints         = params.hitPoints || 1;
+    this.damage            = params.damage || 1;
+
     this.spritesheet       = params.spritesheet;
     this.spritesheetBullet = params.spritesheetBullet;
     this.spriteSize        = params.spriteSize || { width : 128, height : 128 };
@@ -169,28 +171,28 @@ LightShip.prototype.collisions = function()
 
         if (other.layer === "player")
         {
-            if (this.position.x + this.size.width > other.position.x - other.colliderPadding  && 
-                this.position.x < other.position.x + other.size.width + other.colliderPadding &&
-                this.position.y + this.size.height > other.position.y - other.colliderPadding && 
-                this.position.y < other.position.y + other.size.height + other.colliderPadding)
+            if (this.position.x + this.size.width > other.position.x + other.colliderPadding  && 
+                this.position.x < other.position.x + other.size.width - other.colliderPadding &&
+                this.position.y + this.size.height > other.position.y + other.colliderPadding && 
+                this.position.y < other.position.y + other.size.height - other.colliderPadding)
             {
-                this.dead = true;
+                this.hitPoints -= other.damage;
                 world.create(new EXPLOSION({
                     position : { x : this.position.x, y : this.position.y },
                     size : { width  : this.size.width, height : this.size.width },
                     zIndex : this.zIndex+1,
-                    spritesheet : world.manifest.images["dragon_explosion.png"], //put enemy explosion image when fixed
+                    spritesheet : world.manifest.images["enemy_explosion.png"], //put enemy explosion image when fixed
                     anims  : c.ANIMATIONS["EXPLOSION"],
                     spriteSize : { width : 380, height : 380 }
                 }));
                 if (other.tag === "bullet")
                 {
-                    other.dead = true;
+                    this.hitPoints -= other.damage;
                     world.create(new EXPLOSION({
                         position : { x : other.position.x, y : other.position.y },
                         size : { width  : other.size.width, height : other.size.width },
                         zIndex : this.zIndex+1,
-                        spritesheet : world.manifest.images["dragon_explosion.png"],
+                        spritesheet : world.manifest.images["enemy_explosion.png"],
                         anims  : c.ANIMATIONS["EXPLOSION"],
                         spriteSize : { width : 380, height : 380 }
                     }));                    
@@ -198,6 +200,17 @@ LightShip.prototype.collisions = function()
             }
         }
     }
+
+    if (this.isDead())
+    {
+        this.dead = true;
+    }
+}
+
+LightShip.prototype.isDead = function()
+{
+    if (this.hitPoints <= 0)
+        return true;
 }
 
 EventEmitter.mixins(LightShip.prototype);

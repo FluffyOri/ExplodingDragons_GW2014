@@ -7,9 +7,9 @@ module.exports =
             spritesheetBullet : "red_dragon_bullet.png"
         },
         { 
-            spritesheet : "green_dragon.png",
+            spritesheet : "gold_dragon.png",
             anims : "DRAGON_PLAYER",
-            spritesheetBullet : "green_dragon_bullet.png"
+            spritesheetBullet : "gold_dragon_bullet.png"
         }
     ]
 }
