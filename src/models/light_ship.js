@@ -25,7 +25,7 @@ var LightShip = function LightShip(params)
     this.attackDelay       = params.attackDelay      || 5000;
     this.prevShot          = 0;
     this.hitPoints         = params.hitPoints        || 2;
-    this.damageBullet      = params.damageBullet     || 5;
+    this.damageBullet      = params.damageBullet     || 2;
     this.damage            = params.damage           || 10;
 
     this.spritesheet       = params.spritesheet;

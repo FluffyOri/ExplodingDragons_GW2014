@@ -24,6 +24,7 @@ var Player = function Player(params)
     
     this.attackLimit       = params.attackLimit      || 100;
     this.attackDelay       = params.attackDelay      || 100;
+    this.damage            = params.damage           || 1;
     this.prevShot          = 0;
     
     this.hitPoints         = params.hitPoints        || 100;
@@ -198,6 +199,7 @@ Player.prototype.shoot = function()
                     },
                     size : { width : 40, height : 20 },
                     layer : this.layer,
+                    damage : this.damage,
                     startAngle : this.angle,
                     spritesheet : this.spritesheetBullet,
                     speed : 20,

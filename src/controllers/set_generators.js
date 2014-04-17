@@ -102,7 +102,7 @@ function setGenerators()
     //ZEPPELINS
     world.create(new Generator(
     {
-        startDelay : 0,
+        startDelay : 60000,
         delayInterval : { min : 3000, max : 6000 },
         sides : ["left", "right", "top", "bottom"],
         focusPlayer : true,        
