@@ -117,6 +117,38 @@ $(function() {
                 spritePos : { x : 0, y : 0 }
             }));
         }
+
+        //clouds foreground
+        for (var i = 0; i < 750; i += 250)
+        {
+            world.create(new Decor(
+            {
+                nbFrames : 10,
+                size : { width : 200, height : 200 },
+                zIndex : 10,
+                angle : Math.PI,
+                position : { x : i, y : i},
+                spritesheet : world.manifest.images["clouds_foreground.png"],
+                spriteSize : { width : 250, height : 250 },
+                spritePos : { x : 0, y : 0 }
+            }));
+        }
+
+        //clouds 1st
+        for (var i = 0; i < 750; i += 250)
+        {
+            world.create(new Decor(
+            {
+                nbFrames : 10,
+                size : { width : 200, height : 200 },
+                zIndex : 2000,
+                angle : Math.PI,
+                position : { x : i, y : i},
+                spritesheet : world.manifest.images["clouds_first.png"],
+                spriteSize : { width : 250, height : 250 },
+                spritePos : { x : 0, y : 0 }
+            }));
+        }
     }
 
     loader(initMenu);

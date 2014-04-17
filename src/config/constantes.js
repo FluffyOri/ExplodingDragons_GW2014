@@ -80,6 +80,16 @@ module.exports = {
                 "animY"  : 0,
                 "loop"   : true
             }
+        },
+        "ZEPPELIN" :
+        {
+            "fly" :
+            {
+                "rate"   : 2,
+                "length" : 4,
+                "animY"  : 0,
+                "loop"   : true
+            }
         }
     }
 }
