@@ -48,33 +48,31 @@ $(function() {
                 $("#gameScreen").show()
                 initGame();
             }
+        world.sound.game.play();
         });
-        
         input.startPollingGamepads();
     }
 
     function initGame()
     {
         world.state = "ingame";
+        world.sound.game.play();
 
         setGenerators();
 
         initDecor();
-
         world.sortGameobjects();
         setInterval(world.sortGameobjects, 1000);
-
         requestAnimationFrame(gameloop);
+
     }
 
     //looping at 60 frames per second
     function gameloop()
     {
         stats.begin();
-        
         world.run();
         //manageTime();
-
         stats.end();
 
         requestAnimationFrame(gameloop);

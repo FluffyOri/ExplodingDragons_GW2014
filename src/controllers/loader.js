@@ -22,10 +22,21 @@ function loader(callback)
     world.sound= {};
     world.sound.shoot = new Howl({
         urls: ["assets/music/tire_dragon.mp3"],
-        volume : 0.6,
+        volume : 0.2,
         onload: function(){
             loader.soundLoaded++;
             if(loader.soundLoaded == loader.soundLength){
+                run();
+            }
+        }
+    })
+    world.sound.game= new Howl({
+        urls: ["assets/music/musique_projet_gameweek.mp3"],
+        loop: true,
+        volume : 0.1,
+        onload: function(){
+            loader.soundLoaded++;
+            if(loading.soundLoaded == loader.soundLength){
                 run();
             }
         }
