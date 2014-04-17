@@ -279,7 +279,7 @@ Player.prototype.shield = function()
 
     var self = this;
     setTimeout(function() {
-        self.speed *= this.speedMalus;
+        self.speed *= self.speedMalus;
         self.shielded = false;
         self.trigger("set animation", (this.moving) ? "fly" : "idle");
     }, 3000);
