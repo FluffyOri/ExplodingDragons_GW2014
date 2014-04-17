@@ -76,6 +76,7 @@ var Player = function Player(params)
         this.shoot();
         this.collisions();
         this.animate();
+        this.barrelife();
     }
 }
 
@@ -290,8 +291,18 @@ Player.prototype.isDead = function()
     if (this.hitPoints <= 0)
         return true;
 }
+Player.prototype.barrelife = function()
+{
+var who = "HudP"+ this.playerID.toString();
+
+this.barelife = $("#"+who);
+this.barelife.width(this.hitPoints * 225 / this.maxHitPoints);
+console.log(this.barelife.width());
+}
 
 EventEmitter.mixins(Player.prototype);
 addRenderSystem(Player.prototype);
+
+
 
 module.exports = Player;
