@@ -78,7 +78,7 @@ function setGenerators()
     //light ship
     world.create(new Generator({
         startDelay : 0,
-        delayInterval : { min : 2500, max : 6000 },
+        delayInterval : { min : 20, max : 40 },
         sides : ["left", "right", "top", "bottom"],
         focusPlayer : true,        
         objectClass : LightShip,

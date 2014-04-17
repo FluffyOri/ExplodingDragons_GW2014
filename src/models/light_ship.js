@@ -179,7 +179,7 @@ LightShip.prototype.collisions = function()
                     position : { x : this.position.x, y : this.position.y },
                     size : { width  : this.size.width, height : this.size.width },
                     zIndex : this.zIndex+1,
-                    spritesheet : world.manifest.images["dragon_explosion.png"], //put enemy explosion image when fixed
+                    spritesheet : world.manifest.images["enemy_explosion.png"], //put enemy explosion image when fixed
                     anims  : c.ANIMATIONS["EXPLOSION"],
                     spriteSize : { width : 380, height : 380 }
                 }));
@@ -190,7 +190,7 @@ LightShip.prototype.collisions = function()
                         position : { x : other.position.x, y : other.position.y },
                         size : { width  : other.size.width, height : other.size.width },
                         zIndex : this.zIndex+1,
-                        spritesheet : world.manifest.images["dragon_explosion.png"],
+                        spritesheet : world.manifest.images["enemy_explosion.png"],
                         anims  : c.ANIMATIONS["EXPLOSION"],
                         spriteSize : { width : 380, height : 380 }
                     }));                    
