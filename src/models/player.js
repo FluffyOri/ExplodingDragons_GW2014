@@ -188,6 +188,7 @@ Player.prototype.shoot = function()
                 }));
     
             this.prevShot = new Date().getTime();
+            world.sound.shoot.play();
             this.attackLimit -= 10;
         }
     }

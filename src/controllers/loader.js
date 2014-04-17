@@ -19,7 +19,17 @@ function loader(callback)
         var path = "assets/images/";
         world.manifest.images[images[i].replace(path, "")] = img;
     }
-
+    world.sound= {};
+    world.sound.shoot = new Howl({
+        urls: ["assets/music/tire_dragon.mp3"],
+        volume : 0.6,
+        onload: function(){
+            loader.soundLoaded++;
+            if(loader.soundLoaded == loader.soundLength){
+                run();
+            }
+        }
+    })
     loading();
 }
 
