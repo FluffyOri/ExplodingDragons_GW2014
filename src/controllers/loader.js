@@ -20,10 +20,9 @@ function loader(callback)
         var path = "assets/images/";
         world.manifest.images[images[i].replace(path, "")] = img;
     }
-
     world.manifest.sounds.shoot = new Howl({
         urls: [sounds["tire_dragon.mp3"]],
-        volume : 0.2,
+        volume : 0.13,
         onload: function(){
             count++;
         }
@@ -32,7 +31,7 @@ function loader(callback)
     world.manifest.sounds.game = new Howl({
         urls: [sounds["musique_projet_gameweek.mp3"]],
         loop: true,
-        volume : 0.1,
+        volume : 0.05,
         onload: function(){
             console.log("load music");
             count++;

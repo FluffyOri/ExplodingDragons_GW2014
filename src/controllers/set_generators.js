@@ -4,6 +4,7 @@ var world     = require("../world");
 var Decor     = require("../models/decor");
 var LightShip = require("../models/light_ship");
 var Kamikaze  = require("../models/Kamikaze");
+var Zeppelin  = require("../models/Zeppelin");
 var Generator = require("../models/generator");
 
 function setGenerators()
@@ -79,41 +80,62 @@ function setGenerators()
         }
     }));
 
+    //KAMIKAZE
+    world.create(new Generator(
+    {
+        startDelay : 10000,
+        delayInterval : { min : 500, max : 1000 },
+        sides : ["left", "right", "top", "bottom"],
+        focusPlayer : true,        
+        objectClass : Kamikaze,
+        objectParams : {
+            speed : 8,
+            marginInterval : 0,
+            size : { width : 55, height : 55 },
+            spritesheet : world.manifest.images["phoenix.png"],
+            anims : c.ANIMATIONS["KAMIKAZE"],
+            spriteSize : { width : 128, height : 128 },
+            spritePos : { x : 0, y : 0 }
+        }
+    }));
+
+    //ZEPPELINS
+    world.create(new Generator(
+    {
+        startDelay : 60000,
+        delayInterval : { min : 3000, max : 6000 },
+        sides : ["left", "right", "top", "bottom"],
+        focusPlayer : true,        
+        objectClass : Zeppelin,
+        objectParams : {
+            speed : 1,
+            attackDelay : 5000,
+            marginInterval : 0,
+            size : { width : 100, height : 100 },
+            spritesheet : world.manifest.images["zeppelin.png"],
+            spritesheetBullet : world.manifest.images["shoot_zeppelin.png"],
+            anims : c.ANIMATIONS["ZEPPELIN"],
+            spriteSize : { width : 128, height : 128 },
+            spritePos : { x : 0, y : 0 }
+        }
+    }));
+
     //light ship
-    world.create(new Generator({
-        tag : "lightShip",
-        startDelay : 0,
-        delayInterval : { min : 2500, max : 6000 },
+    world.create(new Generator(
+    {
+        startDelay : 45000,
+        delayInterval : { min : 3000, max : 6000 },
         sides : ["left", "right", "top", "bottom"],
         focusPlayer : true,        
         objectClass : LightShip,
         objectParams : {
-            speed : 1,
+            speed : 2,
             attackDelay : 5000,
             marginInterval : 0,
             size : { width : 48, height : 48 },
             spritesheet : world.manifest.images["light_ship.png"],
             spritesheetBullet : world.manifest.images["enemy_bullet.png"],
             anims : c.ANIMATIONS["LIGHT_SHIP"],
-            spriteSize : { width : 128, height : 128 },
-            spritePos : { x : 0, y : 0 }
-        }
-    }));
-
-    //KAMIKAZE
-    world.create(new Generator({
-        startDelay : 0,
-        delayInterval : { min : 2500, max : 6000 },
-        sides : ["left", "right", "top", "bottom"],
-        focusPlayer : true,        
-        objectClass : Kamikaze,
-        objectParams : {
-            speed : 10,
-            attackDelay : 5000,
-            marginInterval : 0,
-            size : { width : 55, height : 55 },
-            spritesheet : world.manifest.images["phoenix.png"],
-            anims : c.ANIMATIONS["KAMIKAZE"],
             spriteSize : { width : 128, height : 128 },
             spritePos : { x : 0, y : 0 }
         }
