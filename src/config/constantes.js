@@ -75,7 +75,7 @@ module.exports = {
         {
             "fly" :
             {
-                "rate"   : 2,
+                "rate"   : 5,
                 "length" : 8,
                 "animY"  : 0,
                 "loop"   : true
