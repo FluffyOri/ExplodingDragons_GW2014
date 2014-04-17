@@ -16,8 +16,8 @@ var Decor = function Decor(params)
     this.spritesheet = params.spritesheet;
     this.angle       = Math.random()*4 - 1;
     this.nbFrames    = params.nbFrames;
-    this.spritePos   = { x : (Math.floor(Math.random()*this.nbFrames)) * 250, y : 0 };
     this.spriteSize  = params.spriteSize || { width : 250, height : 250 };
+    this.spritePos   = { x : (Math.floor(Math.random()*this.nbFrames)) * this.spriteSize.width, y : 0 };
 
     this.run = function()
     {

@@ -25,18 +25,19 @@ function setGenerators()
         }
     }));
 
+    //Big Island
     world.create(new Generator({
         delayInterval : { min : 1000000000000000, max : 10000000000000000000000 },
         startDelay : 0,
         sides : ["right"],
         objectClass : Decor,
         objectParams : {
-            marginInterval : 100,
+            marginInterval : 0,
             nbFrames : 2,
             speed : 0.4,
-            size : { width : 400, height : 400 },
+            size : { width : 500, height : 500 },
             spritesheet : world.manifest.images["islands_spe.png"],
-            spriteSize : { width : 250, height : 250 },
+            spriteSize : { width : 300, height : 300 },
             spritePos : { x : 0, y : 0 }
         }
     }));
