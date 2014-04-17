@@ -28,7 +28,6 @@ var EXPLOSION = function EXPLOSION(params)
 
     var self = this;
     this.on("end animation", function() {
-        console.log("hue")
         self.dead = true;
     });
 }
