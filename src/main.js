@@ -11,12 +11,12 @@ $(function() {
     var setGenerators = require("./controllers/set_generators");
     var Ennemis   = require("./models/ennemis");
     var manageTime= require("./config/manageTime");
+    var Gauge     = require("./models/gaugeShoot.js");
 
     function initMenu()
     {
         world.state = "menu";
         defineCanvas();
-
 
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
@@ -32,6 +32,9 @@ $(function() {
                 colliderPadding   : -25,
                 attackDelay       : 500
             }));
+
+            // world.create(new Gauge({playerID : gamepadID}));
+
             if (world.find("tag", "player").length >= 1)
             {
                 // $("#menuScreen").fadeOut(function() {
@@ -100,6 +103,7 @@ $(function() {
         {
             world.create(new Decor(
             {
+                nbFrames : 10,
                 speed : 0.4,
                 size : { width : 200, height : 200 },
                 angle : Math.PI,

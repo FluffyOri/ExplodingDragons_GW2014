@@ -21,7 +21,7 @@ var LightShip = function LightShip(params)
     this.moveDirection     = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     this.direction         = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     
-    this.attackDelay       = params.attackDelay      || 100;
+    this.attackDelay       = params.attackDelay      || 5000;
     this.prevShot          = 0;
     
     this.spritesheet       = params.spritesheet;

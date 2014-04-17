@@ -36,6 +36,8 @@ var Player = function Player(params)
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['idle'];
     this.animY             = this.activeAnim["animY"];
 
+    // this.createGauge();
+
     this.colliderPadding   = params.colliderPadding || -20;
 
     if (this.playerID === 1)
@@ -69,7 +71,7 @@ var Player = function Player(params)
 
 // Player.prototype.createGauge = function()
 // {
-//     world.create(new Gauge())
+//     world.create(new Gauge({playerID : this.playerID}));
 // }
 
 Player.prototype.rotate = function()
@@ -184,7 +186,7 @@ Player.prototype.shoot = function()
                     layer : this.layer,
                     startAngle : this.angle,
                     spritesheet : this.spritesheetBullet,
-                    speed : 10,
+                    speed : 20,
                     anims : c.ANIMATIONS["BULLET_FIRE"],
                 }));
     
