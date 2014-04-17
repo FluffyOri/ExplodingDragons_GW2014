@@ -29,7 +29,7 @@ gulp.task('images', function() {
         .pipe(tap(function (file) {
             nbImg++;
             fs.appendFile(paths.manifest,
-                '\n\t"' + "assets/images/" + path.basename(file.path) + '",',
+                '\n\t"' + "assets/images/" + path.basename(file.path.toLowerCase()) + '",',
                 function() {
                     count++;
                     if (count === nbImg) {

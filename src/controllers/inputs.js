@@ -7,6 +7,7 @@ var gamepadSupport =
 {    
     prevRawGamepadTypes : [],
     gamepads : [],
+    pressedKeys : {},
     keys : {
         "A"          : 0,
         "B"          : 1,
@@ -46,6 +47,28 @@ var gamepadSupport =
         if (this.gamepads[gamepadID].buttons[this.keys[key]] > 0)
         {
             return true;
+        }
+    },
+
+    getKeyPress : function(key, gamepadID)
+    {
+        if (gamepadID === undefined)
+            gamepadID = 0;
+        if (!this.gamepads[gamepadID])
+        {
+            console.error("There is no gamepad associated with this ID : " + gamepadID);
+            return;
+        }
+
+        if (this.gamepads[gamepadID].buttons[this.keys[key]] > 0 && !this.pressedKeys[key])
+        {
+            this.pressedKeys[key] = true;
+            return true;
+        }
+
+        if (this.gamepads[gamepadID].buttons[this.keys[key]] === 0)
+        {
+            this.pressedKeys[key] = false;
         }
     },
 

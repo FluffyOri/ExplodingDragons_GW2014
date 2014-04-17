@@ -2,6 +2,7 @@ $(function() {
     //requirements
     var c         = require("./config/constantes");
     var world     = require("./world");
+    var stats     = require("../lib/stats.js");
     var input     = require("./controllers/inputs");
     var loader    = require("./controllers/loader");
     var Player    = require("./models/player");
@@ -10,12 +11,12 @@ $(function() {
     var setGenerators = require("./controllers/set_generators");
     var Ennemis   = require("./models/ennemis");
     var manageTime= require("./config/manageTime");
+    var Gauge     = require("./models/gaugeShoot.js");
 
     function initMenu()
     {
         world.state = "menu";
         defineCanvas();
-
 
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
@@ -25,12 +26,16 @@ $(function() {
                 spritesheet       : world.manifest.images[prefabs.players[gamepadID].spritesheet],
                 spritesheetBullet : world.manifest.images[prefabs.players[gamepadID].spritesheetBullet],
                 anims             : c.ANIMATIONS[prefabs.players[gamepadID].anims],
-                position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT - 300 },
+                position          : { x : c.CANVAS_WIDTH / 2 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT / 2 - 48 },
                 size              : { width : 96, height : 96 },
                 speed             : 8,
-                colliderPadding   : -25,
-                attackDelay       : 500
+                colliderPadding   : 25,
+                attackDelay       : 500,
+                hitPoints         : 1
             }));
+
+            // world.create(new Gauge({playerID : gamepadID}));
+
             if (world.find("tag", "player").length >= 1)
             {
                 // $("#menuScreen").fadeOut(function() {
@@ -38,7 +43,6 @@ $(function() {
                 //         initGame();                        
                 //     });
                 // });
-                
                 $("#menuScreen").hide();
                 $("#gameScreen").show()
                 initGame();
@@ -56,13 +60,22 @@ $(function() {
 
         initDecor();
 
+        world.sortGameobjects();
+        setInterval(world.sortGameobjects, 1000);
+
         requestAnimationFrame(gameloop);
     }
+
     //looping at 60 frames per second
     function gameloop()
     {
+        stats.begin();
+        
         world.run();
         //manageTime();
+
+        stats.end();
+
         requestAnimationFrame(gameloop);
     }
 
@@ -95,6 +108,7 @@ $(function() {
         {
             world.create(new Decor(
             {
+                nbFrames : 10,
                 speed : 0.4,
                 size : { width : 200, height : 200 },
                 angle : Math.PI,

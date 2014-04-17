@@ -4,6 +4,7 @@ var world           = require("../world");
 var input           = require("../controllers/inputs");
 var addRenderSystem = require("../modules/render");
 var Bullet          = require("../models/bullet");
+var EXPLOSION       = require("../models/explosion");
 var EventEmitter    = require("../../lib/events-emitter.js");
 
 var Player = function Player(params)
@@ -25,6 +26,11 @@ var Player = function Player(params)
     this.attackDelay       = params.attackDelay      || 100;
     this.prevShot          = 0;
     
+    this.hitPoints         = params.hitPoints        || 10;
+    this.maxHitPoints      = this.hitPoints;
+    this.shielded          = false;
+    this.respawnRange      = params.respawnRange     || 200;
+
     this.dashSpeed         = params.dashSpeed        || 100;
     this.dashDelay         = params.dashDelay        || 5000;
     this.prevDash          = 0;
@@ -36,7 +42,9 @@ var Player = function Player(params)
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['idle'];
     this.animY             = this.activeAnim["animY"];
 
-    this.colliderPadding   = params.colliderPadding || -20;
+    // this.createGauge();
+
+    this.colliderPadding   = params.colliderPadding || 20;
 
     if (this.playerID === 1)
     {
@@ -55,6 +63,8 @@ var Player = function Player(params)
         }
     });
 
+    this.shield();
+
     this.run = function()
     {
         this.rotate();
@@ -69,7 +79,7 @@ var Player = function Player(params)
 
 // Player.prototype.createGauge = function()
 // {
-//     world.create(new Gauge())
+//     world.create(new Gauge({playerID : this.playerID}));
 // }
 
 Player.prototype.rotate = function()
@@ -109,13 +119,16 @@ Player.prototype.move = function()
         this.moving = true;
     }
 
-    if (this.moving)
+    if (!this.shielded)
     {
-        this.trigger("set animation", "fly");
-    }
-    else
-    {
-        this.trigger("set animation", "idle");
+        if (this.moving)
+        {
+            this.trigger("set animation", "fly");
+        }
+        else
+        {
+            this.trigger("set animation", "idle");
+        }        
     }
 }
 
@@ -155,7 +168,7 @@ Player.prototype.dash = function()
 
 Player.prototype.shoot = function()
 {
-    if (input.getButtonDown("Fire", this.playerID))
+    if (input.getButtonDown("Fire", this.playerID) && !this.shielded)
     {
         var datTime = new Date().getTime();
 
@@ -177,13 +190,14 @@ Player.prototype.shoot = function()
                 {
                     playerID : this.playerID,
                     position : { 
-                        x : (this.position.x + this.size.width / 2)  + this.vecDir.x * canonDistance - 15,
-                        y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 7
+                        x : (this.position.x + this.size.width / 2)  + this.vecDir.x * canonDistance - 20,
+                        y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 10
                     },
-                    size : { width : 30, height : 14 },
+                    size : { width : 40, height : 20 },
                     layer : this.layer,
                     startAngle : this.angle,
                     spritesheet : this.spritesheetBullet,
+                    speed : 20,
                     anims : c.ANIMATIONS["BULLET_FIRE"],
                 }));
     
@@ -206,18 +220,70 @@ Player.prototype.collisions = function()
 
         if (other.layer === "enemy" || (other.layer === "player" && other.playerID !== this.playerID))
         {
-            if (this.position.x + this.size.width + this.colliderPadding > other.position.x  && 
-                this.position.x - this.colliderPadding < other.position.x + other.size.width &&
-                this.position.y + this.size.height + this.colliderPadding > other.position.y && 
-                this.position.y - this.colliderPadding < other.position.y + other.size.height)
+            if (other.position.x + other.size.width  > this.position.x + this.colliderPadding &&
+                other.position.x < this.position.x + this.size.width - this.colliderPadding  &&
+                other.position.y + other.size.width > this.position.y + this.colliderPadding &&
+                other.position.y < this.position.y + this.size.width - this.colliderPadding)
             {
+                if (!this.shielded)
+                {
+                    this.hitPoints -= other.damage;                    
+                }
                 if (other.layer === "enemy")
                 {
                     other.dead = true;
+                    world.create(new EXPLOSION({
+                        position : { x : other.position.x, y : other.position.y },
+                        size : { width  : other.size.width, height : other.size.width },
+                        zIndex : this.zIndex+1,
+                        spritesheet : world.manifest.images["dragon_explosion.png"],
+                        anims  : c.ANIMATIONS["EXPLOSION"],
+                        spriteSize : { width : 380, height : 380 }
+                    }));
+                }
+
+                if (this.isDead())
+                {
+                    this.respawn();
                 }
             }
         }
     }
+}
+
+Player.prototype.respawn = function()
+{
+    world.create(new EXPLOSION({
+        position : { x : this.position.x - 100, y : this.position.y - 100 },
+        size : { width  : this.size.width + 200, height : this.size.width + 200 },
+        zIndex : this.zIndex+1,
+        spritesheet : world.manifest.images["dragon_explosion.png"],
+        anims  : c.ANIMATIONS["EXPLOSION"],
+        spriteSize : { width : 380, height : 380 }
+    }));
+
+    this.hitPoints = this.maxHitPoints;
+
+    //random respawn pos : TO DO
+
+    this.shield();
+}
+
+Player.prototype.shield = function()
+{
+    this.shielded = true;
+    this.trigger("set animation", "shield");
+    var self = this;
+    setTimeout(function() {
+        self.shielded = false;
+        self.trigger("set animation", (this.moving) ? "fly" : "idle");
+    }, 3000);
+}
+
+Player.prototype.isDead = function()
+{
+    if (this.hitPoints <= 0)
+        return true;
 }
 
 EventEmitter.mixins(Player.prototype);

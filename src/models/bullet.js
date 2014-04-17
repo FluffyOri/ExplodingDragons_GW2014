@@ -13,10 +13,13 @@ var Bullet = function Bullet(params)
     this.position    = params.position;
     this.size        = params.size       || { width : 5, height : 5 };
     this.color       = params.color      || "red";
-    this.speed       = params.speed      || 35;
+    this.speed       = params.speed      || 25;
     this.zIndex      = params.zIndex     || 900;
     this.context     = params.context    || world.context;
     this.angle       = params.startAngle || 0;
+
+    this.damage      = params.damage     || 1;
+    this.hitPoints   = params.hitPoints  || 1;
     
     this.spritesheet = params.spritesheet;
     this.spriteSize  = params.spriteSize || { width : 290, height : 140 };
@@ -31,6 +34,11 @@ var Bullet = function Bullet(params)
         this.move();
         this.animate();
         this.limits();
+
+        if (this.isDead())
+        {
+            this.dead = true;
+        }
     }
 }
 
@@ -47,6 +55,12 @@ Bullet.prototype.limits = function()
     {
         this.dead = true;
     }
+}
+
+Bullet.prototype.isDead = function()
+{
+    if (this.hitPoints <= 0)
+        return true;
 }
 
 EventEmitter.mixins(Bullet.prototype);

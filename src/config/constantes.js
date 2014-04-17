@@ -18,11 +18,18 @@ module.exports = {
             },
             "idle" :
             {
-                "rate"  : 2,
+                "rate"  : 4,
                 "length" : 12,
                 "animY"   : 128,
                 "loop" : true
             },
+            "shield" : 
+            {
+                "rate"  : 4,
+                "length" : 12,
+                "animY"   : 512,
+                "loop" : true    
+            }
         },
         "BULLET_FIRE" : 
         {
@@ -52,6 +59,16 @@ module.exports = {
                 "length" : 4,
                 "animY"  : 0,
                 "loop"   : true
+            }
+        },
+        "EXPLOSION" : 
+        {
+            "EXPLOSION" :
+            {
+                "rate"   : 2,
+                "length" : 14,
+                "animY"  : 0,
+                "loop"   : false
             }
         }
     }

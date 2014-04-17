@@ -1,6 +1,7 @@
 //requirements
 var c               = require("../config/constantes");
 var world           = require("../world");
+var utils           = require("../controllers/utils");
 var addRenderSystem = require("../modules/render");
 var EventEmitter    = require("../../lib/events-emitter.js");
 
@@ -11,13 +12,15 @@ function randomIntFromInterval(min,max)
 
 var Generator = function Generator(params)
 {
-    this.zIndex        = 0;
-    this.tag           = params.tag || null;
-    this.sides         = params.sides;
-    this.objectClass   = params.objectClass;
-    this.objectParams  = params.objectParams;
-    this.delayInterval = params.delayInterval || 1000;
-    this.delay         = params.startDelay || 0;
+    this.zIndex         = 0;
+    this.tag            = params.tag || null;
+    this.sides          = params.sides;
+    this.objectClass    = params.objectClass;
+    this.objectParams   = params.objectParams;
+    this.delayInterval  = params.delayInterval || 1000;
+    this.delay          = params.startDelay || 0;
+    this.marginInterval = params.marginInterval || 0;
+    this.focusPlayer    = params.focusPlayer;
 
     this.lastPop       = new Date().getTime();
 
@@ -41,7 +44,7 @@ Generator.prototype.popObject = function()
             case "left":
                 objectParams.position = {
                     x : - objectParams.size.width,
-                    y : randomIntFromInterval(- 50, c.CANVAS_HEIGHT - objectParams.size.height/2 + 50) 
+                    y : randomIntFromInterval(- this.marginInterval, c.CANVAS_HEIGHT - objectParams.size.height/2 + this.marginInterval) 
                 }
                 objectParams.angle = 0;
             break;
@@ -49,7 +52,7 @@ Generator.prototype.popObject = function()
             case "right":
                 objectParams.position = {
                     x : c.CANVAS_WIDTH,
-                    y : randomIntFromInterval(- 50, c.CANVAS_HEIGHT - objectParams.size.height/2 + 50)
+                    y : randomIntFromInterval(- this.marginInterval, c.CANVAS_HEIGHT - objectParams.size.height/2 + this.marginInterval)
                 }
                 objectParams.angle = Math.PI;
             break;
@@ -71,6 +74,13 @@ Generator.prototype.popObject = function()
             break;
         }
 
+        if (this.focusPlayer)
+        {
+            var players = world.find("tag", "player");
+            var target = players[Math.floor(Math.random() * players.length)];
+
+            objectParams.angle = utils.getAngle(objectParams.position, target.position);            
+        }
 
         world.create(new this.objectClass(objectParams));
 

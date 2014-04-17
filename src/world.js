@@ -52,6 +52,13 @@ var World = function World()
             }
         }
     }
+
+    this.sortGameobjects = function()
+    {
+        world.gameObjects.sort(function(a, b) {
+            return a.zIndex - b.zIndex;
+        });
+    }
 }
 
 EventEmitter.mixins(World.prototype);
@@ -59,10 +66,10 @@ EventEmitter.mixins(World.prototype);
 var world = new World();
 window.world = world; //debug
 
-world.on("new gameobject", function() {
-    world.gameObjects.sort(function(a, b) {
-        return a.zIndex - b.zIndex;
-    });
-});
+// world.on("new gameobject", function() {
+//     world.gameObjects.sort(function(a, b) {
+//         return a.zIndex - b.zIndex;
+//     });
+// });
 
 module.exports = world;
