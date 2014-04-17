@@ -29,10 +29,10 @@ $(function() {
                 anims             : c.ANIMATIONS[prefabs.players[gamepadID].anims],
                 position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT / 2 - 48 },
                 size              : { width : 96, height : 96 },
-                speed             : 8,
-                colliderPadding   : 25,
-                attackDelay       : 500,
-                hitPoints         : 10,
+                speed             : 10,
+                colliderPadding   : 30,
+                attackDelay       : 400,
+                hitPoints         : 100,
                 explosionSize     : 2000
             }));
 

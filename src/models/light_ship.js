@@ -24,16 +24,16 @@ var LightShip = function LightShip(params)
     
     this.attackDelay       = params.attackDelay      || 5000;
     this.prevShot          = 0;
-    this.hitPoints         = params.hitPoints || 2;
-    this.damage            = params.damage || 1;
+    this.hitPoints         = params.hitPoints        || 2;
+    this.damageBullet      = params.damageBullet     || 5;
+    this.damage            = params.damage           || 10;
 
     this.spritesheet       = params.spritesheet;
     this.spritesheetBullet = params.spritesheetBullet;
-    this.spriteSize        = params.spriteSize || { width : 128, height : 128 };
+    this.spriteSize        = params.spriteSize       || { width : 128, height : 128 };
     this.anims             = params.anims;
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['fly'];
     this.animY             = this.activeAnim["animY"];
-
 
     this.precision         = [ -10, -5, 0, 0, 0, 5, 10];
     this.colliderPadding   = 0;
@@ -152,6 +152,7 @@ LightShip.prototype.shoot = function()
                 size : { width : 28, height : 8 },
                 startAngle : this.angle + randomAim,
                 speed : 10,
+                damage : this.damageBullet,
                 layer : this.layer,
                 spritesheet : this.spritesheetBullet,
                 spriteSize : { width : 128, height : 18 },
