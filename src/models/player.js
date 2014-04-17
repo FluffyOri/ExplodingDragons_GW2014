@@ -190,8 +190,8 @@ Player.prototype.shoot = function()
                 {
                     playerID : this.playerID,
                     position : { 
-                        x : (this.position.x + this.size.width / 2)  + this.vecDir.x * canonDistance - 15,
-                        y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 7
+                        x : (this.position.x + this.size.width / 2)  + this.vecDir.x * canonDistance - 20,
+                        y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 10
                     },
                     size : { width : 40, height : 20 },
                     layer : this.layer,
