@@ -31,7 +31,7 @@ $(function() {
                 speed             : 8,
                 colliderPadding   : 25,
                 attackDelay       : 500,
-                hitPoints         : 1,
+                hitPoints         : 10,
                 explosionSize     : 150
             }));
 
