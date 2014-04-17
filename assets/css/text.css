@@ -1,6 +1,12 @@
+@font-face
+{
+    font-family: "dragon_font";
+    src: url("../images/font.ttf");
+}
+
 body
 {
-    background-color: white;
+    background-color: black;
     margin : 0;
 }
 
@@ -25,7 +31,7 @@ body
     margin : auto;
     width : 1280px;
     height: 720px;
-    margin-top: 64px;
+    margin-top: 60px;
 }
 
 #loadingScreen
@@ -33,7 +39,37 @@ body
     display: block;
     width : 100%;
     height: 100%;
-    background-color: yellow;
+    background-image: url("../images/loading.png");
+    font-family: "dragon_font";
+}
+
+#loadingLabel span
+{        
+    display: inline;
+    position: absolute;
+    font-size: 60px;
+    color: gold;
+    margin-left: 50px;
+    margin-top: -11px;
+}
+
+#loadingLabel img
+{
+    position: absolute;
+    width: 40px;
+    -webkit-animation: rotateLoop 2s linear infinite;
+}
+@-webkit-keyframes rotateLoop {
+   from { -webkit-transform: rotate(0deg); }
+     to { -webkit-transform: rotate(360deg); }
+}
+
+#loadingLabel
+{
+    display: block;
+    position: absolute;
+    margin-left: 530px;
+    margin-top: 635px;
 }
 
 #menuScreen
@@ -51,16 +87,24 @@ body
     height: 100%;
 }
 
-#cadre
+.cadre
 {
     z-index: 5;
     position: absolute;
     margin-left: -94px;
-    margin-top: -45px;
+    margin-top: -44px;
     width: 1466px;
     height: 807px;
     background-size: 100% 100%;
+}
+
+#gameScreen .cadre 
+{
     background-image: url("../images/cadre.png");
+}
+#loadingScreen .cadre , #menuScreen .cadre
+{
+    background-image: url("../images/cadre_menu.png");
 }
 
 .HuPlayer
