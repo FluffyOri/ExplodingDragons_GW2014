@@ -29,6 +29,7 @@ var Player = function Player(params)
     this.hitPoints         = params.hitPoints        || 100;
     this.maxHitPoints      = this.hitPoints          || 100;
     this.shielded          = false;
+    this.speedMalus        = params.speedMalus       || 2;
     this.respawnRange      = params.respawnRange     || 200;
     this.explosionSize     = params.explosionSize    || 150;
 
@@ -274,8 +275,11 @@ Player.prototype.shield = function()
 {
     this.shielded = true;
     this.trigger("set animation", "shield");
+    this.speed = this.speed / this.speedMalus;
+
     var self = this;
     setTimeout(function() {
+        self.speed *= this.speedMalus;
         self.shielded = false;
         self.trigger("set animation", (this.moving) ? "fly" : "idle");
     }, 3000);

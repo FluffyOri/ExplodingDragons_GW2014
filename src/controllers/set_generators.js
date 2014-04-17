@@ -8,6 +8,8 @@ var Generator = require("../models/generator");
 
 function setGenerators()
 {
+    scheduler();
+
     //islands
     world.create(new Generator({
         tag : "island_generator",
@@ -79,6 +81,7 @@ function setGenerators()
 
     //light ship
     world.create(new Generator({
+        tag : "lightShip",
         startDelay : 0,
         delayInterval : { min : 2500, max : 6000 },
         sides : ["left", "right", "top", "bottom"],
@@ -115,6 +118,14 @@ function setGenerators()
             spritePos : { x : 0, y : 0 }
         }
     }));
+
+}
+
+function scheduler()
+{
+    world.on("new generator", function(tag) {
+        console.log(tag);
+    });
 }
 
 module.exports = setGenerators;

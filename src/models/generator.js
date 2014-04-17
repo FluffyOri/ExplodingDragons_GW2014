@@ -24,6 +24,8 @@ var Generator = function Generator(params)
 
     this.lastPop       = new Date().getTime();
 
+    world.trigger("new generator", this.tag);
+
     this.run = function()
     {
         this.popObject();

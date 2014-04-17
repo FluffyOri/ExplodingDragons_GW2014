@@ -45,7 +45,7 @@ function loader(callback)
         nbAssets++;
     }
     //debug pour chargement plus court
-    //count+=2;
+    count+=2;
     loading();
 }
 
