@@ -203,7 +203,7 @@ Player.prototype.shoot = function()
                 }));
     
             this.prevShot = new Date().getTime();
-            world.sound.shoot.play();
+            world.manifest.sounds.shoot.play();
             this.attackLimit -= 10;
         }
     }

@@ -7,9 +7,11 @@ var path       = require('path');
 var fs         = require('fs');
 
 var paths = {
-    manifest : "./src/config/images.js",
+    imagesPath : "./src/config/images.js",
+    soundsPath : "./src/config/sounds.js",
     scripts  : 'src/**/*.js',
-    images   : 'assets/images/**/*'
+    images   : 'assets/images/**/*',
+    sounds   : 'assets/music/**/*'
 };
 
 gulp.task('build', function() {
@@ -22,18 +24,18 @@ gulp.task('build', function() {
 });
 
 gulp.task('images', function() {
-    fs.writeFileSync(paths.manifest, "module.exports = [");
+    fs.writeFileSync(paths.imagesPath, "module.exports = [");
     var count = 0;
     var nbImg = 0;
     gulp.src(paths.images)
         .pipe(tap(function (file) {
             nbImg++;
-            fs.appendFile(paths.manifest,
+            fs.appendFile(paths.imagesPath,
                 '\n\t"' + "assets/images/" + path.basename(file.path.toLowerCase()) + '",',
                 function() {
                     count++;
                     if (count === nbImg) {
-                        fs.appendFileSync(paths.manifest, "\n];");
+                        fs.appendFileSync(paths.imagesPath, "\n];");
                     }
                 }
             );
@@ -41,7 +43,27 @@ gulp.task('images', function() {
 
 });
 
-gulp.task('default', ["images", "build", "watch"]);
+gulp.task('sounds', function() {
+    fs.writeFileSync(paths.soundsPath, "module.exports = {");
+    var count = 0;
+    var nbSounds = 0;
+    gulp.src(paths.sounds)
+        .pipe(tap(function (file) {
+            nbSounds++;
+            fs.appendFile(paths.soundsPath,
+                '\n\t"' + path.basename(file.path.toLowerCase())+'" : "'+"assets/music/" + path.basename(file.path.toLowerCase()) + '",',
+                function() {
+                    count++;
+                    if (count === nbSounds) {
+                        fs.appendFileSync(paths.soundsPath, "\n};");
+                    }
+                }
+            );
+        }))
+
+});
+
+gulp.task('default', ["images", "sounds", "build", "watch"]);
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {

@@ -1,52 +1,57 @@
 var images = require("../config/images");
+var sounds = require("../config/sounds");
 var world  = require("../world");
 
 var count = 0;
-var nbImages = 0;
+var nbAssets = 0;
 var init;
 
 function loader(callback)
 {
     init = callback;
     world.manifest.images = {};
+    world.manifest.sounds = {};
 
     for (var i in images)
     {
-        nbImages++;
         var img = new Image();
         img.src = images[i];
         img.onload = function() { count++; };
         var path = "assets/images/";
         world.manifest.images[images[i].replace(path, "")] = img;
     }
-    world.sound= {};
-    world.sound.shoot = new Howl({
-        urls: ["assets/music/tire_dragon.mp3"],
+
+    world.manifest.sounds.shoot = new Howl({
+        urls: [sounds["tire_dragon.mp3"]],
         volume : 0.2,
         onload: function(){
-            loader.soundLoaded++;
-            if(loader.soundLoaded == loader.soundLength){
-                run();
-            }
+            count++;
         }
-    })
-    world.sound.game= new Howl({
-        urls: ["assets/music/musique_projet_gameweek.mp3"],
+    });
+
+    world.manifest.sounds.game = new Howl({
+        urls: [sounds["musique_projet_gameweek.mp3"]],
         loop: true,
         volume : 0.1,
         onload: function(){
-            loader.soundLoaded++;
-            if(loading.soundLoaded == loader.soundLength){
-                run();
-            }
+            console.log("load music");
+            count++;
         }
-    })
+    });
+
+    nbAssets += images.length;
+    for (var i in sounds)
+    {
+        nbAssets++;
+    }
+    //debug pour chargement plus court
+    //count+=2;
     loading();
 }
 
 function loading()
 {
-    if (count >= nbImages)
+    if (count >= nbAssets)
     {
         // $("#loadingScreen").fadeOut(function() {
         //     $("#menuScreen").fadeIn(function() {

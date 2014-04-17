@@ -17,6 +17,7 @@ $(function() {
     {
         world.state = "menu";
         defineCanvas();
+        world.manifest.sounds.game.play();
 
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
@@ -31,8 +32,8 @@ $(function() {
                 speed             : 8,
                 colliderPadding   : 25,
                 attackDelay       : 500,
-                hitPoints         : 10,
-                explosionSize     : 150
+                hitPoints         : 1,
+                explosionSize     : 2000
             }));
 
             // world.create(new Gauge({playerID : gamepadID}));
@@ -48,7 +49,6 @@ $(function() {
                 $("#gameScreen").show()
                 initGame();
             }
-        world.sound.game.play();
         });
         input.startPollingGamepads();
     }
@@ -56,7 +56,6 @@ $(function() {
     function initGame()
     {
         world.state = "ingame";
-        world.sound.game.play();
 
         setGenerators();
 
@@ -64,7 +63,6 @@ $(function() {
         world.sortGameobjects();
         setInterval(world.sortGameobjects, 1000);
         requestAnimationFrame(gameloop);
-
     }
 
     //looping at 60 frames per second
