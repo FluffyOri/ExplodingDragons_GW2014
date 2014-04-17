@@ -17,7 +17,6 @@ $(function() {
         world.state = "menu";
         defineCanvas();
 
-
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
             {
@@ -56,8 +55,11 @@ $(function() {
 
         initDecor();
 
+        setInterval(world.sortGameobjects, 1000);
+
         requestAnimationFrame(gameloop);
     }
+
     //looping at 60 frames per second
     function gameloop()
     {

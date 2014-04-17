@@ -47,10 +47,14 @@ function addRenderSystem(target)
             this.frameNum++;
             if (this.frameNum >= this.activeAnim["length"])
             {
-                this.frameNum = 0;
                 if (!this.activeAnim["loop"])
                 {
                     this.isAnimating = false;
+                    this.trigger("end animation");
+                }
+                else
+                {
+                    this.frameNum = 0;
                 }
             }
         }

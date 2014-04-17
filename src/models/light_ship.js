@@ -4,6 +4,7 @@ var utils           = require("../controllers/utils");
 var world           = require("../world");
 var addRenderSystem = require("../modules/render");
 var Bullet          = require("../models/bullet");
+var EXPLOSION       = require("../models/explosion");
 var EventEmitter    = require("../../lib/events-emitter.js");
 
 var LightShip = function LightShip(params)
@@ -174,9 +175,25 @@ LightShip.prototype.collisions = function()
                 this.position.y < other.position.y + other.size.height + other.colliderPadding)
             {
                 this.dead = true;
+                world.create(new EXPLOSION({
+                    position : { x : this.position.x, y : this.position.y },
+                    size : { width  : this.size.width, height : this.size.width },
+                    zIndex : this.zIndex+1,
+                    spritesheet : world.manifest.images["dragon_explosion.png"], //put enemy explosion image when fixed
+                    anims  : c.ANIMATIONS["EXPLOSION"],
+                    spriteSize : { width : 380, height : 380 }
+                }));
                 if (other.tag === "bullet")
                 {
                     other.dead = true;
+                    world.create(new EXPLOSION({
+                        position : { x : other.position.x, y : other.position.y },
+                        size : { width  : other.size.width, height : other.size.width },
+                        zIndex : this.zIndex+1,
+                        spritesheet : world.manifest.images["dragon_explosion.png"],
+                        anims  : c.ANIMATIONS["EXPLOSION"],
+                        spriteSize : { width : 380, height : 380 }
+                    }));                    
                 }
             }
         }

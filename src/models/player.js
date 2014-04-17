@@ -4,6 +4,7 @@ var world           = require("../world");
 var input           = require("../controllers/inputs");
 var addRenderSystem = require("../modules/render");
 var Bullet          = require("../models/bullet");
+var EXPLOSION       = require("../models/explosion");
 var EventEmitter    = require("../../lib/events-emitter.js");
 
 var Player = function Player(params)
@@ -184,7 +185,7 @@ Player.prototype.shoot = function()
                     layer : this.layer,
                     startAngle : this.angle,
                     spritesheet : this.spritesheetBullet,
-                    speed : 10,
+                    speed : 25,
                     anims : c.ANIMATIONS["BULLET_FIRE"],
                 }));
     
@@ -214,6 +215,14 @@ Player.prototype.collisions = function()
                 if (other.layer === "enemy")
                 {
                     other.dead = true;
+                    world.create(new EXPLOSION({
+                        position : { x : other.position.x, y : other.position.y },
+                        size : { width  : other.size.width, height : other.size.width },
+                        zIndex : this.zIndex+1,
+                        spritesheet : world.manifest.images["dragon_explosion.png"],
+                        anims  : c.ANIMATIONS["EXPLOSION"],
+                        spriteSize : { width : 380, height : 380 }
+                    }));
                 }
             }
         }

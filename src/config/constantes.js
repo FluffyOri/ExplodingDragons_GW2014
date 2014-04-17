@@ -53,6 +53,16 @@ module.exports = {
                 "animY"  : 0,
                 "loop"   : true
             }
+        },
+        "EXPLOSION" : 
+        {
+            "EXPLOSION" :
+            {
+                "rate"   : 5,
+                "length" : 14,
+                "animY"  : 0,
+                "loop"   : false
+            }
         }
     }
 }
