@@ -32,13 +32,13 @@ $(function() {
                 speed             : 8,
                 colliderPadding   : 25,
                 attackDelay       : 500,
-                hitPoints         : 1,
+                hitPoints         : 10,
                 explosionSize     : 2000
             }));
 
             // world.create(new Gauge({playerID : gamepadID}));
 
-            if (world.find("tag", "player").length >= 2)
+            if (world.find("tag", "player").length >= 1)
             {
                 // $("#menuScreen").fadeOut(function() {
                 //     $("#gameScreen").fadeIn(function() {
