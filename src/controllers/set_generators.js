@@ -14,7 +14,7 @@ function setGenerators()
     //islands
     world.create(new Generator({
         tag : "island_generator",
-        delayInterval : { min : 10000, max : 22000 },
+        delayInterval : { min : 10000, max : 20000 },
         startDelay : 60000,
         sides : ["right"],
         objectClass : Decor,
@@ -84,12 +84,12 @@ function setGenerators()
     world.create(new Generator(
     {
         startDelay : 10000,
-        delayInterval : { min : 500, max : 1000 },
+        delayInterval : { min : 500, max : 1500 },
         sides : ["left", "right", "top", "bottom"],
         focusPlayer : true,        
         objectClass : Kamikaze,
         objectParams : {
-            speed : 8,
+            speed : 7,
             marginInterval : 0,
             size : { width : 55, height : 55 },
             spritesheet : world.manifest.images["phoenix.png"],
@@ -103,7 +103,7 @@ function setGenerators()
     world.create(new Generator(
     {
         startDelay : 60000,
-        delayInterval : { min : 3000, max : 6000 },
+        delayInterval : { min : 10000, max : 20000 },
         sides : ["left", "right", "top", "bottom"],
         focusPlayer : true,        
         objectClass : Zeppelin,
@@ -124,7 +124,7 @@ function setGenerators()
     world.create(new Generator(
     {
         startDelay : 45000,
-        delayInterval : { min : 3000, max : 6000 },
+        delayInterval : { min : 5000, max : 10000 },
         sides : ["left", "right", "top", "bottom"],
         focusPlayer : true,        
         objectClass : LightShip,
