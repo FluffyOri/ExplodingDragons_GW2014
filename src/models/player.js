@@ -295,16 +295,13 @@ Player.prototype.isDead = function()
 }
 Player.prototype.barrelife = function()
 {
-var who = "HudP"+ this.playerID.toString();
+    var who = "HudP"+ this.playerID.toString();
 
-this.barelife = $("#"+who);
-this.barelife.width(this.hitPoints * 225 / this.maxHitPoints);
-console.log(this.barelife.width());
+    this.barelife = $("#"+who);
+    this.barelife.width(this.hitPoints * 225 / this.maxHitPoints);
 }
 
 EventEmitter.mixins(Player.prototype);
 addRenderSystem(Player.prototype);
-
-
 
 module.exports = Player;

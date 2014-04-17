@@ -6,6 +6,7 @@ module.exports = [
 	"assets/images/dragon_explosion.png",
 	"assets/images/dark_dragon.png",
 	"assets/images/enemy_bullet.png",
+	"assets/images/enemy_explosion.png",
 	"assets/images/gold_dragon.png",
 	"assets/images/island_1.png",
 	"assets/images/gold_dragon_bullet.png",
@@ -19,6 +20,9 @@ module.exports = [
 	"assets/images/sea_background_1.png",
 	"assets/images/sea_background_3.png",
 	"assets/images/zeppelin.png",
+<<<<<<< HEAD
 	"assets/images/shoot_zeppelin.png",
 	"assets/images/red_dragon_bullet.png",
+=======
+>>>>>>> f3b85b57ccdceb66a2eb77955eded85038064b64
 ];
