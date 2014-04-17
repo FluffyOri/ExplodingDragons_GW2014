@@ -183,7 +183,7 @@ Player.prototype.shoot = function()
                         x : (this.position.x + this.size.width / 2)  + this.vecDir.x * canonDistance - 15,
                         y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 7
                     },
-                    size : { width : 30, height : 14 },
+                    size : { width : 40, height : 20 },
                     layer : this.layer,
                     startAngle : this.angle,
                     spritesheet : this.spritesheetBullet,

@@ -58,7 +58,7 @@ module.exports = {
         {
             "EXPLOSION" :
             {
-                "rate"   : 5,
+                "rate"   : 2,
                 "length" : 14,
                 "animY"  : 0,
                 "loop"   : false
