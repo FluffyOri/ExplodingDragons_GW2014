@@ -102,14 +102,14 @@ function setGenerators()
     //ZEPPELINS
     world.create(new Generator(
     {
-        startDelay : 60000,
+        startDelay : 0,
         delayInterval : { min : 3000, max : 6000 },
         sides : ["left", "right", "top", "bottom"],
         focusPlayer : true,        
         objectClass : Zeppelin,
         objectParams : {
-            speed : 1,
-            attackDelay : 5000,
+            speed : 0.5,
+            attackDelay : 2500,
             marginInterval : 0,
             size : { width : 100, height : 100 },
             spritesheet : world.manifest.images["zeppelin.png"],

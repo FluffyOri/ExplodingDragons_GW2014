@@ -24,12 +24,13 @@ var Zeppelin = function Zeppelin(params)
     
     this.attackDelay       = params.attackDelay      || 5000;
     this.prevShot          = 0;
-    this.hitPoints         = params.hitPoints || 2;
-    this.damage            = params.damage || 1;
+    this.hitPoints         = params.hitPoints        || 3;
+    this.damageBullet      = params.damageBullet     || 10;
+    this.damage            = params.damage           || 20;
 
     this.spritesheet       = params.spritesheet;
     this.spritesheetBullet = params.spritesheetBullet;
-    this.spriteSize        = params.spriteSize || { width : 128, height : 128 };
+    this.spriteSize        = params.spriteSize       || { width : 128, height : 128 };
     this.anims             = params.anims;
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['fly'];
     this.animY             = this.activeAnim["animY"];
@@ -152,6 +153,7 @@ Zeppelin.prototype.shoot = function()
                 size : { width : 30, height : 12 },
                 startAngle : this.angle + randomAim,
                 speed : 10,
+                damage : this.damageBullet,
                 layer : this.layer,
                 spritesheet : this.spritesheetBullet,
                 spriteSize : { width : 128, height : 18 },
