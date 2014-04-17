@@ -23,6 +23,13 @@ module.exports = {
                 "animY"   : 128,
                 "loop" : true
             },
+            "shield" : 
+            {
+                "rate"  : 4,
+                "length" : 12,
+                "animY"   : 512,
+                "loop" : true    
+            }
         },
         "BULLET_FIRE" : 
         {
