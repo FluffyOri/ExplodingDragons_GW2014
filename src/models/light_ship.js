@@ -187,12 +187,12 @@ LightShip.prototype.collisions = function()
                 }));
                 if (other.tag === "bullet")
                 {
-                    this.hitPoints -= other.damage;
+                    other.dead = true;
                     world.create(new EXPLOSION({
                         position : { x : other.position.x, y : other.position.y },
                         size : { width  : other.size.width, height : other.size.width },
                         zIndex : this.zIndex+1,
-                        spritesheet : world.manifest.images["enemy_explosion.png"],
+                        spritesheet : world.manifest.images["dragon_explosion.png"],
                         anims  : c.ANIMATIONS["EXPLOSION"],
                         spriteSize : { width : 380, height : 380 }
                     }));                    

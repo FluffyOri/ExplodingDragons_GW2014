@@ -3,17 +3,29 @@ body
     background-color: white;
     margin : 0;
 }
-#maincanvas
+
+#mainCanvas
 {
-    position: absolute
+    z-index: 0;
+    position: absolute;  
+    background-image: url("../images/sea_background_1.png");
+    -webkit-animation: animSeaWater 8s linear infinite;
 }
+@-webkit-keyframes animSeaWater {
+    from { background-image: url("../images/sea_background_1.png"); }
+    25%  { background-image: url("../images/sea_background_2.png"); }
+    50%  { background-image: url("../images/sea_background_3.png"); }
+    75%  { background-image: url("../images/sea_background_2.png"); }
+    to   { background-image: url("../images/sea_background_1.png"); }
+}
+
 #wrapper
 {    
-    border : 1px solid pink;
     display: block;    
     margin : auto;
     width : 1280px;
     height: 720px;
+    margin-top: 64px;
 }
 
 #loadingScreen
@@ -37,46 +49,51 @@ body
     display: none;    
     width : 100%;
     height: 100%;
-    background-image: url("../images/sea_background_1.png");
-    -webkit-animation: animSeaWater 8s linear infinite;
 }
-@-webkit-keyframes animSeaWater {
-    from { background-image: url("../images/sea_background_1.png"); }
-    25%  { background-image: url("../images/sea_background_2.png"); }
-    50%  { background-image: url("../images/sea_background_3.png"); }
-    75%  { background-image: url("../images/sea_background_2.png"); }
-    to   { background-image: url("../images/sea_background_1.png"); }
+
+#cadre
+{
+    z-index: 5;
+    position: absolute;
+    margin-left: -94px;
+    margin-top: -45px;
+    width: 1466px;
+    height: 807px;
+    background-size: 100% 100%;
+    background-image: url("../images/cadre.png");
 }
+
 .HuPlayer
 {
     display: none;
 }
 #HudP1
 {
-    /*display: block;*/
-    width: 200px;
-    height: 150px;
-    background-color: rgba(255, 0, 0, 0.3);
+    width: 302px;
+    height: 68px;
+    background-color: rgba(255, 0, 0, 0);
     position: absolute;
-    margin-top:0;
-    margin-left: 0;
+    margin-top: 31px;
+    margin-left: 47px;
+    z-index: 10;
 }
 #HudP2
 {
-    /*display: block;*/
-    width: 200px;
-    height: 150px;
-    background-color: rgba(0, 255, 0, 0.3);
+    width: 308px;
+    height: 65px;
+    background-color: rgba(0, 255, 0, 0);
     position: absolute;
-    margin-left: 1080px; 
+    margin-top: 35px;
+    margin-left: 941px;
+    z-index: 10;
 }
 .HudEnnemies
 {
-    /*display: block;*/
-    width: 400px;
-    height:100px;
-    background-color: rgba(0, 0, 0, 0.3);
+    width: 265px;
+    height: 49px;
+    background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    margin-top: 70px;
-    margin-left: 460px;
+    margin-top: 46px;
+    margin-left: 510px;
+    z-index: 10;
 }
