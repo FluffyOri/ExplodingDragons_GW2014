@@ -43,7 +43,7 @@ $(function() {
 
             // world.create(new Gauge({playerID : gamepadID}));
 
-            if (world.find("tag", "player").length >= 2)
+            if (world.find("tag", "player").length >= 1)
             {
                 requestAnimationFrame(pollStartGame);
             }

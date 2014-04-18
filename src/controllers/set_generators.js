@@ -144,7 +144,7 @@ function setGenerators()
             spritePos : { x : 0, y : 0 }
         }
     }));
-    
+
     //boss
     setTimeout(function() {
         world.create(new Boss({
@@ -165,7 +165,7 @@ function setGenerators()
             spritePos : { x : 0, y : 0 }
             
         }));
-    }, 0);
+    }, 5000);
 }
 
 function scheduler()
