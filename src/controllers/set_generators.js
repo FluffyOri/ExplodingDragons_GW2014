@@ -89,7 +89,7 @@ function setGenerators()
         focusPlayer : true,        
         objectClass : Kamikaze,
         objectParams : {
-            speed : 7,
+            speed : 6,
             tag : "enemy_ship",
             marginInterval : 0,
             size : { width : 55, height : 55 },
@@ -113,7 +113,7 @@ function setGenerators()
             tag : "enemy_ship",
             attackDelay : 2500,
             marginInterval : 0,
-            size : { width : 100, height : 100 },
+            size : { width : 150, height : 150 },
             spritesheet : world.manifest.images["zeppelin.png"],
             spritesheetBullet : world.manifest.images["shoot_zeppelin.png"],
             anims : c.ANIMATIONS["ZEPPELIN"],
@@ -143,7 +143,6 @@ function setGenerators()
             spritePos : { x : 0, y : 0 }
         }
     }));
-
 }
 
 function scheduler()

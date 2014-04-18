@@ -27,7 +27,7 @@ var Player = function Player(params)
     
     this.attackLimit       = params.attackLimit      || 100;
     this.attackDelay       = params.attackDelay      || 100;
-    this.damage            = params.damage           || 1;
+    this.damage            = params.damage           || 10;
     this.prevShot          = 0;
     
     this.hitPoints         = params.hitPoints        || 100;
@@ -253,7 +253,7 @@ Player.prototype.collisions = function()
                 world.create(new EXPLOSION({
                     position : { x : other.position.x, y : other.position.y },
                     size : { width  : other.size.width * 1.5, height : other.size.width * 1.5 },
-                    zIndex : this.zIndex+1,
+                    zIndex : this.zIndex + 1,
                     spritesheet : world.manifest.images["dragon_explosion.png"],
                     anims  : c.ANIMATIONS["EXPLOSION"],
                     spriteSize : { width : 380, height : 380 }
@@ -262,6 +262,7 @@ Player.prototype.collisions = function()
                 if (other.tag === "enemy_ship")
                 {
                     this.score += other.scoreValue;
+                    scoreController.animAddScore(this.playerID, other.scoreValue, this);
                     scoreController.substractScoreToIA(other.scoreValue);
                 }
 
@@ -292,12 +293,20 @@ Player.prototype.collisions = function()
                     else
                         this.deathValue = this.deathValueMax;
 
-                    if (this.lastAttackerID === -1)
+                    if (this.lastAttackerID === - 1)
+                    {
                         scoreController.addScoreToIA(this.deathValue);
+                        scoreController.animAddScoreIA(this.deathValue);
+                    }
                     if (this.lastAttackerID === 1)
+                    {
                         scoreController.addScoreTo(this.lastAttackerID, this.deathValue);
+                        score.animAddScore(this.playerID, this.deathValue, this.lastAttackerID);
+                    }
 
-                        this.score -= this.deathValue;
+                    this.score -= this.deathValue;
+
+                    scoreController.animSubScore(this.playerID, this.deathValue, this);
 
                     this.respawn();
                 }
