@@ -277,6 +277,7 @@ Player.prototype.collisions = function()
                         attackDelay       : 400,
                         startAngle        : 0,
                         focusPlayerID     : this.playerID
+                    }));
 
                 }
 

@@ -24,7 +24,6 @@ $(function() {
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
             {
-                zIndex            : 1000 + gamepadID,
                 tag               : "player",
                 playerID          : gamepadID,
                 spritesheet       : world.manifest.images[prefabs.players[gamepadID].spritesheet],
