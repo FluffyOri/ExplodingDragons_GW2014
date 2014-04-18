@@ -13,7 +13,7 @@ $(function() {
     var Ennemis       = require("./models/ennemis");
     var Gauge         = require("./models/gaugeShoot.js");
     var ScoreIA       = require("./models/scoreIA.js");
-    
+
     function initMenu()
     {
         world.state = "menu";
@@ -35,7 +35,7 @@ $(function() {
                 colliderPadding   : 30,
                 attackDelay       : 400,
                 hitPoints         : 100,
-                explosionSize     : 1000
+                explosionSize     : 500
             }));
 
             // world.create(new Gauge({playerID : gamepadID}));
