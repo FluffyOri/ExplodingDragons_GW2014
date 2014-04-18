@@ -165,6 +165,9 @@ function setGenerators()
             spritePos : { x : 0, y : 0 }
             
         }));
+    world.manifest.sounds.game.stop();
+    world.manifest.sounds.boss.play();
+    world.manifest.sounds.blackdragon.play(); 
     }, 5000);
 }
 
