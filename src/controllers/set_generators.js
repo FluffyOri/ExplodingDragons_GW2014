@@ -89,7 +89,7 @@ function setGenerators()
         focusPlayer : true,        
         objectClass : Kamikaze,
         objectParams : {
-            speed : 7,
+            speed : 1,
             marginInterval : 0,
             size : { width : 55, height : 55 },
             spritesheet : world.manifest.images["phoenix.png"],

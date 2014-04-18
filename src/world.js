@@ -64,7 +64,7 @@ var World = function World()
 EventEmitter.mixins(World.prototype);
 
 var world = new World();
-window.world = world; //debug
+//window.world = world; //debug
 
 // world.on("new gameobject", function() {
 //     world.gameObjects.sort(function(a, b) {

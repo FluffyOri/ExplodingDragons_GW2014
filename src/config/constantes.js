@@ -41,6 +41,16 @@ module.exports = {
                 "loop" : true
             }
         },
+        "BULLET_DARK" : 
+        {
+            "basic" :
+            {
+                "rate"  : 10,
+                "length" : 4,
+                "animY"   : 0,
+                "loop" : true
+            }
+        },
         "LIGHT_SHIP" : 
         {
             "fly" :

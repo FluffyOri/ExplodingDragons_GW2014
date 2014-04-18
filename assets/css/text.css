@@ -47,16 +47,16 @@ body
 {        
     display: inline;
     position: absolute;
-    font-size: 60px;
+    font-size: 100px;
     color: gold;
-    margin-left: 50px;
-    margin-top: -11px;
+    margin-left: 190px;
+    margin-top: 62px;
 }
 
 #loadingLabel img
 {
     position: absolute;
-    width: 40px;
+    width: 192px;
     -webkit-animation: rotateLoop 2s linear infinite;
 }
 @-webkit-keyframes rotateLoop {
@@ -68,8 +68,8 @@ body
 {
     display: block;
     position: absolute;
-    margin-left: 530px;
-    margin-top: 635px;
+    margin-left: 380px;
+    margin-top: 540px;
 }
 
 #menuScreen
@@ -94,7 +94,7 @@ body
     margin-left: -94px;
     margin-top: -44px;
     width: 1466px;
-    height: 807px;
+    height: 806px;
     background-size: 100% 100%;
 }
 

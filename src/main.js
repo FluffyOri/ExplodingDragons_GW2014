@@ -1,17 +1,18 @@
 $(function() {
     //requirements
-    var c         = require("./config/constantes");
-    var world     = require("./world");
-    var stats     = require("../lib/stats.js");
-    var input     = require("./controllers/inputs");
-    var loader    = require("./controllers/loader");
-    var Player    = require("./models/player");
-    var Decor     = require("./models/decor");
-    var prefabs   = require("./config/prefabs");
+    var c             = require("./config/constantes");
+    var world         = require("./world");
+    var stats         = require("../lib/stats.js");
+    var input         = require("./controllers/inputs");
+    var loader        = require("./controllers/loader");
+    var Player        = require("./models/player");
+    var Decor         = require("./models/decor");
+    var prefabs       = require("./config/prefabs");
     var setGenerators = require("./controllers/set_generators");
-    var Ennemis   = require("./models/ennemis");
-    var manageTime= require("./config/manageTime");
-    var Gauge     = require("./models/gaugeShoot.js");
+    var Ennemis       = require("./models/ennemis");
+    var Collectible   = require("./models/collectible");
+    var manageTime    = require("./config/manageTime");
+    var Gauge         = require("./models/gaugeShoot.js");
 
     function initMenu()
     {
@@ -29,25 +30,27 @@ $(function() {
                 anims             : c.ANIMATIONS[prefabs.players[gamepadID].anims],
                 position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT / 2 - 48 },
                 size              : { width : 96, height : 96 },
+                zIndex            : 1000 + gamepadID,
                 speed             : 10,
                 colliderPadding   : 30,
                 attackDelay       : 400,
                 hitPoints         : 100,
-                explosionSize     : 2000
+                explosionSize     : 2000,
+                startAngle        : gamepadID * Math.PI
             }));
 
             // world.create(new Gauge({playerID : gamepadID}));
 
-            if (world.find("tag", "player").length >= 1)
+            if (world.find("tag", "player").length >= 2)
             {
-                // $("#menuScreen").fadeOut(function() {
-                //     $("#gameScreen").fadeIn(function() {
-                //         initGame();                        
-                //     });
-                // });
-                $("#menuScreen").hide();
-                $("#gameScreen").show()
-                initGame();
+                $("#menuScreen").fadeOut(1000, function() {
+                    $("#gameScreen").fadeIn(1000, function() {
+                        initGame();                        
+                    });
+                });
+                // $("#menuScreen").hide();
+                // $("#gameScreen").show()
+                //initGame();
             }
         });
         input.startPollingGamepads();
@@ -58,6 +61,33 @@ $(function() {
         world.state = "ingame";
 
         setGenerators();
+
+        setInterval(function() {
+            if (world.find("type", "shadow").length === 0)
+            {
+                var players = world.find("tag", "player");
+                for (var i = 0; i < players.length; i++)
+                {
+                    if (players[i].shadowAbilityEnabled)
+                        return;
+                }
+                
+                world.create(new Collectible({
+                    type : "shadow",
+                    position : {
+                        x : c.CANVAS_WIDTH / 2 - 25, 
+                        y : c.CANVAS_HEIGHT / 2 - 25, 
+                    },
+                    size : { width : 50, height : 50 },
+                    nbFrames : 1,
+                    zIndex : 999,
+                    spritesheet : world.manifest.images["collectible_shadow.png"],
+                    spriteSize : { width : 384, height : 384 },
+                    spritePos : { x : 0, y : 0 }
+                }));
+                
+            }
+        }, 5000);
 
         initDecor();
         world.sortGameobjects();

@@ -22,7 +22,7 @@ function loader(callback)
     }
     world.manifest.sounds.shoot = new Howl({
         urls: [sounds["tire_dragon.mp3"]],
-        volume : 0.13,
+        volume : 0.13, //0.13
         onload: function(){
             count++;
         }
@@ -31,7 +31,7 @@ function loader(callback)
     world.manifest.sounds.game = new Howl({
         urls: [sounds["musique_projet_gameweek.mp3"]],
         loop: true,
-        volume : 0.05,
+        volume : 0.05, //0.05
         onload: function(){
             count++;
         }
@@ -50,18 +50,17 @@ function loader(callback)
 
 function loading()
 {
-    console.log(count);
     if (count >= nbAssets)
     {
-        // $("#loadingScreen").fadeOut(function() {
-        //     $("#menuScreen").fadeIn(function() {
-        //         init();                
-        //     });
-        // });
-        // 
-        $("#loadingScreen").hide();
-        $("#menuScreen").show();
-        init();
+        $("#loadingScreen").fadeOut(1000, function() {
+            $("#menuScreen").fadeIn(1000, function() {
+                init();                
+            });
+        });
+        
+        // $("#loadingScreen").hide();
+        // $("#menuScreen").show();
+        // init();
 
         return;
     }

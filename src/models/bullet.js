@@ -1,5 +1,6 @@
 //requirements
 var c               = require("../config/constantes");
+var prefabs         = require("../config/prefabs");
 var world           = require("../world");
 var addRenderSystem = require("../modules/render");
 var EventEmitter    = require("../../lib/events-emitter.js");
@@ -8,7 +9,7 @@ var Bullet = function Bullet(params)
 {
     this.id          = world.gameObjects.length;
     this.layer       = params.layer;
-    this.tag         = "bullet";
+    this.tag         = params.tag || "bullet";
     this.playerID    = params.playerID;
     this.position    = params.position;
     this.size        = params.size       || { width : 5, height : 5 };
@@ -28,6 +29,8 @@ var Bullet = function Bullet(params)
     this.animY       = this.activeAnim["animY"];
 
     this.colliderPadding = 0;
+
+    this.ShadowClass = params.shadowClass;
 
     this.run = function()
     {
@@ -54,6 +57,8 @@ Bullet.prototype.limits = function()
         this.position.y + this.size.height < 0 || this.position.y > c.GAME_HEIGHT)
     {
         this.dead = true;
+
+        this.shadowBulletProc();
     }
 }
 
@@ -61,6 +66,26 @@ Bullet.prototype.isDead = function()
 {
     if (this.hitPoints <= 0)
         return true;
+}
+
+Bullet.prototype.shadowBulletProc = function()
+{
+    if (this.tag === "shadowBullet")
+    {
+        world.create(new this.ShadowClass({            
+            tag               : "enemy",
+            playerID          : -1,
+            spritesheet       : world.manifest.images[prefabs.players[this.playerID].spritesheet.replace(".png", "_shadow.png")],
+            spritesheetBullet : world.manifest.images[prefabs.players[this.playerID].spritesheetBullet],
+            anims             : c.ANIMATIONS[prefabs.players[this.playerID].anims],
+            position          : { x : c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT / 2 - 48 },
+            size              : { width : 96, height : 96 },
+            speed             : 1,
+            attackDelay       : 400,
+            startAngle        : 0,
+            focusPlayerID     : this.playerID
+        }));
+    }
 }
 
 EventEmitter.mixins(Bullet.prototype);

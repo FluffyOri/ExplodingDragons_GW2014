@@ -93,27 +93,25 @@ LightShip.prototype.isVisible = function()
 }
 
 LightShip.prototype.setFocus = function()
-{
+{    
     var players = world.find("tag", "player");
     for (var i = 0; i < players.length; i++)
     {
+        var targetPos = 
+        {
+            x : players[i].position.x+15,
+            y : players[i].position.y+15
+        }
+
         if (i === 0)
         {
-            this.targetPos = 
-            {
-                x : players[i].position.x + players[i].size.width / 2,
-                y : players[i].position.y + players[i].size.height / 2 
-            }
+            this.targetPos = targetPos;
         }
         else
         {
             if (utils.getDistance(this.position, players[i].position) < utils.getDistance(this.position, this.targetPos))
             {
-                this.targetPos = 
-                {
-                    x : players[i].position.x + players[i].size.width / 2,
-                    y : players[i].position.y + players[i].size.height / 2
-                }
+                this.targetPos = targetPos;
             }      
         }
     }

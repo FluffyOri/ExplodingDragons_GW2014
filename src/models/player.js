@@ -1,9 +1,11 @@
 //requirements
 var c               = require("../config/constantes");
+var prefabs         = require("../config/prefabs");
 var world           = require("../world");
 var input           = require("../controllers/inputs");
 var addRenderSystem = require("../modules/render");
 var Bullet          = require("../models/bullet");
+var Shadow          = require("../models/shadow");
 var EXPLOSION       = require("../models/explosion");
 var EventEmitter    = require("../../lib/events-emitter.js");
 
@@ -37,6 +39,8 @@ var Player = function Player(params)
     this.dashSpeed         = params.dashSpeed        || 100;
     this.dashDelay         = params.dashDelay        || 5000;
     this.prevDash          = 0;
+
+    this.shadowAbilityEnabled = false;
     
     this.spritesheet       = params.spritesheet;
     this.spritesheetBullet = params.spritesheetBullet;
@@ -75,6 +79,7 @@ var Player = function Player(params)
         this.dash();
         this.limits();
         this.shoot();
+        this.shadowAbility();
         this.collisions();
         this.animate();
         this.barrelife();
@@ -191,20 +196,20 @@ Player.prototype.shoot = function()
             }
 
             world.create(new Bullet(
-                {
-                    playerID : this.playerID,
-                    position : { 
-                        x : (this.position.x + this.size.width / 2)  + this.vecDir.x * canonDistance - 20,
-                        y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 10
-                    },
-                    size : { width : 40, height : 20 },
-                    layer : this.layer,
-                    damage : this.damage,
-                    startAngle : this.angle,
-                    spritesheet : this.spritesheetBullet,
-                    speed : 20,
-                    anims : c.ANIMATIONS["BULLET_FIRE"],
-                }));
+            {
+                playerID : this.playerID,
+                position : { 
+                    x : (this.position.x + this.size.width / 2)  + this.vecDir.x * canonDistance - 20,
+                    y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 10
+                },
+                size : { width : 40, height : 20 },
+                layer : this.layer,
+                damage : this.damage,
+                startAngle : this.angle,
+                spritesheet : this.spritesheetBullet,
+                speed : 20,
+                anims : c.ANIMATIONS["BULLET_FIRE"],
+            }));
     
             this.prevShot = new Date().getTime();
             world.manifest.sounds.shoot.play();
@@ -223,27 +228,45 @@ Player.prototype.collisions = function()
     {
         var other = world.gameObjects[i];
 
-        if (other.layer === "enemy" || (other.layer === "player" && other.playerID !== this.playerID))
+        if (other.tag !== "player" && 
+            (other.layer === "enemy" || ((other.layer === "player" || other.layer === "shadowBullet") && 
+            other.playerID !== this.playerID)))
         {
             if (other.position.x + other.size.width  > this.position.x + this.colliderPadding &&
                 other.position.x < this.position.x + this.size.width - this.colliderPadding  &&
                 other.position.y + other.size.width > this.position.y + this.colliderPadding &&
                 other.position.y < this.position.y + this.size.width - this.colliderPadding)
             {
+                if ((other.type === "shadow" && other.focusPlayerID !== this.playerID))
+                    break;
                 if (!this.shielded)
                 {
                     this.hitPoints -= other.damage;                    
                 }
-                if (other.layer === "enemy")
+                other.dead = true;
+                world.create(new EXPLOSION({
+                    position : { x : other.position.x, y : other.position.y },
+                    size : { width  : other.size.width * 1.5, height : other.size.width * 1.5 },
+                    zIndex : this.zIndex+1,
+                    spritesheet : world.manifest.images["dragon_explosion.png"],
+                    anims  : c.ANIMATIONS["EXPLOSION"],
+                    spriteSize : { width : 380, height : 380 }
+                }));
+                
+                if (other.tag === "shadowBullet" && !this.shielded)
                 {
-                    other.dead = true;
-                    world.create(new EXPLOSION({
-                        position : { x : other.position.x, y : other.position.y },
-                        size : { width  : other.size.width * 1.5, height : other.size.width * 1.5 },
-                        zIndex : this.zIndex+1,
-                        spritesheet : world.manifest.images["dragon_explosion.png"],
-                        anims  : c.ANIMATIONS["EXPLOSION"],
-                        spriteSize : { width : 380, height : 380 }
+                    world.create(new Shadow({            
+                        tag               : "enemy",
+                        playerID          : -1,
+                        spritesheet       : world.manifest.images[prefabs.players[this.playerID].spritesheet.replace(".png", "_shadow.png")],
+                        spritesheetBullet : world.manifest.images[prefabs.players[this.playerID].spritesheetBullet],
+                        anims             : c.ANIMATIONS[prefabs.players[this.playerID].anims],
+                        position          : { x : c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT / 2 - 48 },
+                        size              : { width : 96, height : 96 },
+                        speed             : 1,
+                        attackDelay       : 400,
+                        startAngle        : 0,
+                        focusPlayerID     : this.playerID
                     }));
                 }
 
@@ -293,6 +316,7 @@ Player.prototype.isDead = function()
     if (this.hitPoints <= 0)
         return true;
 }
+
 Player.prototype.barrelife = function()
 {
     var who = "HudP"+ this.playerID.toString();
@@ -300,6 +324,43 @@ Player.prototype.barrelife = function()
     this.barelife = $("#"+who);
     this.barelife.width(this.hitPoints * 225 / this.maxHitPoints);
 }
+
+Player.prototype.shadowAbility = function()
+{
+    if (input.getKeyPress("A", this.playerID) && this.shadowAbilityEnabled)
+    {
+        if (this.moving)
+        {
+            var canonDistance = this.size.width / 2;
+        }
+        else
+        {
+            var canonDistance = this.size.width / 2 - 10;
+        }
+
+        world.create(new Bullet(
+        {
+            playerID : this.playerID,
+            position : { 
+                x : (this.position.x + this.size.width / 2)  + this.vecDir.x * canonDistance - 40,
+                y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 20
+            },
+            size : { width : 80, height : 40 },
+            layer : "shadowBullet",
+            tag : "shadowBullet",
+            damage : 0,
+            startAngle : this.angle,
+            spritesheet : world.manifest.images["dark_dragon_bullet.png"],
+            spriteSize : { width : 311, height : 176 },
+            speed : 20,
+            anims : c.ANIMATIONS["BULLET_DARK"],
+            shadowClass : Shadow
+        }));
+
+        this.shadowAbilityEnabled = false;
+    }
+}
+
 
 EventEmitter.mixins(Player.prototype);
 addRenderSystem(Player.prototype);
