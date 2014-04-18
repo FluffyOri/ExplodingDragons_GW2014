@@ -44,8 +44,8 @@ $(function() {
 
             if (world.find("tag", "player").length >= 1)
             {
-                $("#menuScreen").fadeOut(1000, function() {
-                    $("#gameScreen").fadeIn(1000, function() {
+                $("#menuScreen").fadeOut(100, function() {
+                    $("#gameScreen").fadeIn(100, function() {
                         initGame();                        
                     });
                 });
