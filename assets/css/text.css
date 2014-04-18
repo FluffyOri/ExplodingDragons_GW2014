@@ -139,6 +139,34 @@ body
     z-index : 6;
 }
 
+#PopScoreP0
+{
+    position: absolute;
+    margin-top: 62px;
+    margin-left: 315px;
+    text-align: center;
+    z-index : 2050;
+}
+
+#PopScoreP1
+{
+    position: absolute;
+    margin-top: 62px;
+    margin-left: 947px;
+    text-align: center;
+    z-index : 2050;
+}
+
+.PlayersPopScore
+{
+    /*background-color: rgba(255, 0, 0, 0.4);*/
+    font-family: "dragon_font";
+    color: gold;
+    font-size: 24px;
+    width: 27px;
+    height: 20px;
+}
+
 .ScorePanelPlayer
 {
     color : white;
@@ -162,11 +190,12 @@ body
 {
     width: 80px;
     height: 30px;
-    font-size: 30px;
+    font-size: 36px;
+    font-family: "dragon_font";
     color: gold;
     text-align: center;
     position: absolute;
-    margin-top: 68px;
+    margin-top: 65px;
     margin-left: 600px;
     z-index: 10;
 }
