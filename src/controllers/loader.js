@@ -27,7 +27,62 @@ function loader(callback)
             count++;
         }
     });
+    world.manifest.sounds.blackdragon = new Howl({
+        urls: [sounds["entrer_dragon_noir.mp3"]],
+        volume : 0.00,
+        onload: function(){
+            count++;
+        }
 
+    })
+    world.manifest.sounds.shadow = new Howl({
+        urls: [sounds["entrer_shadow.mp3"]],
+        volume : 0.00,
+        onload: function(){
+            count++;
+        }
+
+    })
+    world.manifest.sounds.explosion = new Howl({
+        urls: [sounds["explosion_dragon.mp3"]],
+        volume : 0.00,
+        onload: function(){
+            count++;
+        }
+
+    })
+    world.manifest.sounds.gameover = new Howl({
+        urls: [sounds["game_over.mp3"]],
+        volume : 0.00,
+        onload: function(){
+            count++;
+        }
+
+    })
+    world.manifest.sounds. = new Howl({
+        urls: [sounds[""]],
+        volume : 0.00,
+        onload: function(){
+            count++;
+        }
+
+    })
+    world.manifest.sounds. = new Howl({
+        urls: [sounds[""]],
+        volume : 0.00,
+        onload: function(){
+            count++;
+        }
+
+    })
+    world.manifest.sounds. = new Howl({
+        urls: [sounds[""]],
+        volume : 0.00,
+        onload: function(){
+            count++;
+        }
+
+    })
     world.manifest.sounds.game = new Howl({
         urls: [sounds["musique_projet_gameweek.mp3"]],
         loop: true,
@@ -44,7 +99,7 @@ function loader(callback)
         nbAssets++;
     }
     //debug pour chargement plus court
-    count+=2;
+    //count+=2;
     loading();
 }
 
