@@ -42,7 +42,7 @@ $(function() {
 
             // world.create(new Gauge({playerID : gamepadID}));
 
-            if (world.find("tag", "player").length >= 2)
+            if (world.find("tag", "player").length >= 1)
             {
                 $("#menuScreen").fadeOut(1000, function() {
                     $("#gameScreen").fadeIn(1000, function() {
