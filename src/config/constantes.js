@@ -61,6 +61,16 @@ module.exports = {
                 "loop" : true
             },
         },
+        "BOSS" : 
+        {
+            "fly" :
+            {
+                "rate"  : 4,
+                "length" : 11,
+                "animY"   : 0,
+                "loop" : true
+            },
+        },
         "BULLET_ENEMY" : 
         {
             "basic" :

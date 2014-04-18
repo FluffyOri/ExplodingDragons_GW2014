@@ -45,23 +45,35 @@ $(function() {
 
             if (world.find("tag", "player").length >= 2)
             {
-                $("#menuScreen").fadeOut(1000, function() {
-                    $("#gameScreen").fadeIn(1000, function() {
-                        initGame();                        
-                    });
-                });
-                // $("#menuScreen").hide();
-                // $("#gameScreen").show()
-                //initGame();
+                requestAnimationFrame(pollStartGame);
             }
         });
         input.startPollingGamepads();
     }
 
+    function pollStartGame()
+    {
+        var pucelle = true;
+        if (input.getKeyPress("START"))
+        {
+            console.log("START")
+            $("#menuScreen").fadeOut(100, function() {
+                $("#gameScreen").fadeIn(100, function() {                        
+                    initGame();
+                });
+            });
+            pucelle = false;              
+        }
+
+        if(pucelle)
+        {
+            requestAnimationFrame(pollStartGame); 
+        }
+    }
     function initGame()
     {
         world.state = "ingame";
-        console.log("INIT")
+        console.log("INIT");
         setGenerators();
 
         setInterval(function() {

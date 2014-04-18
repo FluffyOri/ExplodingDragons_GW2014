@@ -6,6 +6,7 @@ var LightShip = require("../models/light_ship");
 var Kamikaze  = require("../models/Kamikaze");
 var Zeppelin  = require("../models/Zeppelin");
 var Generator = require("../models/generator");
+var Boss      = require("../models/boss");
 
 function setGenerators()
 {
@@ -143,6 +144,28 @@ function setGenerators()
             spritePos : { x : 0, y : 0 }
         }
     }));
+    
+    //boss
+    setTimeout(function() {
+        world.create(new Boss({
+            position: {
+                x : c.CANVAS_WIDTH+156,
+                y : c.CANVAS_HEIGHT / 2 - 156
+            },
+            angle : Math.PI,
+            speed : 1,
+            attackDelay : 5000,
+            tag : "enemy_ship",
+            marginInterval : 0,
+            size : { width : 312, height : 312 },
+            spritesheet : world.manifest.images["dark_dragon.png"],
+            spritesheetBullet : world.manifest.images["dark_dragon_bullet.png"],
+            anims : c.ANIMATIONS["BOSS"],
+            spriteSize : { width : 312, height : 312 },
+            spritePos : { x : 0, y : 0 }
+            
+        }));
+    }, 0);
 }
 
 function scheduler()

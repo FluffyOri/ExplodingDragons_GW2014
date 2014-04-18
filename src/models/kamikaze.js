@@ -60,7 +60,7 @@ var Kamikaze = function Kamikaze(params)
             this.counter = 0;            
         }
         this.move();
-        this.limits();
+        //this.limits();
         this.collisions();
         this.animate();
     }

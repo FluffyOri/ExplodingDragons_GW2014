@@ -34,14 +34,18 @@ var Player = function Player(params)
     this.maxHitPoints      = this.hitPoints          || 100;
     this.shielded          = false;
     this.speedMalus        = params.speedMalus       || 2;
-    this.respawnRange      = params.respawnRange     || 200;
+    this.respawnTime       = params.respawnTime      || 1500;
     this.explosionSize     = params.explosionSize    || 150;
+
+    this.shieldTime        = params.shieldTime       || 3000;
 
     this.dashSpeed         = params.dashSpeed        || 100;
     this.dashDelay         = params.dashDelay        || 5000;
     this.prevDash          = 0;
 
     this.shadowAbilityEnabled = false;
+
+    this.active = true;
     
     this.spritesheet       = params.spritesheet;
     this.spritesheetBullet = params.spritesheetBullet;
@@ -78,16 +82,19 @@ var Player = function Player(params)
 
     this.run = function()
     {
-        this.rotate();
-        this.move();
-        this.dash();
-        this.limits();
-        this.shoot();
-        this.shadowAbility();
-        this.collisions();
-        this.animate();
-        this.barrelife();
-        this.updateScore();
+        if (this.active)
+        {
+            this.rotate();
+            this.move();
+            this.dash();
+            this.limits();
+            this.shoot();
+            this.shadowAbility();
+            this.collisions();
+            this.animate();
+            this.barrelife();
+            this.updateScore();            
+        }
     }
 }
 
@@ -182,11 +189,14 @@ Player.prototype.dash = function()
 
 Player.prototype.shoot = function()
 {
-    if (input.getButtonDown("Fire", this.playerID) && !this.shielded)
+    if (input.getButtonDown("Fire", this.playerID))
     {
         var datTime = new Date().getTime();
 
-        this.animY = this.activeAnim["animY"] + 256;
+        if (!this.shielded)
+        {
+            this.animY = this.activeAnim["animY"] + 256;            
+        }
 
         if (datTime - this.prevShot > this.attackDelay)
         {
@@ -328,7 +338,14 @@ Player.prototype.respawn = function()
     world.manifest.sounds.explosion.play();
     this.hitPoints = this.maxHitPoints;
 
-    //random respawn pos : TO DO
+    this.active = false;
+    var self = this;
+
+    setTimeout(function() {
+        self.position.x = c.CANVAS_WIDTH / 4 + Math.floor(Math.random() * c.CANVAS_WIDTH / 2);
+        self.position.y = c.CANVAS_HEIGHT / 4 + Math.floor(Math.random() * c.CANVAS_HEIGHT / 2);
+        self.active = true;
+    }, this.respawnTime);
 
     this.shield();
 }
@@ -344,7 +361,7 @@ Player.prototype.shield = function()
         self.speed *= self.speedMalus;
         self.shielded = false;
         self.trigger("set animation", (this.moving) ? "fly" : "idle");
-    }, 3000);
+    }, this.shieldTime);
 }
 
 Player.prototype.isDead = function()

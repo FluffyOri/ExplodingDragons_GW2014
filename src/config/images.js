@@ -53,9 +53,10 @@ module.exports = [
 >>>>>>> KENTIN
 	"assets/images/red_dragon_bullet.png",
 	"assets/images/red_dragon_shadow.png",
-	"assets/images/sea_background_1.png",
 	"assets/images/sea_background_2.png",
+	"assets/images/sea_background_1.png",
 	"assets/images/sea_background_3.png",
+<<<<<<< HEAD
 	"assets/images/shoot_zeppelin.png",
 	"assets/images/zeppelin.png",
 <<<<<<< HEAD
@@ -74,5 +75,9 @@ module.exports = [
 	"assets/images/sea_background_3.png",
 >>>>>>> LloydV3
 	"assets/images/shadow_dragon_bullet.png",
+=======
+	"assets/images/shadow_dragon_bullet.png",
+	"assets/images/shoot_zeppelin.png",
+>>>>>>> tibo
 	"assets/images/zeppelin.png",
 ];
