@@ -1,6 +1,7 @@
 //requirements
 var c               = require("../config/constantes");
 var utils           = require("../controllers/utils");
+var scoreController = require("../controllers/scoreController");
 var world           = require("../world");
 var addRenderSystem = require("../modules/render");
 var Bullet          = require("../models/bullet");
@@ -38,6 +39,8 @@ var LightShip = function LightShip(params)
     this.precision         = [ -10, -5, 0, 0, 0, 5, 10];
     this.colliderPadding   = 0;
     this.visible           = false;
+
+    this.scoreValue        = params.scoreValue       || 50;
 
     var self = this;
     this.on("set animation", function(name) {
@@ -175,10 +178,12 @@ LightShip.prototype.collisions = function()
                 this.position.y + this.size.height > other.position.y + other.colliderPadding && 
                 this.position.y < other.position.y + other.size.height - other.colliderPadding)
             {
-                this.hitPoints -= other.damage;
-                
                 if (other.tag === "bullet")
                 {
+                    this.hitPoints -= other.damage;
+
+                    this.lastAttackerID = other.playerID;
+
                     other.dead = true;
                     world.create(new EXPLOSION({
                         position : { x : other.position.x, y : other.position.y },
@@ -195,11 +200,15 @@ LightShip.prototype.collisions = function()
 
     if (this.isDead())
     {
+        scoreController.addScoreTo(this.lastAttackerID, this.scoreValue);
+
+        scoreController.substractScoreToIA(this.scoreValue);
+
         world.create(new EXPLOSION(
         {
             position : { x : this.position.x, y : this.position.y },
             size : { width  : this.size.width, height : this.size.width },
-            zIndex : this.zIndex+1,
+            zIndex : this.zIndex + 1,
             spritesheet : world.manifest.images["enemy_explosion.png"], //put enemy explosion image when fixed
             anims  : c.ANIMATIONS["EXPLOSION"],
             spriteSize : { width : 380, height : 380 }

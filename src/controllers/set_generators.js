@@ -89,7 +89,8 @@ function setGenerators()
         focusPlayer : true,        
         objectClass : Kamikaze,
         objectParams : {
-            speed : 1,
+            speed : 7,
+            tag : "enemy_ship",
             marginInterval : 0,
             size : { width : 55, height : 55 },
             spritesheet : world.manifest.images["phoenix.png"],
@@ -109,6 +110,7 @@ function setGenerators()
         objectClass : Zeppelin,
         objectParams : {
             speed : 0.5,
+            tag : "enemy_ship",
             attackDelay : 2500,
             marginInterval : 0,
             size : { width : 100, height : 100 },
@@ -131,6 +133,7 @@ function setGenerators()
         objectParams : {
             speed : 2,
             attackDelay : 5000,
+            tag : "enemy_ship",
             marginInterval : 0,
             size : { width : 48, height : 48 },
             spritesheet : world.manifest.images["light_ship.png"],
@@ -146,7 +149,7 @@ function setGenerators()
 function scheduler()
 {
     world.on("new generator", function(tag) {
-        console.log(tag);
+        
     });
 }
 

@@ -14,7 +14,6 @@ module.exports = [
 	"assets/images/gold_dragon_shadow.png",
 	"assets/images/island_1.png",
 	"assets/images/islands.png",
-	"assets/images/islands_spe.png",
 	"assets/images/light_ship.png",
 	"assets/images/loading.png",
 	"assets/images/loading_icon.png",
@@ -28,4 +27,5 @@ module.exports = [
 	"assets/images/shadow_dragon_bullet.png",
 	"assets/images/shoot_zeppelin.png",
 	"assets/images/zeppelin.png",
+	"assets/images/islands_spe.png",
 ];

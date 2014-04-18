@@ -8,6 +8,7 @@ var Bullet          = require("../models/bullet");
 var Shadow          = require("../models/shadow");
 var EXPLOSION       = require("../models/explosion");
 var EventEmitter    = require("../../lib/events-emitter.js");
+var scoreController = require("../controllers/scoreController.js");
 
 var Player = function Player(params)
 {
@@ -49,6 +50,8 @@ var Player = function Player(params)
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['idle'];
     this.animY             = this.activeAnim["animY"];
 
+    this.score             = params.score || 0;
+
     // this.createGauge();
 
     this.colliderPadding   = params.colliderPadding || 20;
@@ -83,6 +86,7 @@ var Player = function Player(params)
         this.collisions();
         this.animate();
         this.barrelife();
+        this.updateScore();
     }
 }
 
@@ -241,7 +245,7 @@ Player.prototype.collisions = function()
                     break;
                 if (!this.shielded)
                 {
-                    this.hitPoints -= other.damage;                    
+                    this.hitPoints -= other.damage;             
                 }
                 other.dead = true;
                 world.create(new EXPLOSION({
@@ -253,6 +257,12 @@ Player.prototype.collisions = function()
                     spriteSize : { width : 380, height : 380 }
                 }));
                 
+                if (other.tag === "enemy_ship")
+                {
+                    this.score += other.scoreValue;
+                    scoreController.substractScoreToIA(other.scoreValue);
+                }
+
                 if (other.tag === "shadowBullet" && !this.shielded)
                 {
                     world.create(new Shadow({            
@@ -267,7 +277,7 @@ Player.prototype.collisions = function()
                         attackDelay       : 400,
                         startAngle        : 0,
                         focusPlayerID     : this.playerID
-                    }));
+
                 }
 
                 if (this.isDead())
@@ -319,9 +329,9 @@ Player.prototype.isDead = function()
 
 Player.prototype.barrelife = function()
 {
-    var who = "HudP"+ this.playerID.toString();
+    var who = "HudP" + this.playerID.toString();
 
-    this.barelife = $("#"+who);
+    this.barelife = $("#" + who);
     this.barelife.width(this.hitPoints * 225 / this.maxHitPoints);
 }
 
@@ -361,6 +371,13 @@ Player.prototype.shadowAbility = function()
     }
 }
 
+Player.prototype.updateScore = function()
+{
+    var who = "ScoreP" + this.playerID.toString();
+
+    this.scoreText = $('#' + who);
+    this.scoreText.text(this.score.toString());
+}
 
 EventEmitter.mixins(Player.prototype);
 addRenderSystem(Player.prototype);

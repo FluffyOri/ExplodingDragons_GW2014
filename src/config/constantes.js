@@ -18,14 +18,14 @@ module.exports = {
             },
             "idle" :
             {
-                "rate"  : 4,
+                "rate"  : 2,
                 "length" : 12,
                 "animY"   : 128,
                 "loop" : true
             },
             "shield" : 
             {
-                "rate"  : 4,
+                "rate"  : 8,
                 "length" : 12,
                 "animY"   : 512,
                 "loop" : true    

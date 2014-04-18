@@ -1,6 +1,7 @@
 //requirements
 var c               = require("../config/constantes");
 var utils           = require("../controllers/utils");
+var scoreController = require("../controllers/scoreController");
 var world           = require("../world");
 var addRenderSystem = require("../modules/render");
 var Bullet          = require("../models/bullet");
@@ -35,6 +36,8 @@ var Kamikaze = function Kamikaze(params)
     this.visible           = false;
 
     this.counter = 0;
+    this.scoreValue        = params.scoreValue || 10;
+    this.lastAttackerID    = null;
 
     var self = this;
     this.on("set animation", function(name) {
@@ -135,31 +138,35 @@ Kamikaze.prototype.collisions = function()
                 this.position.y + this.size.height > other.position.y + other.colliderPadding && 
                 this.position.y < other.position.y + other.size.height - other.colliderPadding)
             {
-                this.hitPoints -= other.damage;
-                
                 if (other.tag === "bullet")
                 {
+                    this.hitPoints -= other.damage;
+                    
+                    scoreController.addScoreTo(other.playerID, this.scoreValue);
+
+                    scoreController.substractScoreToIA(this.scoreValue);       
+
                     other.dead = true;
                     world.create(new EXPLOSION({
                         position : { x : other.position.x, y : other.position.y },
                         size : { width  : other.size.width, height : other.size.width },
-                        zIndex : this.zIndex+1,
+                        zIndex : this.zIndex + 1,
                         spritesheet : world.manifest.images["dragon_explosion.png"],
                         anims  : c.ANIMATIONS["EXPLOSION"],
                         spriteSize : { width : 380, height : 380 }
-                    }));                    
+                    }));
                 }
             }
         }
     }
 
     if (this.isDead())
-    {
+    {        
         world.create(new EXPLOSION(
         {
             position : { x : this.position.x, y : this.position.y },
             size : { width  : this.size.width, height : this.size.width },
-            zIndex : this.zIndex+1,
+            zIndex : this.zIndex + 1,
             spritesheet : world.manifest.images["enemy_explosion.png"], //put enemy explosion image when fixed
             anims  : c.ANIMATIONS["EXPLOSION"],
             spriteSize : { width : 380, height : 380 }
@@ -172,7 +179,9 @@ Kamikaze.prototype.collisions = function()
 Kamikaze.prototype.isDead = function()
 {
     if (this.hitPoints <= 0)
+    {
         return true;
+    }
 }
 
 EventEmitter.mixins(Kamikaze.prototype);

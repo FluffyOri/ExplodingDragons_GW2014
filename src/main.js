@@ -13,6 +13,7 @@ $(function() {
     var Collectible   = require("./models/collectible");
     var manageTime    = require("./config/manageTime");
     var Gauge         = require("./models/gaugeShoot.js");
+    var ScoreIA       = require("./models/scoreIA.js");
 
     function initMenu()
     {
@@ -23,6 +24,7 @@ $(function() {
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
             {
+                zIndex            : 1000 + gamepadID,
                 tag               : "player",
                 playerID          : gamepadID,
                 spritesheet       : world.manifest.images[prefabs.players[gamepadID].spritesheet],
@@ -35,7 +37,7 @@ $(function() {
                 colliderPadding   : 30,
                 attackDelay       : 400,
                 hitPoints         : 100,
-                explosionSize     : 2000,
+                explosionSize     : 1000,
                 startAngle        : gamepadID * Math.PI
             }));
 
@@ -90,6 +92,7 @@ $(function() {
         }, 5000);
 
         initDecor();
+        initScoreIA();
         world.sortGameobjects();
         setInterval(world.sortGameobjects, 1000);
         requestAnimationFrame(gameloop);
@@ -177,6 +180,11 @@ $(function() {
                 spritePos : { x : 0, y : 0 }
             }));
         }
+    }
+
+    function initScoreIA()
+    {
+        world.create(new ScoreIA({ score : 10000 }));
     }
 
     loader(initMenu);
