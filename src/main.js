@@ -19,6 +19,7 @@ $(function() {
     {
         world.state = "menu";
         defineCanvas();
+        world.manifest.sounds.vent.play();
         world.manifest.sounds.game.play();
 
         world.on("gamepad connected", function(gamepadID) {
@@ -42,7 +43,7 @@ $(function() {
 
             // world.create(new Gauge({playerID : gamepadID}));
 
-            if (world.find("tag", "player").length >= 1)
+            if (world.find("tag", "player").length >= 2)
             {
                 $("#menuScreen").fadeOut(1000, function() {
                     $("#gameScreen").fadeIn(1000, function() {

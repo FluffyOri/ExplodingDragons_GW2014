@@ -258,7 +258,6 @@ Player.prototype.collisions = function()
                     anims  : c.ANIMATIONS["EXPLOSION"],
                     spriteSize : { width : 380, height : 380 }
                 }));
-                
                 if (other.tag === "enemy_ship")
                 {
                     this.score += other.scoreValue;
@@ -316,7 +315,8 @@ Player.prototype.respawn = function()
         anims  : c.ANIMATIONS["EXPLOSION"],
         spriteSize : { width : 380, height : 380 }
     }));
-
+    world.manifest.sounds.gameover.play();
+    world.manifest.sounds.explosion.play();
     this.hitPoints = this.maxHitPoints;
 
     //random respawn pos : TO DO
@@ -354,7 +354,7 @@ Player.prototype.barrelife = function()
 
 Player.prototype.shadowAbility = function()
 {
-    if (input.getKeyPress("A", this.playerID) && this.shadowAbilityEnabled)
+    if (input.getKeyPress("LT", this.playerID) && this.shadowAbilityEnabled)
     {
         if (this.moving)
         {
@@ -383,7 +383,7 @@ Player.prototype.shadowAbility = function()
             anims : c.ANIMATIONS["BULLET_DARK"],
             shadowClass : Shadow
         }));
-
+        world.manifest.sounds.tire_shadow.play();
         this.shadowAbilityEnabled = false;
     }
 }
