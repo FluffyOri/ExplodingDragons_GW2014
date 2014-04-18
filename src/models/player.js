@@ -50,7 +50,8 @@ var Player = function Player(params)
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['idle'];
     this.animY             = this.activeAnim["animY"];
 
-    this.score             = params.score || 0;
+    this.score             = params.score         || 0;
+    this.deathValueMax     = params.deathValueMax || 500;
 
     // this.createGauge();
 
@@ -245,7 +246,8 @@ Player.prototype.collisions = function()
                     break;
                 if (!this.shielded)
                 {
-                    this.hitPoints -= other.damage;             
+                    this.lastAttackerID = other.playerID;
+                    this.hitPoints -= other.damage;
                 }
                 other.dead = true;
                 world.create(new EXPLOSION({
@@ -283,6 +285,20 @@ Player.prototype.collisions = function()
 
                 if (this.isDead())
                 {
+                    if(this.score < this.deathValueMax)
+                    {
+                        this.deathValue = this.score;
+                    }
+                    else
+                        this.deathValue = this.deathValueMax;
+
+                    if (this.lastAttackerID === -1)
+                        scoreController.addScoreToIA(this.deathValue);
+                    if (this.lastAttackerID === 1)
+                        scoreController.addScoreTo(this.lastAttackerID, this.deathValue);
+
+                        this.score -= this.deathValue;
+
                     this.respawn();
                 }
             }

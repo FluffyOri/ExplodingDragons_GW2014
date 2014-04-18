@@ -32,17 +32,17 @@ $(function() {
                 position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT / 2 - 48 },
                 size              : { width : 96, height : 96 },
                 zIndex            : 1000 + gamepadID,
-                speed             : 10,
+                speed             : 9,
                 colliderPadding   : 30,
                 attackDelay       : 400,
                 hitPoints         : 100,
-                explosionSize     : 1000,
-                startAngle        : gamepadID * Math.PI
+                startAngle        : gamepadID * Math.PI,
+                explosionSize     : 500
             }));
 
             // world.create(new Gauge({playerID : gamepadID}));
 
-            if (world.find("tag", "player").length >= 2)
+            if (world.find("tag", "player").length >= 1)
             {
                 $("#menuScreen").fadeOut(1000, function() {
                     $("#gameScreen").fadeIn(1000, function() {
