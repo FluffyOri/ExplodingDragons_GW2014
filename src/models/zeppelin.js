@@ -25,9 +25,9 @@ var Zeppelin = function Zeppelin(params)
     
     this.attackDelay       = params.attackDelay      || 5000;
     this.prevShot          = 0;
-    this.hitPoints         = params.hitPoints        || 3;
-    this.damageBullet      = params.damageBullet     || 5;
-    this.damage            = params.damage           || 10;
+    this.hitPoints         = params.hitPoints        || 100;
+    this.damageBullet      = params.damageBullet     || 10;
+    this.damage            = params.damage           || 20;
 
     this.spritesheet       = params.spritesheet;
     this.spritesheetBullet = params.spritesheetBullet;
