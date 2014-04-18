@@ -154,6 +154,7 @@ function setGenerators()
             },
             angle : Math.PI,
             speed : 1,
+            hitPoints : 100,
             attackDelay : 5000,
             tag : "enemy_ship",
             marginInterval : 0,
@@ -161,7 +162,7 @@ function setGenerators()
             spritesheet : world.manifest.images["dark_dragon.png"],
             spritesheetBullet : world.manifest.images["dark_dragon_bullet.png"],
             anims : c.ANIMATIONS["BOSS"],
-            spriteSize : { width : 312, height : 312 },
+            spriteSize : { width : 480, height : 480 },
             spritePos : { x : 0, y : 0 }
             
         }));
