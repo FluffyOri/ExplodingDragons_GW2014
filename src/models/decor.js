@@ -22,6 +22,7 @@ var Decor = function Decor(params)
     this.run = function()
     {
         this.move();
+        this.limits();
         this.drawFrame();
     }
 }
@@ -30,6 +31,29 @@ Decor.prototype.move = function()
 {
     this.position.x += this.direction.x * this.speed;
     this.position.y += this.direction.y * this.speed;
+}
+
+Decor.prototype.isVisible = function()
+{
+    if (this.position.x > 0 && this.position.x + this.size.width  < c.CANVAS_WIDTH &&
+        this.position.y > 0 && this.position.y + this.size.height < c.CANVAS_HEIGHT && !this.visible)
+    {
+        this.visible = true;
+    }
+}
+
+Decor.prototype.limits = function()
+{
+    this.isVisible();
+
+    if (this.visible)
+    {
+        if (this.position.x < 0 || this.position.x + this.size.width  > c.GAME_WIDTH ||
+            this.position.y < 0 || this.position.y + this.size.height > c.GAME_HEIGHT)
+        {
+            this.dead = true;
+        }        
+    }
 }
 
 addRenderSystem(Decor.prototype);

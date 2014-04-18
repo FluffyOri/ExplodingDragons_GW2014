@@ -23,7 +23,7 @@ function loader(callback)
 
     world.manifest.sounds.shoot = new Howl({
         urls: [sounds["tire_dragon.mp3"]],
-        volume : 0.13, //0.13
+        volume : 0.04, //0.13
         onload: function(){
             count++;
         }
@@ -34,56 +34,58 @@ function loader(callback)
         onload: function(){
             count++;
         }
-
-    })
+    });
     world.manifest.sounds.shadow = new Howl({
         urls: [sounds["entrer_shadow.mp3"]],
-        volume : 0.00,
+        volume : 0.15,
+        loop: false,
         onload: function(){
             count++;
         }
-
-    })
+    });
     world.manifest.sounds.explosion = new Howl({
         urls: [sounds["explosion_dragon.mp3"]],
-        volume : 0.00,
+        volume : 0.05,
         onload: function(){
             count++;
         }
-
-    })
+    });
     world.manifest.sounds.gameover = new Howl({
-        urls: [sounds["game_over.mp3"]],
-        volume : 0.00,
+        urls: [sounds["gameover.mp3"]],
+        volume : 0.20,
         onload: function(){
             count++;
         }
-
-    })
-    // world.manifest.sounds. = new Howl({
-    //     urls: [sounds[""]],
-    //     volume : 0.00,
-    //     onload: function(){
-    //         count++;
-    //     }
-
-    // })
-    // world.manifest.sounds. = new Howl({
-    //     urls: [sounds[""]],
-    //     volume : 0.00,
-    //     onload: function(){
-    //         count++;
-    //     }
-
-    // })
-    // world.manifest.sounds. = new Howl({
-    //     urls: [sounds[""]],
-    //     volume : 0.00,
-    //     onload: function(){
-    //         count++;
-    //     }
-
-    // })
+    });
+     world.manifest.sounds.boss = new Howl({
+         urls: [sounds["musique_boss.mp3"]],
+         volume : 0.05,
+         onload: function(){
+             count++;
+        }
+    });
+     world.manifest.sounds.victoire = new Howl({
+         urls: [sounds["victoire.mp3"]],
+         volume : 0.00,
+         onload: function(){
+           count++;
+        }
+    });
+    world.manifest.sounds.tire_shadow = new Howl({
+        urls: [sounds["bullet_shadow.mp3"]],
+        volume : 0.15   ,
+        onload: function(){
+            count++;
+        }
+    });
+      world.manifest.sounds.vent = new Howl({
+        urls: [sounds["vent.mp3"]],
+        loop: true,
+        volume : 0.07,
+        onload: function(){
+            count++;
+        }
+    });
     world.manifest.sounds.game = new Howl({
         urls: [sounds["musique_projet_gameweek.mp3"]],
         loop: true,
@@ -92,7 +94,6 @@ function loader(callback)
             count++;
         }
     });
-
     nbAssets += images.length;
     for (var i in sounds)
     {
@@ -100,7 +101,7 @@ function loader(callback)
     }
     //nbAssets++;
     //debug pour chargement plus court
-    count+=2;
+    count+=5;
     loading();
     console.log(nbAssets)
 }
@@ -110,8 +111,8 @@ function loading()
     console.log(count)
     if (count >= nbAssets)
     {
-        $("#loadingScreen").fadeOut(1000, function() {
-            $("#menuScreen").fadeIn(1000, function() {
+        $("#loadingScreen").fadeOut(100, function() {
+            $("#menuScreen").fadeIn(100, function() {
                 init();                
             });
         });

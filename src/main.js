@@ -19,6 +19,7 @@ $(function() {
     {
         world.state = "menu";
         defineCanvas();
+        world.manifest.sounds.vent.play();
         world.manifest.sounds.game.play();
 
         world.on("gamepad connected", function(gamepadID) {
@@ -44,23 +45,35 @@ $(function() {
 
             if (world.find("tag", "player").length >= 1)
             {
-                $("#menuScreen").fadeOut(1000, function() {
-                    $("#gameScreen").fadeIn(1000, function() {
-                        initGame();                        
-                    });
-                });
-                // $("#menuScreen").hide();
-                // $("#gameScreen").show()
-                //initGame();
+                requestAnimationFrame(pollStartGame);
             }
         });
         input.startPollingGamepads();
     }
 
+    function pollStartGame()
+    {
+        var pucelle = true;
+        if (input.getKeyPress("START"))
+        {
+            console.log("START")
+            $("#menuScreen").fadeOut(100, function() {
+                $("#gameScreen").fadeIn(100, function() {                        
+                    initGame();
+                });
+            });
+            pucelle = false;              
+        }
+
+        if(pucelle)
+        {
+            requestAnimationFrame(pollStartGame); 
+        }
+    }
     function initGame()
     {
         world.state = "ingame";
-        console.log("INIT")
+        console.log("INIT");
         setGenerators();
 
         setInterval(function() {
