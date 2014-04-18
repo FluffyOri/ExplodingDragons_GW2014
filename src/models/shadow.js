@@ -55,6 +55,10 @@ var Shadow = function Shadow(params)
         }
     });
 
+    setInterval(function() {
+        self.dead = true;
+    }, 5000); //timer shadow
+
     this.run = function()
     {
         this.setFocus();

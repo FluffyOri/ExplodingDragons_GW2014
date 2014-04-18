@@ -100,7 +100,7 @@ function loader(callback)
     }
     //nbAssets++;
     //debug pour chargement plus court
-    count+=2;
+    count+=3;
     loading();
     console.log(nbAssets)
 }
