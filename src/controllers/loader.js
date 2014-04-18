@@ -20,6 +20,7 @@ function loader(callback)
         var path = "assets/images/";
         world.manifest.images[images[i].replace(path, "")] = img;
     }
+
     world.manifest.sounds.shoot = new Howl({
         urls: [sounds["tire_dragon.mp3"]],
         volume : 0.13, //0.13
@@ -59,30 +60,30 @@ function loader(callback)
         }
 
     })
-    world.manifest.sounds. = new Howl({
-        urls: [sounds[""]],
-        volume : 0.00,
-        onload: function(){
-            count++;
-        }
+    // world.manifest.sounds. = new Howl({
+    //     urls: [sounds[""]],
+    //     volume : 0.00,
+    //     onload: function(){
+    //         count++;
+    //     }
 
-    })
-    world.manifest.sounds. = new Howl({
-        urls: [sounds[""]],
-        volume : 0.00,
-        onload: function(){
-            count++;
-        }
+    // })
+    // world.manifest.sounds. = new Howl({
+    //     urls: [sounds[""]],
+    //     volume : 0.00,
+    //     onload: function(){
+    //         count++;
+    //     }
 
-    })
-    world.manifest.sounds. = new Howl({
-        urls: [sounds[""]],
-        volume : 0.00,
-        onload: function(){
-            count++;
-        }
+    // })
+    // world.manifest.sounds. = new Howl({
+    //     urls: [sounds[""]],
+    //     volume : 0.00,
+    //     onload: function(){
+    //         count++;
+    //     }
 
-    })
+    // })
     world.manifest.sounds.game = new Howl({
         urls: [sounds["musique_projet_gameweek.mp3"]],
         loop: true,
@@ -99,12 +100,14 @@ function loader(callback)
     }
     //nbAssets++;
     //debug pour chargement plus court
-    //count+=2;
+    count+=2;
     loading();
+    console.log(nbAssets)
 }
 
 function loading()
-{
+{   
+    console.log(count)
     if (count >= nbAssets)
     {
         $("#loadingScreen").fadeOut(1000, function() {
