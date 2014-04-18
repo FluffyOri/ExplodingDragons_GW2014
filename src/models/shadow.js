@@ -42,7 +42,7 @@ var Shadow = function Shadow(params)
 
     this.focusPlayerID     = params.focusPlayerID;
     this.focusPlayerPos    = world.find("tag", "player")[this.focusPlayerID].position;
-
+    world.manifest.sounds.shadow.play();
     var self = this;
     this.on("set animation", function(name) {
         if (self.activeAnim != self.anims[name])
