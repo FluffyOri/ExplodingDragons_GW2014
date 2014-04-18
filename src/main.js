@@ -36,8 +36,8 @@ $(function() {
                 colliderPadding   : 30,
                 attackDelay       : 400,
                 hitPoints         : 100,
-                explosionSize     : 1000,
-                startAngle        : gamepadID * Math.PI
+                startAngle        : gamepadID * Math.PI,
+                explosionSize     : 500
             }));
 
             // world.create(new Gauge({playerID : gamepadID}));

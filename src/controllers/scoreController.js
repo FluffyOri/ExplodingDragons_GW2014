@@ -24,7 +24,7 @@ var scoreController =
     {
         var IA = world.find("playerID", - 6)[0];
 
-        IA.score -= num;
+        IA.score += num;
     },
 
     substractScoreToIA : function(num)
