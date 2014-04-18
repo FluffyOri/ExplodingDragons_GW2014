@@ -6,6 +6,7 @@ var addRenderSystem = require("../modules/render");
 var Bullet          = require("../models/bullet");
 var EXPLOSION       = require("../models/explosion");
 var EventEmitter    = require("../../lib/events-emitter.js");
+var scoreController = require("../controllers/scoreController.js");
 
 var Player = function Player(params)
 {
@@ -45,6 +46,8 @@ var Player = function Player(params)
     this.activeAnim        = this.anims[params.activeAnim] || this.anims['idle'];
     this.animY             = this.activeAnim["animY"];
 
+    this.score             = params.score || 0;
+
     // this.createGauge();
 
     this.colliderPadding   = params.colliderPadding || 20;
@@ -78,6 +81,7 @@ var Player = function Player(params)
         this.collisions();
         this.animate();
         this.barrelife();
+        this.updateScore();
     }
 }
 
@@ -193,7 +197,7 @@ Player.prototype.shoot = function()
             world.create(new Bullet(
                 {
                     playerID : this.playerID,
-                    position : { 
+                    position : {
                         x : (this.position.x + this.size.width / 2)  + this.vecDir.x * canonDistance - 20,
                         y : (this.position.y + this.size.height / 2) + this.vecDir.y * canonDistance - 10
                     },
@@ -232,15 +236,21 @@ Player.prototype.collisions = function()
             {
                 if (!this.shielded)
                 {
-                    this.hitPoints -= other.damage;                    
+                    this.hitPoints -= other.damage;             
                 }
                 if (other.layer === "enemy")
                 {
+                    if (other.tag === "enemy_ship")
+                    {
+                        this.score += other.scoreValue;
+                        scoreController.substractScoreToIA(other.scoreValue);
+                    }
+
                     other.dead = true;
                     world.create(new EXPLOSION({
                         position : { x : other.position.x, y : other.position.y },
                         size : { width  : other.size.width * 1.5, height : other.size.width * 1.5 },
-                        zIndex : this.zIndex+1,
+                        zIndex : this.zIndex + 1,
                         spritesheet : world.manifest.images["dragon_explosion.png"],
                         anims  : c.ANIMATIONS["EXPLOSION"],
                         spriteSize : { width : 380, height : 380 }
@@ -293,12 +303,21 @@ Player.prototype.isDead = function()
     if (this.hitPoints <= 0)
         return true;
 }
+
 Player.prototype.barrelife = function()
 {
-    var who = "HudP"+ this.playerID.toString();
+    var who = "HudP" + this.playerID.toString();
 
-    this.barelife = $("#"+who);
+    this.barelife = $("#" + who);
     this.barelife.width(this.hitPoints * 225 / this.maxHitPoints);
+}
+
+Player.prototype.updateScore = function()
+{
+    var who = "ScoreP" + this.playerID.toString();
+
+    this.scoreText = $('#' + who);
+    this.scoreText.text(this.score.toString());
 }
 
 EventEmitter.mixins(Player.prototype);

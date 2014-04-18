@@ -50,7 +50,6 @@ function loader(callback)
 
 function loading()
 {
-    console.log(count);
     if (count >= nbAssets)
     {
         // $("#loadingScreen").fadeOut(function() {

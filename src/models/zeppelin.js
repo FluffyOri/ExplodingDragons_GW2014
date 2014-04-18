@@ -1,6 +1,7 @@
 //requirements
 var c               = require("../config/constantes");
 var utils           = require("../controllers/utils");
+var scoreController = require("../controllers/scoreController.js");
 var world           = require("../world");
 var addRenderSystem = require("../modules/render");
 var Bullet          = require("../models/bullet");
@@ -39,6 +40,8 @@ var Zeppelin = function Zeppelin(params)
     this.precision         = [ -10, -5, 0, 0, 0, 5, 10];
     this.colliderPadding   = 0;
     this.visible           = false;
+
+    this.scoreValue        = 100;
 
     var self = this;
     this.on("set animation", function(name) {
@@ -178,10 +181,12 @@ Zeppelin.prototype.collisions = function()
                 this.position.y + this.size.height > other.position.y + other.colliderPadding && 
                 this.position.y < other.position.y + other.size.height - other.colliderPadding)
             {
-                this.hitPoints -= other.damage;
-                
                 if (other.tag === "bullet")
                 {
+                    this.lastAttackerID = other.playerID;
+                    
+                    this.hitPoints -= other.damage;
+
                     other.dead = true;
                     world.create(new EXPLOSION({
                         position : { x : other.position.x, y : other.position.y },
@@ -198,6 +203,10 @@ Zeppelin.prototype.collisions = function()
 
     if (this.isDead())
     {
+        scoreController.addScoreTo(this.lastAttackerID, this.scoreValue);
+
+        scoreController.substractScoreToIA(this.scoreValue);
+
         world.create(new EXPLOSION(
         {
             position : { x : this.position.x, y : this.position.y },

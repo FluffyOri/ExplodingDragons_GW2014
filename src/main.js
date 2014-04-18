@@ -1,18 +1,19 @@
 $(function() {
     //requirements
-    var c         = require("./config/constantes");
-    var world     = require("./world");
-    var stats     = require("../lib/stats.js");
-    var input     = require("./controllers/inputs");
-    var loader    = require("./controllers/loader");
-    var Player    = require("./models/player");
-    var Decor     = require("./models/decor");
-    var prefabs   = require("./config/prefabs");
+    var world         = require("./world");
+    var c             = require("./config/constantes");
+    var prefabs       = require("./config/prefabs");
+    var manageTime    = require("./config/manageTime");
+    var stats         = require("../lib/stats.js");
+    var input         = require("./controllers/inputs");
+    var loader        = require("./controllers/loader");
     var setGenerators = require("./controllers/set_generators");
-    var Ennemis   = require("./models/ennemis");
-    var manageTime= require("./config/manageTime");
-    var Gauge     = require("./models/gaugeShoot.js");
-
+    var Player        = require("./models/player");
+    var Decor         = require("./models/decor");
+    var Ennemis       = require("./models/ennemis");
+    var Gauge         = require("./models/gaugeShoot.js");
+    var ScoreIA       = require("./models/scoreIA.js");
+    
     function initMenu()
     {
         world.state = "menu";
@@ -22,6 +23,7 @@ $(function() {
         world.on("gamepad connected", function(gamepadID) {
             world.create(new Player(
             {
+                zIndex            : 1000 + gamepadID,
                 tag               : "player",
                 playerID          : gamepadID,
                 spritesheet       : world.manifest.images[prefabs.players[gamepadID].spritesheet],
@@ -33,7 +35,7 @@ $(function() {
                 colliderPadding   : 30,
                 attackDelay       : 400,
                 hitPoints         : 100,
-                explosionSize     : 2000
+                explosionSize     : 1000
             }));
 
             // world.create(new Gauge({playerID : gamepadID}));
@@ -60,6 +62,7 @@ $(function() {
         setGenerators();
 
         initDecor();
+        initScoreIA();
         world.sortGameobjects();
         setInterval(world.sortGameobjects, 1000);
         requestAnimationFrame(gameloop);
@@ -147,6 +150,11 @@ $(function() {
                 spritePos : { x : 0, y : 0 }
             }));
         }
+    }
+
+    function initScoreIA()
+    {
+        world.create(new ScoreIA({ score : 10000 }));
     }
 
     loader(initMenu);
