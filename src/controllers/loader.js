@@ -30,7 +30,7 @@ function loader(callback)
     });
     world.manifest.sounds.blackdragon = new Howl({
         urls: [sounds["entrer_dragon_noir.mp3"]],
-        volume : 0.00,
+        volume : 0.05,
         onload: function(){
             count++;
         }
@@ -59,6 +59,7 @@ function loader(callback)
     });
      world.manifest.sounds.boss = new Howl({
          urls: [sounds["musique_boss.mp3"]],
+         loop: true,
          volume : 0.05,
          onload: function(){
              count++;
@@ -73,7 +74,7 @@ function loader(callback)
     });
     world.manifest.sounds.tire_shadow = new Howl({
         urls: [sounds["bullet_shadow.mp3"]],
-        volume : 0.15   ,
+        volume : 0.15,
         onload: function(){
             count++;
         }
