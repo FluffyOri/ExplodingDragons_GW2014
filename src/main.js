@@ -60,7 +60,7 @@ $(function() {
     function initGame()
     {
         world.state = "ingame";
-
+        console.log("INIT")
         setGenerators();
 
         setInterval(function() {
