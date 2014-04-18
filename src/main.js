@@ -33,7 +33,7 @@ $(function() {
                 position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT / 2 - 48 },
                 size              : { width : 96, height : 96 },
                 zIndex            : 1000 + gamepadID,
-                speed             : 9,
+                speed             : 5,
                 colliderPadding   : 30,
                 attackDelay       : 400,
                 hitPoints         : 100,
@@ -43,7 +43,7 @@ $(function() {
 
             // world.create(new Gauge({playerID : gamepadID}));
 
-            if (world.find("tag", "player").length >= 1)
+            if (world.find("tag", "player").length >= 2)
             {
                 console.log("ehu")
                 $("#pendingIcon").fadeOut(500, function() {

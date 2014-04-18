@@ -36,7 +36,7 @@ var Kamikaze = function Kamikaze(params)
     this.visible           = false;
 
     this.counter = 0;
-    this.scoreValue        = params.scoreValue || 10;
+    this.scoreValue        = params.scoreValue || 20;
     this.lastAttackerID    = null;
 
     var self = this;

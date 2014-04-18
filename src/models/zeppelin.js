@@ -41,7 +41,7 @@ var Zeppelin = function Zeppelin(params)
     this.colliderPadding   = 0;
     this.visible           = false;
 
-    this.scoreValue        = 100;
+    this.scoreValue        = 200;
 
     var self = this;
     this.on("set animation", function(name) {

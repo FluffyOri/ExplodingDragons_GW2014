@@ -11,21 +11,21 @@ module.exports = {
         {
             "fly" :
             {
-                "rate"  : 4,
+                "rate"  : 8,
                 "length" : 12,
                 "animY"   : 0,
                 "loop" : true
             },
             "idle" :
             {
-                "rate"  : 2,
+                "rate"  : 4,
                 "length" : 12,
                 "animY"   : 128,
                 "loop" : true
             },
             "shield" : 
             {
-                "rate"  : 8,
+                "rate"  : 16,
                 "length" : 12,
                 "animY"   : 512,
                 "loop" : true    
@@ -35,7 +35,7 @@ module.exports = {
         {
             "basic" :
             {
-                "rate"  : 10,
+                "rate"  : 20,
                 "length" : 6,
                 "animY"   : 0,
                 "loop" : true
@@ -45,7 +45,7 @@ module.exports = {
         {
             "basic" :
             {
-                "rate"  : 10,
+                "rate"  : 20,
                 "length" : 4,
                 "animY"   : 0,
                 "loop" : true
@@ -55,7 +55,7 @@ module.exports = {
         {
             "fly" :
             {
-                "rate"  : 1,
+                "rate"  : 2,
                 "length" : 12,
                 "animY"   : 0,
                 "loop" : true
@@ -65,7 +65,7 @@ module.exports = {
         {
             "fly" :
             {
-                "rate"  : 4,
+                "rate"  : 8,
                 "length" : 11,
                 "animY"   : 0,
                 "loop" : true
@@ -75,7 +75,7 @@ module.exports = {
         {
             "basic" :
             {
-                "rate"   : 6,
+                "rate"   : 12,
                 "length" : 4,
                 "animY"  : 0,
                 "loop"   : true
@@ -85,7 +85,7 @@ module.exports = {
         {
             "EXPLOSION" :
             {
-                "rate"   : 1,
+                "rate"   : 2,
                 "length" : 14,
                 "animY"  : 0,
                 "loop"   : false
@@ -95,7 +95,7 @@ module.exports = {
         {
             "fly" :
             {
-                "rate"   : 5,
+                "rate"   : 10,
                 "length" : 8,
                 "animY"  : 0,
                 "loop"   : true
@@ -105,7 +105,7 @@ module.exports = {
         {
             "fly" :
             {
-                "rate"   : 6,
+                "rate"   : 12,
                 "length" : 4,
                 "animY"  : 0,
                 "loop"   : true
