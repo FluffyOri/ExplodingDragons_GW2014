@@ -307,10 +307,11 @@ Player.prototype.collisions = function()
                         scoreController.addScoreToIA(this.deathValue);
                         scoreController.animAddScoreIA(this.deathValue);
                     }
-                    if (this.lastAttackerID === 1)
+                    else if (this.playerID !== this.lastAttackerID)
                     {
+                        console.log(this.lastAttackerID);
                         scoreController.addScoreTo(this.lastAttackerID, this.deathValue);
-                        score.animAddScore(this.playerID, this.deathValue, this.lastAttackerID);
+                        scoreController.animAddScore(this.playerID, this.deathValue, this);
                     }
 
                     this.score -= this.deathValue;

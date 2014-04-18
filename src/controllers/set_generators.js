@@ -90,7 +90,7 @@ function setGenerators()
         focusPlayer : true,        
         objectClass : Kamikaze,
         objectParams : {
-            speed : 6,
+            speed : 3,
             tag : "enemy_ship",
             marginInterval : 0,
             size : { width : 55, height : 55 },
@@ -110,7 +110,7 @@ function setGenerators()
         focusPlayer : true,        
         objectClass : Zeppelin,
         objectParams : {
-            speed : 0.5,
+            speed : 0.25,
             tag : "enemy_ship",
             attackDelay : 2500,
             marginInterval : 0,
@@ -132,7 +132,7 @@ function setGenerators()
         focusPlayer : true,        
         objectClass : LightShip,
         objectParams : {
-            speed : 2,
+            speed : 1,
             attackDelay : 5000,
             tag : "enemy_ship",
             marginInterval : 0,
@@ -165,7 +165,7 @@ function setGenerators()
             spritePos : { x : 0, y : 0 }
             
         }));
-    }, 5000);
+    }, 75000);
 }
 
 function scheduler()
