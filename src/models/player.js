@@ -37,6 +37,8 @@ var Player = function Player(params)
     this.respawnTime       = params.respawnTime      || 1500;
     this.explosionSize     = params.explosionSize    || 150;
 
+    this.shieldTime        = params.shieldTime       || 3000;
+
     this.dashSpeed         = params.dashSpeed        || 100;
     this.dashDelay         = params.dashDelay        || 5000;
     this.prevDash          = 0;
@@ -187,11 +189,14 @@ Player.prototype.dash = function()
 
 Player.prototype.shoot = function()
 {
-    if (input.getButtonDown("Fire", this.playerID) && !this.shielded)
+    if (input.getButtonDown("Fire", this.playerID))
     {
         var datTime = new Date().getTime();
 
-        this.animY = this.activeAnim["animY"] + 256;
+        if (!this.shielded)
+        {
+            this.animY = this.activeAnim["animY"] + 256;            
+        }
 
         if (datTime - this.prevShot > this.attackDelay)
         {
@@ -325,11 +330,11 @@ Player.prototype.respawn = function()
     this.hitPoints = this.maxHitPoints;
 
     this.active = false;
-    this.position.x = c.CANVAS_WIDTH / 4 + Math.floor(Math.random() * c.CANVAS_WIDTH / 2);
-    this.position.y = c.CANVAS_HEIGHT / 4 + Math.floor(Math.random() * c.CANVAS_HEIGHT / 2);
-
     var self = this;
+
     setTimeout(function() {
+        self.position.x = c.CANVAS_WIDTH / 4 + Math.floor(Math.random() * c.CANVAS_WIDTH / 2);
+        self.position.y = c.CANVAS_HEIGHT / 4 + Math.floor(Math.random() * c.CANVAS_HEIGHT / 2);
         self.active = true;
     }, this.respawnTime);
 
@@ -347,7 +352,7 @@ Player.prototype.shield = function()
         self.speed *= self.speedMalus;
         self.shielded = false;
         self.trigger("set animation", (this.moving) ? "fly" : "idle");
-    }, 3000);
+    }, this.shieldTime);
 }
 
 Player.prototype.isDead = function()

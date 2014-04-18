@@ -87,7 +87,7 @@ function loader(callback)
     world.manifest.sounds.game = new Howl({
         urls: [sounds["musique_projet_gameweek.mp3"]],
         loop: true,
-        volume : 0.05, //0.05
+        volume : 0.00000001, //0.05
         onload: function(){
             count++;
         }

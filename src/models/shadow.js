@@ -42,6 +42,7 @@ var Shadow = function Shadow(params)
 
     this.focusPlayerID     = params.focusPlayerID;
     this.focusPlayerPos    = world.find("tag", "player")[this.focusPlayerID].position;
+    this.alliedPlayerID    = (this.focusPlayerID === 0) ? 1 : 0;
 
     var self = this;
     this.on("set animation", function(name) {

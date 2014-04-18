@@ -59,7 +59,7 @@ var Zeppelin = function Zeppelin(params)
     {
         this.setFocus();
         this.move();
-        this.limits();        
+        //this.limits();        
         this.shoot();
         this.collisions();
         this.animate();
@@ -122,6 +122,7 @@ Zeppelin.prototype.setFocus = function()
 
     this.angle = utils.getAngle(this.position, this.targetPos);    
     this.direction = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
+    this.moveDirection = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
 }
 
 Zeppelin.prototype.shoot = function()

@@ -15,7 +15,7 @@ body
     z-index: 0;
     position: absolute;  
     background-image: url("../images/sea_background_1.png");
-    -webkit-animation: animSeaWater 8s linear infinite;
+    /*-webkit-animation: animSeaWater 8s linear infinite;*/
 }
 @-webkit-keyframes animSeaWater {
     from { background-image: url("../images/sea_background_1.png"); }
@@ -62,6 +62,16 @@ body
 @-webkit-keyframes rotateLoop {
    from { -webkit-transform: rotate(0deg); }
      to { -webkit-transform: rotate(360deg); }
+}
+
+#pendingIcon
+{
+    position: absolute;
+    display: block;
+    margin-left: 400px;
+    margin-top: 400px;
+    width: 192px;
+    -webkit-animation: rotateLoop 2s linear infinite;
 }
 
 #loadingLabel
