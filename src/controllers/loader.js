@@ -102,14 +102,12 @@ function loader(callback)
     }
     //nbAssets++;
     //debug pour chargement plus court
-    count+=9;
+    count+=3;
     loading();
-    console.log(nbAssets)
 }
 
 function loading()
 {   
-    console.log(count)
     if (count >= nbAssets)
     {
         $("#loadingScreen").fadeOut(100, function() {
