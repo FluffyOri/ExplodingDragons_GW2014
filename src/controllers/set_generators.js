@@ -84,7 +84,7 @@ function setGenerators()
     world.create(new Generator(
     {
         startDelay : 10000,
-        delayInterval : { min : 500, max : 1500 },
+        delayInterval : { min : 1000, max : 6000 },
         sides : ["left", "right", "top", "bottom"],
         focusPlayer : true,        
         objectClass : Kamikaze,
@@ -104,7 +104,7 @@ function setGenerators()
     world.create(new Generator(
     {
         startDelay : 60000,
-        delayInterval : { min : 10000, max : 20000 },
+        delayInterval : { min : 15000, max : 25000 },
         sides : ["left", "right", "top", "bottom"],
         focusPlayer : true,        
         objectClass : Zeppelin,
@@ -125,8 +125,8 @@ function setGenerators()
     //light ship
     world.create(new Generator(
     {
-        startDelay : 45000,
-        delayInterval : { min : 5000, max : 10000 },
+        startDelay : 35000,
+        delayInterval : { min : 10000, max : 20000 },
         sides : ["left", "right", "top", "bottom"],
         focusPlayer : true,        
         objectClass : LightShip,
