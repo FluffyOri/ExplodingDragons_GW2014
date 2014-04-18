@@ -45,7 +45,11 @@ $(function() {
 
             if (world.find("tag", "player").length >= 1)
             {
-                requestAnimationFrame(pollStartGame);
+                console.log("ehu")
+                $("#pendingIcon").fadeOut(500, function() {
+                    $("#startButton").fadeIn(500);
+                    requestAnimationFrame(pollStartGame);
+                })
             }
         });
         input.startPollingGamepads();
