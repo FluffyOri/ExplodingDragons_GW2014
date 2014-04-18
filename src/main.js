@@ -45,7 +45,6 @@ $(function() {
 
             if (world.find("tag", "player").length >= 2)
             {
-                console.log("ehu")
                 $("#pendingIcon").fadeOut(500, function() {
                     $("#startButton").fadeIn(500);
                     requestAnimationFrame(pollStartGame);
@@ -105,7 +104,7 @@ $(function() {
                 }));
                 
             }
-        }, 5000);
+        }, 12500);
 
         initDecor();
         initScoreIA();

@@ -102,7 +102,7 @@ function loader(callback)
     }
     //nbAssets++;
     //debug pour chargement plus court
-    count+=5;
+    count+=9;
     loading();
     console.log(nbAssets)
 }

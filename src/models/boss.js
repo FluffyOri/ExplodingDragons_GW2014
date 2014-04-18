@@ -38,7 +38,7 @@ var Boss = function Boss(params)
     this.colliderPadding   = 0;
     this.visible           = false;
 
-    this.scoreValue        = params.scoreValue       || 50;
+    this.scoreValue        = params.scoreValue       || 500;
 
     var self = this;
     this.on("set animation", function(name) {

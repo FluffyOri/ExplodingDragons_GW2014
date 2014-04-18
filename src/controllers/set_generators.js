@@ -154,7 +154,7 @@ function setGenerators()
             },
             angle : Math.PI,
             speed : 1,
-            hitPoints : 100,
+            hitPoints : 500,
             attackDelay : 5000,
             tag : "enemy_ship",
             marginInterval : 0,
@@ -169,7 +169,7 @@ function setGenerators()
         world.manifest.sounds.game.stop();
         world.manifest.sounds.boss.play();
         world.manifest.sounds.blackdragon.play();
-    }, 75000);
+    }, 100000);
 }
 
 function scheduler()
