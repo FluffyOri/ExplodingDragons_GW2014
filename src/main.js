@@ -23,32 +23,36 @@ $(function() {
         world.manifest.sounds.game.play();
 
         world.on("gamepad connected", function(gamepadID) {
-            world.create(new Player(
+            if (world.nbPlayers < 2)
             {
-                tag               : "player",
-                playerID          : gamepadID,
-                spritesheet       : world.manifest.images[prefabs.players[gamepadID].spritesheet],
-                spritesheetBullet : world.manifest.images[prefabs.players[gamepadID].spritesheetBullet],
-                anims             : c.ANIMATIONS[prefabs.players[gamepadID].anims],
-                position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT / 2 - 48 },
-                size              : { width : 96, height : 96 },
-                zIndex            : 1000 + gamepadID,
-                speed             : 5,
-                colliderPadding   : 30,
-                attackDelay       : 400,
-                hitPoints         : 100,
-                startAngle        : gamepadID * Math.PI,
-                explosionSize     : 500
-            }));
+                world.nbPlayers++;
+                world.create(new Player(
+                {
+                    tag               : "player",
+                    playerID          : gamepadID,
+                    spritesheet       : world.manifest.images[prefabs.players[gamepadID].spritesheet],
+                    spritesheetBullet : world.manifest.images[prefabs.players[gamepadID].spritesheetBullet],
+                    anims             : c.ANIMATIONS[prefabs.players[gamepadID].anims],
+                    position          : { x : c.CANVAS_WIDTH / 4 + gamepadID * c.CANVAS_WIDTH / 2 - 48, y : c.CANVAS_HEIGHT / 2 - 48 },
+                    size              : { width : 96, height : 96 },
+                    zIndex            : 1000 + gamepadID,
+                    speed             : 5,
+                    colliderPadding   : 30,
+                    attackDelay       : 400,
+                    hitPoints         : 100,
+                    startAngle        : gamepadID * Math.PI,
+                    explosionSize     : 500
+                }));
 
-            // world.create(new Gauge({playerID : gamepadID}));
+                // world.create(new Gauge({playerID : gamepadID}));
 
-            if (world.find("tag", "player").length >= 2)
-            {
-                $("#pendingIcon").fadeOut(500, function() {
-                    $("#startButton").fadeIn(500);
-                    requestAnimationFrame(pollStartGame);
-                })
+                if (world.find("tag", "player").length >= 2)
+                {
+                    $("#pendingIcon").fadeOut(500, function() {
+                        $("#startButton").fadeIn(500);
+                        requestAnimationFrame(pollStartGame);
+                    })
+                }
             }
         });
         input.startPollingGamepads();
