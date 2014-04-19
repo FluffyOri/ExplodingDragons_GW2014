@@ -10,6 +10,18 @@ body
     margin : 0;
 }
 
+
+#title
+{
+    font-family: "dragon_font";
+    color: #ffd000;
+    font-size: 96px;
+    text-shadow: 2px 2px #ff0000;
+    margin-left: 517px;
+    margin-top: 6px;
+    position: absolute;
+}
+
 #mainCanvas
 {
     z-index: 0;
