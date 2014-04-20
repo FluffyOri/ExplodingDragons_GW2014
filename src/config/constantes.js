@@ -3,6 +3,7 @@ module.exports = {
     CANVAS_HEIGHT : 720,
     GAME_WIDTH    : 1280,
     GAME_HEIGHT   : 720,
+    NB_PLAYERS    : 2,
 
     ANALOG_DEAD   : 0.4,
 

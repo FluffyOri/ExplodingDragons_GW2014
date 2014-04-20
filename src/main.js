@@ -23,7 +23,7 @@ $(function() {
         world.manifest.sounds.game.play();
 
         world.on("gamepad connected", function(gamepadID) {
-            if (world.nbPlayers < 2)
+            if (world.nbPlayers < c.NB_PLAYERS)
             {
                 world.nbPlayers++;
                 world.create(new Player(
@@ -46,7 +46,7 @@ $(function() {
 
                 // world.create(new Gauge({playerID : gamepadID}));
 
-                if (world.find("tag", "player").length >= 2)
+                if (world.find("tag", "player").length === c.NB_PLAYERS)
                 {
                     $("#pendingIcon").fadeOut(500, function() {
                         $("#startButton").fadeIn(500);

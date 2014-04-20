@@ -5,7 +5,7 @@ var EventEmitter = require("../lib/events-emitter.js");
     //this.frameSinceLastState = 0;
 var World = function World()
 {
-    thus.nbPlayers = 0;
+    this.nbPlayers = 0;
     this.gameObjects = [];
     this.manifest = {};
     this.state = "loading";

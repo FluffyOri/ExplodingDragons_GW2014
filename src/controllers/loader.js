@@ -100,9 +100,7 @@ function loader(callback)
     {
         nbAssets++;
     }
-    //nbAssets++;
-    //debug pour chargement plus court
-    count+=3;
+    
     loading();
 }
 
