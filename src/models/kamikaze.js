@@ -24,7 +24,7 @@ var Kamikaze = function Kamikaze(params)
     this.direction         = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     
     this.hitPoints         = params.hitPoints || 10;
-    this.damage            = params.damage    || 5;
+    this.damage            = params.damage    || 50;
 
     this.spritesheet       = params.spritesheet;
     this.spriteSize        = params.spriteSize || { width : 128, height : 128 };

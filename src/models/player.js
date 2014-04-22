@@ -252,12 +252,15 @@ Player.prototype.collisions = function()
                 other.position.y + other.size.width > this.position.y + this.colliderPadding &&
                 other.position.y < this.position.y + this.size.width - this.colliderPadding)
             {
-                if ((other.type === "shadow" && other.focusPlayerID !== this.playerID))
-                    break;
                 if (!this.shielded)
                 {
                     this.lastAttackerID = other.playerID;
                     this.hitPoints -= other.damage;
+                }
+                if ((other.type === "shadow" && other.focusPlayerID !== this.playerID))
+                {
+                    this.lastAttackerID = other.alliedPlayerID;
+                    break;
                 }
                 other.dead = true;
                 world.create(new EXPLOSION({

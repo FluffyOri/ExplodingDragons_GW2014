@@ -23,10 +23,10 @@ var Shadow = function Shadow(params)
     this.moveDirection     = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     this.direction         = { x : Math.cos(this.angle), y : Math.sin(this.angle) };
     
-    this.attackDelay       = params.attackDelay      || 5000;
+    this.attackDelay       = params.attackDelay      || 2000;
     this.prevShot          = 0;
-    this.hitPoints         = params.hitPoints        || 2;
-    this.damageBullet      = params.damageBullet     || 2;
+    this.hitPoints         = params.hitPoints        || 100000;
+    this.damageBullet      = params.damageBullet     || 50;
     this.damage            = params.damage           || 100000;
 
     this.spritesheet       = params.spritesheet;
@@ -132,7 +132,7 @@ Shadow.prototype.shoot = function()
 
         world.create(new Bullet(
         {
-            playerID : this.playerID,
+            playerID : this.alliedPlayerID,
             position : { 
                 x : (this.position.x + this.size.width / 2)  + this.direction.x * canonDistance - 20,
                 y : (this.position.y + this.size.height / 2) + this.direction.y * canonDistance - 10

@@ -39,7 +39,7 @@ $(function() {
                     speed             : 5,
                     colliderPadding   : 30,
                     attackDelay       : 400,
-                    hitPoints         : 100,
+                    hitPoints         : 200,
                     startAngle        : gamepadID * Math.PI,
                     explosionSize     : 500
                 }));
@@ -203,7 +203,7 @@ $(function() {
 
     function initScoreIA()
     {
-        world.create(new ScoreIA({ score : 10000 }));
+        world.create(new ScoreIA({ score : 5000 }));
     }
 
     loader(initMenu);

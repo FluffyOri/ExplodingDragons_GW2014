@@ -16,7 +16,7 @@ var LightShip = function LightShip(params)
     this.playerID          = -1;
     this.position          = params.position         || { x : 0, y : 0 };
     this.size              = params.size             || { width : 50, height : 50 };
-    this.speed             = params.speed            || 6;
+    this.speed             = params.speed            || 8;
     this.zIndex            = params.zIndex           || 500;
     this.context           = params.context          || world.context;
     this.angle             = params.angle            || 0;
@@ -25,9 +25,9 @@ var LightShip = function LightShip(params)
     
     this.attackDelay       = params.attackDelay      || 5000;
     this.prevShot          = 0;
-    this.hitPoints         = params.hitPoints        || 20;
-    this.damageBullet      = params.damageBullet     || 5;
-    this.damage            = params.damage           || 2;
+    this.hitPoints         = params.hitPoints        || 100;
+    this.damageBullet      = params.damageBullet     || 20;
+    this.damage            = params.damage           || 30;
 
     this.spritesheet       = params.spritesheet;
     this.spritesheetBullet = params.spritesheetBullet;
