@@ -55,6 +55,8 @@ $(function() {
                 }
             }
         });
+        //debug for 2 players
+        world.trigger("gamepad connected", 1);
         input.startPollingGamepads();
     }
 
