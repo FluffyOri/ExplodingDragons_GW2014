@@ -55,7 +55,7 @@ var Player = function Player(params)
     this.animY             = this.activeAnim["animY"];
 
     this.score             = params.score         || 0;
-    this.deathValueMax     = params.deathValueMax || 500;
+    this.deathValueMax     = params.deathValueMax || 300;
 
     // this.createGauge();
 
@@ -309,7 +309,6 @@ Player.prototype.collisions = function()
                     }
                     else if (this.playerID !== this.lastAttackerID)
                     {
-                        console.log(this.lastAttackerID);
                         scoreController.addScoreTo(this.lastAttackerID, this.deathValue);
                         scoreController.animAddScore(this.playerID, this.deathValue, this);
                     }

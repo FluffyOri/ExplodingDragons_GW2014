@@ -37,8 +37,8 @@ body
 #loadingScreen
 {
     display: block;
-    width : 100%;
-    height: 100%;
+    width : 1280px;
+    height: 720px;
     background-image: url("../images/loading.png");
     font-family: "dragon_font";
 }
@@ -68,10 +68,16 @@ body
 {
     position: absolute;
     display: block;
-    margin-left: 400px;
-    margin-top: 400px;
-    width: 192px;
+    margin-left: 540px;
+    margin-top: 302px;
+    width: 192px !important;
     -webkit-animation: rotateLoop 2s linear infinite;
+}
+
+#startButton
+{
+    position: absolute;
+    display: none;
 }
 
 #loadingLabel
@@ -85,9 +91,11 @@ body
 #menuScreen
 {
     display: none;    
-    width : 100%;
-    height: 100%;
-    background-color: blue;
+    width : 1280px;
+    height: 720px;
+    background-image: url("../images/menu.png");
+    background-repeat: no-repeat;
+    position: absolute;
 }
 
 #gameScreen
@@ -101,7 +109,7 @@ body
 {
     z-index: 5;
     position: absolute;
-    margin-left: -94px;
+    margin-left: -93px;
     margin-top: -44px;
     width: 1466px;
     height: 806px;

@@ -22,7 +22,7 @@ var Decor = function Decor(params)
     this.run = function()
     {
         this.move();
-        this.limits();
+        //this.limits();
         this.drawFrame();
     }
 }

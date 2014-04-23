@@ -45,7 +45,10 @@ $(function() {
 
             if (world.find("tag", "player").length >= 2)
             {
-                requestAnimationFrame(pollStartGame);
+                $("#pendingIcon").fadeOut(500, function() {
+                    $("#startButton").fadeIn(500);
+                    requestAnimationFrame(pollStartGame);
+                })
             }
         });
         input.startPollingGamepads();
@@ -101,7 +104,7 @@ $(function() {
                 }));
                 
             }
-        }, 5000);
+        }, 12500);
 
         initDecor();
         initScoreIA();
