@@ -26,3 +26,5 @@ node_modules
 build
 src/config/sounds.js
 src/config/images.js
+_FINAL_BUILD/
+_FINAL_BUILD_1PLAYER/
