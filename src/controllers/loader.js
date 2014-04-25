@@ -100,7 +100,8 @@ function loader(callback)
     {
         nbAssets++;
     }
-    
+    //for debug
+    count+=8;
     loading();
 }
 

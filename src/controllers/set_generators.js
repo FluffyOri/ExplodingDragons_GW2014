@@ -153,7 +153,7 @@ function setGenerators()
                 y : c.CANVAS_HEIGHT / 2 - 156
             },
             angle : Math.PI,
-            speed : 4,
+            speed : 40,
             hitPoints : 50000,
             attackDelay : 1500,
             tag : "enemy_ship",
@@ -169,7 +169,7 @@ function setGenerators()
         world.manifest.sounds.game.stop();
         world.manifest.sounds.boss.play();
         world.manifest.sounds.blackdragon.play();
-    }, 150000);
+    }, 0);
 }
 
 function scheduler()

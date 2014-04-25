@@ -65,7 +65,6 @@ $(function() {
         var pucelle = true;
         if (input.getKeyPress("START"))
         {
-            console.log("START")
             $("#menuScreen").fadeOut(100, function() {
                 $("#gameScreen").fadeIn(100, function() {                        
                     initGame();
@@ -82,7 +81,6 @@ $(function() {
     function initGame()
     {
         world.state = "ingame";
-        console.log("INIT");
         setGenerators();
 
         setInterval(function() {

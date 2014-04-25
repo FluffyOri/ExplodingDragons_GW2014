@@ -56,7 +56,7 @@ var Boss = function Boss(params)
     {
         this.setFocus();
         this.move();
-        //this.limits();        
+        this.limits();        
         this.shoot();
         this.collisions();
         this.animate();
