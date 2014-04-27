@@ -56,7 +56,7 @@ $(function() {
             }
         });
         //debug for 2 players
-        world.trigger("gamepad connected", 1);
+        //world.trigger("gamepad connected", 1);
         input.startPollingGamepads();
     }
 
@@ -120,10 +120,10 @@ $(function() {
     //looping at 60 frames per second
     function gameloop()
     {
-        stats.begin();
+        //stats.begin();
         world.run();
         //manageTime();
-        stats.end();
+        //stats.end();
 
         requestAnimationFrame(gameloop);
     }

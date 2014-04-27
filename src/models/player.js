@@ -262,15 +262,22 @@ Player.prototype.collisions = function()
                     this.lastAttackerID = other.alliedPlayerID;
                     break;
                 }
-                other.dead = true;
-                world.create(new EXPLOSION({
-                    position : { x : other.position.x, y : other.position.y },
-                    size : { width  : other.size.width * 1.5, height : other.size.width * 1.5 },
-                    zIndex : this.zIndex + 1,
-                    spritesheet : world.manifest.images["dragon_explosion.png"],
-                    anims  : c.ANIMATIONS["EXPLOSION"],
-                    spriteSize : { width : 380, height : 380 }
-                }));
+                if (other.type === "boss")
+                {
+                    this.hitPoints = 0;
+                }
+                else
+                {
+                    other.dead = true;
+                    world.create(new EXPLOSION({
+                        position : { x : other.position.x, y : other.position.y },
+                        size : { width  : other.size.width * 1.5, height : other.size.width * 1.5 },
+                        zIndex : this.zIndex + 1,
+                        spritesheet : world.manifest.images["dragon_explosion.png"],
+                        anims  : c.ANIMATIONS["EXPLOSION"],
+                        spriteSize : { width : 380, height : 380 }
+                    }));                    
+                }
                 if (other.tag === "enemy_ship")
                 {
                     this.score += other.scoreValue;

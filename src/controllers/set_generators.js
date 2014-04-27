@@ -153,10 +153,11 @@ function setGenerators()
                 y : c.CANVAS_HEIGHT / 2 - 156
             },
             angle : Math.PI,
-            speed : 40,
-            hitPoints : 50000,
+            speed : 4,
+            hitPoints : 500,
             attackDelay : 1500,
             tag : "enemy_ship",
+            type : "boss",
             marginInterval : 0,
             size : { width : 312, height : 312 },
             spritesheet : world.manifest.images["dark_dragon.png"],
@@ -169,7 +170,7 @@ function setGenerators()
         world.manifest.sounds.game.stop();
         world.manifest.sounds.boss.play();
         world.manifest.sounds.blackdragon.play();
-    }, 0);
+    }, 150000);
 }
 
 function scheduler()

@@ -12,6 +12,7 @@ var Boss = function Boss(params)
 {
     this.id                = world.gameObjects.length;
     this.tag               = params.tag;
+    this.type              = params.type;
     this.layer             = "enemy";
     this.playerID          = -1;
     this.position          = params.position         || { x : 0, y : 0 };
@@ -78,7 +79,7 @@ Boss.prototype.limits = function()
         if (this.position.x < 0 || this.position.x + this.size.width  > c.GAME_WIDTH ||
             this.position.y < 0 || this.position.y + this.size.height > c.GAME_HEIGHT)
         {
-            var angle = (this.angle === 0) ? Math.PI : 0;
+            var angle = (this.moveDirection.x > 0) ? Math.PI : 0;
             this.moveDirection = { x : Math.cos(angle), y : Math.sin(angle) };
         }        
     }
